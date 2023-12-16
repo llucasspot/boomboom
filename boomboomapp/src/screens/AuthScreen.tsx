@@ -28,7 +28,7 @@ const AuthScreen = ({navigation}: AuthScreenProps): JSX.Element => {
   const styles = useEStyles({
     mainContainer: {
       flex: 1,
-      backgroundColor: 'white',
+      backgroundColor: '$backgroundColor',
     },
     logoContainer: {
       flexDirection: 'row',

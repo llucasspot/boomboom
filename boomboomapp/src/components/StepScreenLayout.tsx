@@ -28,7 +28,7 @@ export const StepScreenLayout = ({
   const styles = useEStyles({
     mainContainer: {
       flex: 1,
-      backgroundColor: 'white',
+      backgroundColor: '$backgroundColor',
     },
     footer: {
       marginHorizontal: '$spacer6',

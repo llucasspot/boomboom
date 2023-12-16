@@ -25,7 +25,7 @@ export const HomeScreen = ({}: HomeScreenProps): JSX.Element => {
   const styles = useEStyles({
     mainContainer: {
       flex: 1,
-      backgroundColor: 'white',
+      backgroundColor: '$backgroundColor',
     },
     footer: {
       display: 'flex',

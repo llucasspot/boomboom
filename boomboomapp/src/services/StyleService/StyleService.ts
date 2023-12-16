@@ -25,14 +25,13 @@ export default class StyleService {
     private storageService: StorageService,
   ) {}
 
-  async initialiseService() {
+  async initialiseService(isDarkMode: boolean) {
     const {width} = Dimensions.get('window');
     this.update({
       // TODO responsive : rem : a etudier les tailles des bases
       remBase: width > 340 ? 18 : 16,
     });
-    const currentTheme = await this.storageService.getTheme();
-    await this.updateTheme(currentTheme ?? DEFAULT_THEME);
+    await this.updateTheme(isDarkMode ? Theme.DARK : Theme.LIGHT);
   }
 
   useStyle(): StyleState {
@@ -150,7 +149,6 @@ export default class StyleService {
   }
 
   async updateTheme(theme: Theme): Promise<void> {
-    await this.storageService.setTheme(theme);
     this._theme.update(() => {
       return theme;
     });

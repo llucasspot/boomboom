@@ -39,8 +39,8 @@ export default class AuthService {
     }
   }
 
-  async initialiseApplication(): Promise<void> {
-    await this.styleService.initialiseService();
+  async initialiseApplication(isDarkMode: boolean): Promise<void> {
+    await this.styleService.initialiseService(isDarkMode);
     await this.languageService.initialiseService();
     await this.initialiseService();
   }

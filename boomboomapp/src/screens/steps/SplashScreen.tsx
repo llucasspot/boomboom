@@ -1,6 +1,6 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useEffect} from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {SafeAreaView, StyleSheet, useColorScheme} from 'react-native';
 import {
   RootStackScreen,
   RootStackScreenParamsList,
@@ -38,8 +38,7 @@ const SplashScreen = ({navigation}: SplashScreenProps): JSX.Element => {
       backgroundColor: '$primaryColor',
     },
     content: {
-      // flex: 1,
-      color: 'white',
+      color: '$backgroundColor',
       fontSize: 50,
       fontWeight: 'bold',
     },
@@ -50,9 +49,11 @@ const SplashScreen = ({navigation}: SplashScreenProps): JSX.Element => {
     },
   });
 
+  const isDarkMode = useColorScheme() === 'dark';
+
   useEffect(() => {
     authService
-      .initialiseApplication()
+      .initialiseApplication(isDarkMode)
       .then(() => {
         if (
           authService.isUserConnected() ||

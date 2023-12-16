@@ -28,7 +28,7 @@ export const SignInSuccessfulScreen = ({
   const styles = useEStyles({
     mainContainer: {
       flex: 1,
-      backgroundColor: 'white',
+      backgroundColor: '$backgroundColor',
     },
     footer: {
       position: 'absolute',

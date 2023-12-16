@@ -81,7 +81,7 @@ const BaseButton = ({
       fontSize: '$buttonFontSize',
     },
     titleContained: {
-      color: 'white',
+      color: '$backgroundColor',
     },
     titleOutlined: {
       color: color,
@@ -100,7 +100,7 @@ const BaseButton = ({
   const iconColor = useMemo(() => {
     switch (theme) {
       case BaseButtonTheme.CONTAINED:
-        return 'white';
+        return '$backgroundColor';
       case BaseButtonTheme.INLINE:
       case BaseButtonTheme.OUTLINED:
       default:
