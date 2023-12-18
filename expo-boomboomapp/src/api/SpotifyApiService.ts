@@ -4,14 +4,7 @@ import {ApiService} from './ApiService';
 import StorageService from '../services/StorageService/StorageService';
 import ConfigurationService from '../services/ConfigurationService/ConfigurationService';
 import ErrorService from '../services/ErrorService/ErrorService';
-
-export type Track = {
-  popularity: string;
-  name: string; // song name
-  trackId: string;
-  album?: string; // album name
-  image?: string; // song image
-};
+import {Track} from "./ProfileApiService";
 
 @singleton()
 export class SpotifyApiService extends ApiService {

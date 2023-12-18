@@ -1,11 +1,12 @@
 import React, {PropsWithChildren} from 'react';
-import {SafeAreaView, View, ViewStyle} from 'react-native';
+import {View, ViewStyle} from 'react-native';
 import {getGlobalInstance} from '../tsyringe/diUtils';
 import ServiceInterface from '../tsyringe/ServiceInterface';
 import LanguageService from '../services/LanguageService/LanguageService';
 import useEStyles from '../hooks/useEStyles';
 import {LueurButton} from './Buttons/LueurButton';
 import {Logo} from './Logo';
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 type StepScreenProps = PropsWithChildren<{
   contentStyle?: ViewStyle;

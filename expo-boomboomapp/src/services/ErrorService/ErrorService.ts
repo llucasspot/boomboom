@@ -5,7 +5,8 @@ import LoggerService from '../LoggerService/LoggerService';
 import {observable, useObservable} from 'micro-observables';
 import {RootStackScreen} from '../../navigation/RootStackScreenNavigator/RootStack';
 import {useEffect} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import {router} from "expo-router";
+import {Logger} from "../LoggerService/LoggerServiceI";
 
 type AxiosError = {
   response?: {
@@ -20,6 +21,7 @@ type AxiosError = {
 export default class ErrorService {
   private _error = observable<AxiosError | null>(null);
   private readonly error = this._error.readOnly();
+  private logger: Logger;
 
   useError(): AxiosError | null {
     return ((): AxiosError | null => useObservable(this.error))();
@@ -38,53 +40,43 @@ export default class ErrorService {
   constructor(
     @inject(ServiceInterface.LoggerService)
     private loggerService: LoggerService,
-  ) {}
+  ) {
+    this.logger = this.loggerService.create(ErrorService.constructor.name)
+  }
 
   // TODO to implement
   handleAxiosError(error: AxiosError) {
     if (error.response) {
-      // The server responded with a status code outside the range of 2xx
-      console.error(
+      this.logger.error(
         'Server responded with error:',
         error.response.status,
         error.response.data,
       );
     }
-    if (error.request) {
-      // The request was made, but no response was received
-      console.error('No response received for the request:', error.request);
-    }
-    // Something else happened in setting up the request
-    console.error('Error setting up the request:', error.message);
     this._error.update(() => {
       return error;
     });
+    throw error
   }
 
   useListenError() {
-    const navigation = useNavigation();
     const error = this.useError();
     useEffect(() => {
       if (!error) {
         return;
       }
-      // TODO handle catch better
-      console.log(error);
-      this.handleHTTPStatusErrors(navigation, error?.response?.status);
+      this.handleHTTPStatusErrors(error?.response?.status);
     }, [error]);
   }
 
   // TODO to implement
   private handleHTTPStatusErrors(
-    navigation: {
-      navigate: (screenName: RootStackScreen) => void;
-    },
     status?: number,
   ) {
     switch (status) {
       case 401:
         // @ts-ignore
-        navigation.navigate(RootStackScreen.AUTH_HOME);
+        router.push(`/${RootStackScreen.AUTH_HOME}`);
         break;
       case 403:
         break;

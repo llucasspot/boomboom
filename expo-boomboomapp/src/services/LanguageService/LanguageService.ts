@@ -6,13 +6,19 @@ import fr from './Languages/fr';
 import ServiceInterface from '../../tsyringe/ServiceInterface';
 import {I18nI, SupportedLanguages} from './LanguageServiceI';
 import StorageService from '../StorageService/StorageService';
+import LoggerService from "../LoggerService/LoggerService";
+import {Logger} from "../LoggerService/LoggerServiceI";
 
 @singleton()
 export default class LanguageService {
+  private logger: Logger;
   constructor(
     @inject(ServiceInterface.StorageServiceI)
     private storageService: StorageService,
+    @inject(ServiceInterface.LoggerService)
+    private loggerService: LoggerService,
   ) {
+    this.logger = loggerService.create(LanguageService.constructor.name)
     this.initialise();
   }
 
@@ -51,7 +57,7 @@ export default class LanguageService {
     this.storageService
       .setLanguage(language)
       .then(() => i18next.changeLanguage(language))
-      .catch(error => console.log('LanguageStateService :', error));
+      .catch(error => this.logger.error(error));
   }
 
   translate(string: string): string {

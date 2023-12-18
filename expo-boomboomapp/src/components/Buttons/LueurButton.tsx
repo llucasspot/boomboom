@@ -1,5 +1,5 @@
 import React from 'react';
-import BaseButton, {BaseButtonProps} from './BaseButton';
+import {BaseButton, BaseButtonProps} from './BaseButton';
 import {SvgXml} from 'react-native-svg';
 import lueurs from '../../assets/lueurs.svg';
 

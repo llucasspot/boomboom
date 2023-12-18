@@ -1,9 +1,7 @@
-import {ImageOrVideo} from 'react-native-image-crop-picker';
-
 export type UserI = {
   profilePicture: {
-    uri: ImageOrVideo['path'];
-    type: ImageOrVideo['mime'];
+    uri:  string;
+    type: "video" | "image";
     name: string;
   };
   fullName: string;

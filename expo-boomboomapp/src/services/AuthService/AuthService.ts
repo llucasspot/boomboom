@@ -26,7 +26,7 @@ export default class AuthService {
     @inject(ServiceInterface.LanguageServiceI)
     private languageService: LanguageService,
   ) {
-    this.logger = loggerService.getAuthServiceLogger();
+    this.logger = loggerService.create(AuthService.constructor.name);
   }
 
   private async initialiseService() {
