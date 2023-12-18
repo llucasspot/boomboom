@@ -10,10 +10,10 @@ import {
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import BaseButton from '../../components/Buttons/BaseButton';
 import {IconName} from '../../components/Icons/IconName';
-import ImagePicker from 'react-native-image-crop-picker';
 import pfp from '../../assets/pfp.png';
 import UserService from '../../services/UserService/UserService';
 import {StepScreenLayout} from '../../components/StepScreenLayout';
+import * as ImagePicker from "expo-image-picker";
 
 type UploadProfilePictureScreenProps = NativeStackScreenProps<
   RootStackScreenParamsList,
@@ -52,27 +52,25 @@ export const UploadProfilePictureScreen = ({
   });
 
   const choosePhotoFromLibrary = (): void => {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 300,
-      cropping: true,
-      compressImageQuality: 0.7,
-    })
-      .then(image => {
-        userService.updateUserState({
-          profilePicture: {
-            uri: image.path,
-            type: image.mime,
-            name: image.path.split('/')[image.path.split('/').length - 1],
-          },
-        });
-      })
-      .catch(err => {
-        //Handling cancel
-        if (err.code === 'E_PICKER_CANCELLED') {
-          return false;
+  let result = ImagePicker.launchImageLibraryAsync({
+    mediaTypes: ImagePicker.MediaTypeOptions.All,
+    allowsEditing: true,
+    quality: 1,
+  })
+      .then(result => {
+        if (!result.canceled) {
+          const image = result.assets[0]
+          // TODO to see if we keep type & name in state
+          userService.updateUserState({
+            profilePicture: {
+              uri: image.uri,
+              type: image.type ?? "",
+              name: image.fileName ?? ""
+            }
+          });
         }
-      });
+      })
+      .catch(console.log);
   };
 
   const handleNextStep = async () => {

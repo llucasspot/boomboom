@@ -1,26 +1,16 @@
-import {API_URL, SOCKET_URL, BY_PASS_SIGN_IN_SCREEN} from '@env';
 import {singleton} from 'tsyringe';
 
 @singleton()
 export default class ConfigurationService {
+
   getApiUrl(): string {
-    const apiUrl = API_URL;
+    const apiUrl = process.env.EXPO_PUBLIC_API_URL;
     if (!apiUrl) {
       throw new Error(
         'add API_URL in .env file. example: API_URL=http://192.168.1.186:4000/api',
       );
     }
     return apiUrl;
-  }
-
-  getSocketUrl(): string {
-    const socketUrl = SOCKET_URL;
-    if (!socketUrl) {
-      throw new Error(
-        'add SOCKET_URL in .env file. example: SOCKET_URL=http://192.168.1.186:4000',
-      );
-    }
-    return socketUrl;
   }
 
   isAppInDebugMode(): boolean {
@@ -30,6 +20,6 @@ export default class ConfigurationService {
   }
 
   byPassSignInScreen() {
-    return BY_PASS_SIGN_IN_SCREEN === 'true';
+    return process.env.EXPO_PUBLIC_BY_PASS_SIGN_IN_SCREEN === 'true';
   }
 }
