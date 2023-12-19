@@ -14,9 +14,7 @@ export default class ConfigurationService {
   }
 
   isAppInDebugMode(): boolean {
-    // TODO add --dev=false in bundle command
-    //  Building the bundle via --dev=false should unset __DEV__.
-    return __DEV__;
+    return process.env.NODE_ENV === 'development';
   }
 
   byPassSignInScreen() {

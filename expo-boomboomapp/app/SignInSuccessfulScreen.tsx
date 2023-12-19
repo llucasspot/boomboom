@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, ImageStyle, SafeAreaView, Text, View} from 'react-native';
+import {Image, ImageStyle, Text, View} from 'react-native';
 import successLogo from '../src/assets/success.png';
 import {router} from "expo-router";
 import {getGlobalInstance} from "../src/tsyringe/diUtils";
@@ -9,6 +9,7 @@ import useEStyles from "../src/hooks/useEStyles";
 import {RootStackScreen} from "../src/navigation/RootStackScreenNavigator/RootStack";
 import {Logo} from "../src/components/Logo";
 import {LueurButton} from "../src/components/Buttons/LueurButton";
+import {SafeAreaView} from "react-native-safe-area-context";
 
 type SignInSuccessfulProps = {}
 
@@ -21,22 +22,14 @@ export default function SignInSuccessfulScreen({}: SignInSuccessfulProps): JSX.E
         mainContainer: {
             flex: 1,
             backgroundColor: '$backgroundColor',
+            paddingHorizontal: '$spacer6',
+            paddingVertical: '$spacer6',
         },
-        footer: {
-            position: 'absolute',
-            bottom: '$spacer6',
-            right: '$spacer6',
-            left: '$spacer6',
-        },
-        header: {
-            position: 'absolute',
-            top: '$spacer6',
-            right: '$spacer6',
-            left: '$spacer6',
-        },
+        footer: {},
+        header: {},
         content: {
             flex: 1,
-            padding: '$spacer6',
+            // padding: '$spacer6',
             justifyContent: 'center',
             alignItems: 'center',
         },

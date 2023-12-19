@@ -11,6 +11,7 @@ import useEStyles from "../src/hooks/useEStyles";
 import {RootStackScreen} from "../src/navigation/RootStackScreenNavigator/RootStack";
 import {SvgXml} from 'react-native-svg';
 import { SafeAreaView } from 'react-native-safe-area-context'
+import UserService from "../src/services/UserService/UserService";
 
 type SplashScreenProps = {}
 
@@ -24,6 +25,10 @@ export default function SplashScreen({}: SplashScreenProps): JSX.Element {
     const configurationService = getGlobalInstance<ConfigurationService>(
         ServiceInterface.ConfigurationService,
     );
+    const userService = getGlobalInstance<UserService>(
+        ServiceInterface.UserService,
+    );
+    const user = userService.useUser()
 
     const styles = useEStyles({
         mainContainer: {
@@ -44,19 +49,24 @@ export default function SplashScreen({}: SplashScreenProps): JSX.Element {
         },
     });
     useEffect(() => {
-        if (
-            authService.isUserConnected() ||
-            configurationService.byPassSignInScreen()
-        ) {
-            setTimeout(() => {
-                router.replace(`/${RootStackScreen.LOGIN_SUCCESSFUL}`);
-            }, 2000);
-            return;
-        }
-        setTimeout(() => {
-            router.replace(`/${RootStackScreen.AUTH_HOME}`);
-        }, 2000);
-    }, [authService, errorService]);
+        authService.isUserConnected()
+            .then((isUserConnected) => {
+                if (
+                    isUserConnected ||
+                    configurationService.byPassSignInScreen()
+                ) {
+                    setTimeout(() => {
+                        router.replace(`/${RootStackScreen.LOGIN_SUCCESSFUL}`);
+                    }, 2000);
+                    return;
+                }
+                setTimeout(() => {
+                    router.replace(`/${RootStackScreen.AUTH_HOME}`);
+                }, 2000);
+            })
+            // TODO handle catch better
+            .catch(err => console.log("SplashScreen : ", err));
+    }, [user]);
 
     return (
         <SafeAreaView style={styles.mainContainer}>

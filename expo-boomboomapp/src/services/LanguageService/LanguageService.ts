@@ -18,7 +18,7 @@ export default class LanguageService {
     @inject(ServiceInterface.LoggerService)
     private loggerService: LoggerService,
   ) {
-    this.logger = loggerService.create(LanguageService.constructor.name)
+    this.logger = loggerService.create(LanguageService.name)
     this.initialise();
   }
 

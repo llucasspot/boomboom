@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, ImageStyle, SafeAreaView, Text, View} from 'react-native';
+import {Image, ImageStyle, Text, View} from 'react-native';
 import girlBackground from '../src/assets/girl.png';
 import {router} from "expo-router";
 import {getGlobalInstance} from "../src/tsyringe/diUtils";
@@ -11,6 +11,7 @@ import {Logo} from "../src/components/Logo";
 import {LueurButton} from "../src/components/Buttons/LueurButton";
 import {BaseButtonIconPosition} from "../src/components/Buttons/BaseButton";
 import {IconName} from "../src/components/Icons/IconName";
+import {SafeAreaView} from "react-native-safe-area-context";
 
 type AuthScreenProps = {}
 

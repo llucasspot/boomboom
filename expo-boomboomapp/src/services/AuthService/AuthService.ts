@@ -26,14 +26,11 @@ export default class AuthService {
     @inject(ServiceInterface.LanguageServiceI)
     private languageService: LanguageService,
   ) {
-    this.logger = loggerService.create(AuthService.constructor.name);
+    this.logger = loggerService.create(AuthService.name);
   }
 
   private async initialiseService() {
     const token = await this.storageService.getAuthenticateToken();
-    const currentUserId = await this.storageService.getCurrentUserId();
-    this.logger.info(token, currentUserId);
-    this.logger.info(this.configurationService.getApiUrl());
     if (token) {
       await this.authenticateUser();
     }
@@ -45,8 +42,9 @@ export default class AuthService {
     await this.initialiseService();
   }
 
-  isUserConnected(): boolean {
-    return this.userService.getUserState().isConnected;
+  async isUserConnected(): Promise<boolean> {
+    const token = await this.storageService.getAuthenticateToken();
+    return !!token;
   }
 
   async getUserInfo(): Promise<object> {
@@ -65,6 +63,7 @@ export default class AuthService {
     if (this.configurationService.isAppInDebugMode()) {
       const token = await this.storageService.getAuthenticateToken();
       this.logger.debug('userInfo : ', {userInfo, token});
+      this.logger.info(this.configurationService.getApiUrl());
     }
     this.userService.updateUserState({
       ...userInfo,

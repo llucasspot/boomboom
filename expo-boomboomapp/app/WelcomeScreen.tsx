@@ -21,15 +21,11 @@ export default function WelcomeScreen({}: WelcomeScreenProps): JSX.Element {
         mainContainer: {
             flex: 1,
             backgroundColor: '$backgroundColor',
+            paddingHorizontal: '$spacer6',
+            paddingVertical: '$spacer6',
         },
-        footer: {
-            marginHorizontal: '$spacer6',
-            marginVertical: '$spacer6',
-        },
-        header: {
-            marginHorizontal: '$spacer6',
-            marginVertical: '$spacer6',
-        },
+        footer: {},
+        header: {},
         content: {
             flex: 1,
             paddingHorizontal: '$spacer6',

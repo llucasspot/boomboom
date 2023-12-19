@@ -41,7 +41,7 @@ export default class ErrorService {
     @inject(ServiceInterface.LoggerService)
     private loggerService: LoggerService,
   ) {
-    this.logger = this.loggerService.create(ErrorService.constructor.name)
+    this.logger = this.loggerService.create(ErrorService.name)
   }
 
   // TODO to implement

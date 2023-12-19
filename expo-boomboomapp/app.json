@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "expo-boomboomapp",
-    "slug": "expo-boomboomapp",
+    "name": "boomboom",
+    "slug": "boomboom",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "expo-boomboomapp",
+    "scheme": "boomboom",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
