@@ -7,6 +7,7 @@ import {RootStackScreen} from '../../navigation/RootStackScreenNavigator/RootSta
 import {useEffect} from 'react';
 import {router} from "expo-router";
 import {Logger} from "../LoggerService/LoggerServiceI";
+import AuthService from "../AuthService/AuthService";
 
 type AxiosError = {
   response?: {
@@ -40,6 +41,8 @@ export default class ErrorService {
   constructor(
     @inject(ServiceInterface.LoggerService)
     private loggerService: LoggerService,
+    @inject(ServiceInterface.AuthService)
+    private authService: AuthService,
   ) {
     this.logger = this.loggerService.create(ErrorService.name)
   }
@@ -75,7 +78,7 @@ export default class ErrorService {
   ) {
     switch (status) {
       case 401:
-        // @ts-ignore
+        this.authService.signOutUser()
         router.push(`/${RootStackScreen.AUTH_HOME}`);
         break;
       case 403:

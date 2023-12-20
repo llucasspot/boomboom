@@ -17,6 +17,10 @@ export default class ConfigurationService {
     return process.env.NODE_ENV === 'development';
   }
 
+  isAppInMockMode(): boolean {
+    return process.env.EXPO_PUBLIC_MOCK_MODE === 'true';
+  }
+
   byPassSignInScreen() {
     return process.env.EXPO_PUBLIC_BY_PASS_SIGN_IN_SCREEN === 'true';
   }

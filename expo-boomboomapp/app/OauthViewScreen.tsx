@@ -19,11 +19,10 @@ export default function OauthViewScreen({}: WebViewScreenProps) {
 
     const onNavigationStateChange = async (navState: { url: string }) => {
         if (navState.url.includes('api/auth/success')) {
-            const jwtToken = extractTokenFromUrl(navState.url);
-            if (jwtToken) {
-                await authService.setToken(jwtToken)
-                await authService.authenticateUser()
-                router.push(`/${RootStackScreen.SPLASH}`);
+            const authToken = extractTokenFromUrl(navState.url);
+            if (authToken) {
+                await authService.authenticateUser(authToken)
+                router.push(`/${RootStackScreen.LOGIN_SUCCESSFUL}`);
             }
         }
     };

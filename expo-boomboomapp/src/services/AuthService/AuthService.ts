@@ -29,17 +29,9 @@ export default class AuthService {
     this.logger = loggerService.create(AuthService.name);
   }
 
-  private async initialiseService() {
-    const token = await this.storageService.getAuthenticateToken();
-    if (token) {
-      await this.authenticateUser();
-    }
-  }
-
   async initialiseApplication(isDarkMode: boolean): Promise<void> {
     await this.styleService.initialiseService(isDarkMode);
     await this.languageService.initialiseService();
-    await this.initialiseService();
   }
 
   async isUserConnected(): Promise<boolean> {
@@ -54,11 +46,10 @@ export default class AuthService {
     return userInfo;
   }
 
-  async setToken(token: string): Promise<void> {
-    await this.storageService.setAuthenticateToken(token);
-  }
-
-  async authenticateUser(): Promise<void> {
+  async authenticateUser(authToken?: string): Promise<void> {
+    if (authToken) {
+      await this.storageService.setAuthenticateToken(authToken)
+    }
     const userInfo = await this.getUserInfo();
     if (this.configurationService.isAppInDebugMode()) {
       const token = await this.storageService.getAuthenticateToken();
@@ -69,5 +60,10 @@ export default class AuthService {
       ...userInfo,
       isConnected: true,
     });
+  }
+
+  async signOutUser(): Promise<void> {
+    await this.storageService.removeAuthenticateToken()
+    this.userService.resetUserState();
   }
 }
