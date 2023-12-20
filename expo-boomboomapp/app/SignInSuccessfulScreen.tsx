@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import {Animated, Image, ImageStyle, Text, View} from 'react-native';
+import {Animated, ImageStyle, Text, View} from 'react-native';
 import {router} from "expo-router";
 import {getGlobalInstance} from "../src/tsyringe/diUtils";
 import LanguageService from "../src/services/LanguageService/LanguageService";
@@ -75,7 +75,7 @@ export default function SignInSuccessfulScreen({}: SignInSuccessfulProps): JSX.E
     });
 
     const handleNextStep = async () => {
-        router.replace(`/${RootStackScreen.FIRST_STEP}`);
+        router.replace(`/${RootStackScreen.REGISTRATION_SCREEN}`);
     };
 
     return (

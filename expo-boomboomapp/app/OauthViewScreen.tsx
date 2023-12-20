@@ -22,7 +22,7 @@ export default function OauthViewScreen({}: WebViewScreenProps) {
             const authToken = extractTokenFromUrl(navState.url);
             if (authToken) {
                 await authService.authenticateUser(authToken)
-                router.push(`/${RootStackScreen.LOGIN_SUCCESSFUL}`);
+                router.replace(`/${RootStackScreen.LOGIN_SUCCESSFUL}`);
             }
         }
     };

@@ -14,6 +14,7 @@ export const colors = (styleState: StyleState) => {
         $white: '#FFFFFF',
         $black: '#000000',
         $grey: '#6c757d',
+        $lightGray: '#8287A1',
         // component colors
         $borderColor: '#dedede',
     }

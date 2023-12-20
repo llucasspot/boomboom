@@ -79,7 +79,7 @@ export default class ErrorService {
     switch (status) {
       case 401:
         this.authService.signOutUser()
-        router.push(`/${RootStackScreen.AUTH_HOME}`);
+        router.replace(`/${RootStackScreen.AUTH_HOME}`);
         break;
       case 403:
         break;

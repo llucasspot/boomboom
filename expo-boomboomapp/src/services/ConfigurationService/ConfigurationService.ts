@@ -3,6 +3,10 @@ import {singleton} from 'tsyringe';
 @singleton()
 export default class ConfigurationService {
 
+  static isAppInMockMode(): boolean {
+    return process.env.EXPO_PUBLIC_MOCK_MODE === 'true';
+  }
+
   getApiUrl(): string {
     const apiUrl = process.env.EXPO_PUBLIC_API_URL;
     if (!apiUrl) {
@@ -18,7 +22,7 @@ export default class ConfigurationService {
   }
 
   isAppInMockMode(): boolean {
-    return process.env.EXPO_PUBLIC_MOCK_MODE === 'true';
+    return ConfigurationService.isAppInMockMode();
   }
 
   byPassSignInScreen() {

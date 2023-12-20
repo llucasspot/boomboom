@@ -15,6 +15,10 @@ import noSpecificGender from '../../assets/noSpecificGender.svg';
 import check from '../../assets/check.svg';
 import heart from '../../assets/heart.png';
 import xCross from '../../assets/x-cross.svg';
+import arrowLeft from '../../assets/feather_icons/arrow-letf.svg';
+import trash2 from '../../assets/feather_icons/trash-2.svg';
+import search from '../../assets/feather_icons/search.svg';
+import plus from '../../assets/feather_icons/plus.svg';
 
 export type Svg = string;
 
@@ -108,6 +112,30 @@ const iconConfig: IconsConfig = {
     {
       theme: IconTheme.BOOMBOOM,
       svg: xCross,
+    },
+  ],
+  [IconName.ARROW_LEFT]: [
+    {
+      theme: IconTheme.FEATHER,
+      svg: arrowLeft,
+    },
+  ],
+  [IconName.TRASH]: [
+    {
+      theme: IconTheme.FEATHER,
+      svg: trash2,
+    },
+  ],
+  [IconName.SEARCH]: [
+    {
+      theme: IconTheme.FEATHER,
+      svg: search,
+    },
+  ],
+  [IconName.PLUS]: [
+    {
+      theme: IconTheme.FEATHER,
+      svg: plus,
     },
   ],
 };

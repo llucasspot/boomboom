@@ -9,8 +9,12 @@ import AuthService from '../services/AuthService/AuthService';
 import ConfigurationService from '../services/ConfigurationService/ConfigurationService';
 import LoggerService from '../services/LoggerService/LoggerService';
 import ErrorService from '../services/ErrorService/ErrorService';
-import {SpotifyApiService} from '../api/SpotifyApiService';
+import {SpotifyApiService} from '../api/SpotifyApiService/SpotifyApiService';
 import {ProfileApiService} from '../api/ProfileApiService';
+import {SpotifyApiMockService} from "../api/SpotifyApiService/SpotifyApiMockService";
+import {SpotifyApiServiceI} from "../api/SpotifyApiService/SpotifyApiServiceI";
+
+const IS_APP_IN_MOCK_MODE = ConfigurationService.isAppInMockMode()
 
 const injector = container.createChildContainer();
 configureGlobalInjector(injector);
@@ -33,9 +37,9 @@ injectSingleton<LoggerService>(ServiceInterface.LoggerService, LoggerService);
 injectSingleton<AuthService>(ServiceInterface.AuthService, AuthService);
 injectSingleton<UserService>(ServiceInterface.UserService, UserService);
 injectSingleton<ErrorService>(ServiceInterface.ErrorService, ErrorService);
-injectSingleton<SpotifyApiService>(
-  ServiceInterface.SpotifyApiService,
-  SpotifyApiService,
+injectSingleton<SpotifyApiServiceI>(
+  ServiceInterface.SpotifyApiServiceI,
+    IS_APP_IN_MOCK_MODE ? SpotifyApiMockService : SpotifyApiService,
 );
 injectSingleton<ProfileApiService>(
   ServiceInterface.ProfileApiService,

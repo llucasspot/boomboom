@@ -11,6 +11,8 @@ const fr: LanguageTranslationType = {
     gender: 'Genre',
     matches: 'Matchs',
     profile: 'Profil',
+    cancel: 'Annuler',
+    stepperHeader: 'Etape {{step}} sur {{numberOfStep}}'
   },
   component: {},
   screen: {
@@ -25,7 +27,11 @@ const fr: LanguageTranslationType = {
     WelcomeScreen: {
       title: 'Bienvenue Amoureux de la musique',
       subtitle: 'Allons trouver votre amê soeur musicale',
+      submitButton: 'Commencez à matcher'
     },
+    SongPicker: {
+      searchBarPlaceholder: 'Recherchez...'
+    }
   },
 };
 

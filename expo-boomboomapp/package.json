@@ -8,7 +8,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "ts-check": "tsc"
   },
   "jest": {
     "preset": "jest-expo"
@@ -28,6 +29,7 @@
     "expo-system-ui": "~2.4.0",
     "expo-web-browser": "~12.3.2",
     "i18next": "^23.7.11",
+    "lodash": "^4.17.21",
     "micro-observables": "^1.7.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -46,6 +48,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@types/lodash": "^4.14.202",
     "@types/react": "~18.2.14",
     "babel-plugin-inline-import": "^3.0.0",
     "babel-plugin-transform-typescript-metadata": "^0.3.2",

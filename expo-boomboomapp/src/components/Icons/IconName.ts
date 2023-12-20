@@ -13,4 +13,8 @@ export enum IconName {
   CHECK = 'CHECK',
   RED_HEART = 'RED_HEART',
   X_CROSS = 'X_CROSS',
+  ARROW_LEFT = 'ARROW_LEFT',
+  SEARCH = 'SEARCH',
+  TRASH = 'TRASH',
+  PLUS = 'PLUS',
 }

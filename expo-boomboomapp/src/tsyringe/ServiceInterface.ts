@@ -7,7 +7,7 @@ enum ServiceInterface {
   ErrorService = 'ErrorService',
   LoggerService = 'LoggerService',
   ConfigurationService = 'ConfigurationService',
-  SpotifyApiService = 'SpotifyApiService',
+  SpotifyApiServiceI = 'SpotifyApiServiceI',
   ProfileApiService = 'ProfileApiService',
 }
 

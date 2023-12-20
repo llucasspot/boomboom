@@ -9,6 +9,8 @@ type LanguageTranslationType = {
     fullName: string;
     dateOfBirth: string;
     gender: string;
+    cancel: string;
+    stepperHeader: string;
   };
   component: {};
   screen: {
@@ -23,7 +25,11 @@ type LanguageTranslationType = {
     WelcomeScreen: {
       title: string;
       subtitle: string;
+      submitButton: string;
     };
+    SongPicker: {
+      searchBarPlaceholder: string
+    }
   };
 };
 

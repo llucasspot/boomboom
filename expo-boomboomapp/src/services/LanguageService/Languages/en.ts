@@ -11,6 +11,8 @@ const en: LanguageTranslationType = {
     over: 'Finish',
     matches: 'Matches',
     profile: 'Profile',
+    cancel: 'Cancel',
+    stepperHeader: 'Step {{step}} of {{numberOfStep}}'
   },
   component: {},
   screen: {
@@ -25,8 +27,12 @@ const en: LanguageTranslationType = {
     },
     WelcomeScreen: {
       title: 'Welcome music lover',
-      subtitle: "Let's try do find your music mate",
+      subtitle: "Let’s try to find your music mate",
+      submitButton: 'Start matching'
     },
+    SongPicker: {
+      searchBarPlaceholder: 'Search...'
+    }
   },
 };
 

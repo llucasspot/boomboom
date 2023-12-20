@@ -6,14 +6,6 @@ import ConfigurationService from '../services/ConfigurationService/Configuration
 import ErrorService from '../services/ErrorService/ErrorService';
 import {Gender} from '../services/UserService/userServiceI';
 
-export type Track = {
-  popularity: string;
-  name: string; // song name
-  trackId: string;
-  album?: string; // album name
-  image?: string; // song image
-};
-
 type CreateProfileBody = {
   dateOfBirth: string;
   description: string;
@@ -40,7 +32,7 @@ export class ProfileApiService extends ApiService {
   }
 
   async getProfile() {
-    const res = await this.apiRequester.get<Track[]>('/');
+    const res = await this.apiRequester.get<object>('/');
     return res.data;
   }
 }

@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import {Animated, Image, ImageStyle, Text, View} from 'react-native';
+import {Animated, ImageStyle, Text, View} from 'react-native';
 import girlBackground from '../src/assets/girl.png';
 import {router} from "expo-router";
 import {getGlobalInstance} from "../src/tsyringe/diUtils";
@@ -73,7 +73,7 @@ export default function AuthScreen({}: AuthScreenProps): JSX.Element {
     const authenticate = async () => {
         if (configurationService.isAppInMockMode()) {
             await authService.authenticateUser()
-            router.push(`/${RootStackScreen.LOGIN_SUCCESSFUL}`);
+            router.replace(`/${RootStackScreen.LOGIN_SUCCESSFUL}`);
             return
         }
         router.push(`/${RootStackScreen.OAUTH_SCREEN}`);

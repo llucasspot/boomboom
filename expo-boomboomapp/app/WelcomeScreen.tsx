@@ -8,7 +8,8 @@ import useEStyles from "../src/hooks/useEStyles";
 import {RootStackScreen} from "../src/navigation/RootStackScreenNavigator/RootStack";
 import {LogoVertical} from "../src/components/LogoVertical";
 import {LueurButton} from "../src/components/Buttons/LueurButton";
-import { SafeAreaView } from 'react-native-safe-area-context'
+import {SafeAreaView} from 'react-native-safe-area-context'
+import {LueurBackground} from "../src/components/LueurBackground";
 
 type WelcomeScreenProps = {}
 
@@ -21,6 +22,11 @@ export default function WelcomeScreen({}: WelcomeScreenProps): JSX.Element {
         mainContainer: {
             flex: 1,
             backgroundColor: '$backgroundColor',
+            // paddingHorizontal: '$spacer6',
+            // paddingVertical: '$spacer6',
+        },
+        contentContainer: {
+            flex: 1,
             paddingHorizontal: '$spacer6',
             paddingVertical: '$spacer6',
         },
@@ -49,17 +55,20 @@ export default function WelcomeScreen({}: WelcomeScreenProps): JSX.Element {
 
     return (
         <SafeAreaView style={styles.mainContainer}>
-            <View style={styles.header}>
-                <LogoVertical/>
-            </View>
-            <View style={styles.content}>
-                <Text style={styles.title}>{I18n.t('screen.WelcomeScreen.title')}</Text>
-                <Text style={styles.subtitle}>
-                    {I18n.t('screen.WelcomeScreen.subtitle')}
-                </Text>
-            </View>
-            <View style={styles.footer}>
-                <LueurButton onPress={handleNextStep} content={I18n.t('common.next')}/>
+            <LueurBackground/>
+            <View style={styles.contentContainer}>
+                <View style={styles.header}>
+                    <LogoVertical/>
+                </View>
+                <View style={styles.content}>
+                    <Text style={styles.title}>{I18n.t('screen.WelcomeScreen.title')}</Text>
+                    <Text style={styles.subtitle}>
+                        {I18n.t('screen.WelcomeScreen.subtitle')}
+                    </Text>
+                </View>
+                <View style={styles.footer}>
+                    <LueurButton onPress={handleNextStep} content={I18n.t('screen.WelcomeScreen.submitButton')}/>
+                </View>
             </View>
         </SafeAreaView>
     );

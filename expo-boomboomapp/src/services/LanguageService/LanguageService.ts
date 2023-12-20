@@ -4,7 +4,7 @@ import {inject, singleton} from 'tsyringe';
 import en from './Languages/en';
 import fr from './Languages/fr';
 import ServiceInterface from '../../tsyringe/ServiceInterface';
-import {I18nI, SupportedLanguages} from './LanguageServiceI';
+import {SupportedLanguages} from './LanguageServiceI';
 import StorageService from '../StorageService/StorageService';
 import LoggerService from "../LoggerService/LoggerService";
 import {Logger} from "../LoggerService/LoggerServiceI";
@@ -64,8 +64,7 @@ export default class LanguageService {
     return ((): string => useTranslation().t(string))();
   }
 
-  useTranslation(): I18nI {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+  useTranslation() {
     return useTranslation();
   }
 }

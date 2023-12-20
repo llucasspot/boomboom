@@ -42,7 +42,7 @@ const STYLES = {
     },
     INPUT_TEXT: {
         borderBottomWidth: 1,
-        paddingVertical: 10,
+        paddingVertical: '0.8rem',
         borderColor: '$borderColor',
         fontSize: 12,
         color: '$secondaryColor',
@@ -82,7 +82,6 @@ const STYLES = {
 }
 
 export const useCoreStyles = () => {
-    const styles = useEStyles(STYLES)
-    return styles
+    return useEStyles(STYLES)
 }
 
