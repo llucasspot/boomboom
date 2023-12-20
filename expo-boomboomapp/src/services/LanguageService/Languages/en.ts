@@ -3,7 +3,7 @@ import LanguageTranslationType from '../beans/LanguageTranslationType';
 const en: LanguageTranslationType = {
   common: {
     description: 'Description',
-    next: 'Next',
+    next: 'Continue',
     toImplement: 'To implement',
     fullName: 'Full Name',
     dateOfBirth: 'Date Of Birth',
@@ -19,9 +19,9 @@ const en: LanguageTranslationType = {
       title: 'Get ready for an incredible musical adventure!',
     },
     SignInSuccessfulScreen: {
-      title: 'Logged In Successfully',
+      title: 'Logged In Successfully !',
       subtitle:
-        'You have been log in successfully, please continue to enter your profile details',
+        'You have been logged in successfully. Please enter the your details to complete your profile',
     },
     WelcomeScreen: {
       title: 'Welcome music lover',
