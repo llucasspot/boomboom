@@ -1,6 +1,6 @@
 import {observable, useObservable} from 'micro-observables';
 import {singleton} from 'tsyringe';
-import {UserState} from './userServiceI';
+import {UserState, UserStateConnected} from './userServiceI';
 
 @singleton()
 export default class UserService {
@@ -19,11 +19,21 @@ export default class UserService {
     return ((): UserState => useObservable(this.user))();
   }
 
-  updateUserState(updatedFields: Partial<UserState>): void {
-    this._user.update(oldUser => {
+  updateUserState(updatedFields: Partial<Omit<UserStateConnected, 'isConnected'>>): void {
+    this._user.update((oldUser) => {
       return {
         ...oldUser,
         ...updatedFields,
+      };
+    });
+  }
+
+  authenticateUserState(updatedFields: Omit<UserStateConnected, 'isConnected'>) {
+    this._user.update((oldUser) => {
+      return {
+        ...oldUser,
+        ...updatedFields,
+        isConnected: true,
       };
     });
   }

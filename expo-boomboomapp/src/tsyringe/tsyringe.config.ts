@@ -10,9 +10,11 @@ import ConfigurationService from '../services/ConfigurationService/Configuration
 import LoggerService from '../services/LoggerService/LoggerService';
 import ErrorService from '../services/ErrorService/ErrorService';
 import {SpotifyApiService} from '../api/SpotifyApiService/SpotifyApiService';
-import {ProfileApiService} from '../api/ProfileApiService';
+import {ProfileApiService} from '../api/ProfileApiService/ProfileApiService';
 import {SpotifyApiMockService} from "../api/SpotifyApiService/SpotifyApiMockService";
 import {SpotifyApiServiceI} from "../api/SpotifyApiService/SpotifyApiServiceI";
+import {ProfileApiServiceI} from "../api/ProfileApiService/ProfileApiServiceI";
+import {ProfileApiMockService} from "../api/ProfileApiService/ProfileApiMockService";
 
 const IS_APP_IN_MOCK_MODE = ConfigurationService.isAppInMockMode()
 
@@ -41,7 +43,7 @@ injectSingleton<SpotifyApiServiceI>(
   ServiceInterface.SpotifyApiServiceI,
     IS_APP_IN_MOCK_MODE ? SpotifyApiMockService : SpotifyApiService,
 );
-injectSingleton<ProfileApiService>(
-  ServiceInterface.ProfileApiService,
-  ProfileApiService,
+injectSingleton<ProfileApiServiceI>(
+  ServiceInterface.ProfileApiServiceI,
+    IS_APP_IN_MOCK_MODE ? ProfileApiMockService : ProfileApiService
 );

@@ -1,6 +1,7 @@
 import {singleton} from 'tsyringe';
 import {SpotifyApiServiceI} from "./SpotifyApiServiceI";
-import {songs} from "../../components/mokes";
+import {songs} from "../../mocks/mokes";
+
 @singleton()
 export class SpotifyApiMockService implements SpotifyApiServiceI {
 
@@ -9,7 +10,7 @@ export class SpotifyApiMockService implements SpotifyApiServiceI {
         return tracks.slice(0, 5);
     }
 
-    fetchTracksNyName(name?:string) {
+    fetchTracksNyName(name?: string) {
         return Promise.resolve(songs.filter(song => {
             return name ? song.name.toLowerCase().includes(name.toLowerCase()) : true
         }))

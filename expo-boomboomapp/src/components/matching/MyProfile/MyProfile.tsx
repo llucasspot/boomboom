@@ -1,11 +1,13 @@
-import {Button, Image, Platform, Text, TouchableOpacity, View} from "react-native";
-import {user_yohan} from "../../mokes";
+import {Button, Image, ImageSourcePropType, Platform, Text, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {useCoreStyles} from "../../../services/StyleService/styles";
 import {RootStackScreen} from "../../../navigation/RootStackScreenNavigator/RootStack";
-import {router} from "expo-router";
+import {Redirect, router} from "expo-router";
 import {ProfileForm} from "../common/ProfileForm";
+import {getGlobalInstance} from "../../../tsyringe/diUtils";
+import ServiceInterface from "../../../tsyringe/ServiceInterface";
+import UserService from "../../../services/UserService/UserService";
 
 const CONTENT_PADDING = 30;
 
@@ -17,6 +19,11 @@ type MyProfileProps = {
 
 export function MyProfile({onBack}: MyProfileProps) {
 
+    const userService = getGlobalInstance<UserService>(ServiceInterface.UserService)
+    const user = userService.useUser()
+    if (!user.isConnected) {
+        return <Redirect href={`/${RootStackScreen.AUTH_HOME}`}/>
+    }
     const coreStyles = useCoreStyles()
 
     const navigation = useNavigation();
@@ -44,9 +51,9 @@ export function MyProfile({onBack}: MyProfileProps) {
             <View style={{height: 20}}/>
 
             <View style={{alignItems: 'center', gap: 10}}>
-                <Image source={user_yohan.image}
+                <Image source={user.profilePicture.uri as ImageSourcePropType}
                        style={{width: 80, height: 80, objectFit: 'cover', borderRadius: 16}}></Image>
-                <Text style={coreStyles.F13}>Hey {user_yohan.name}</Text>
+                <Text style={coreStyles.F13}>Hey {user.fullName}</Text>
             </View>
 
             <View style={{height: 20}}/>

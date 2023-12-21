@@ -4,7 +4,6 @@ import {getGlobalInstance} from "../src/tsyringe/diUtils";
 import LanguageService from "../src/services/LanguageService/LanguageService";
 import ServiceInterface from "../src/tsyringe/ServiceInterface";
 import {IMAGES} from "../assets/assets";
-import {songs, user_helena, user_isabella, user_jessica} from "../src/components/mokes";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Track} from "../src/api/SpotifyApiService/SpotifyApiServiceI";
 import {MenuHeader} from "../src/components/matching/MenuHeader";
@@ -12,6 +11,7 @@ import {Card} from "../src/components/matching/Card";
 import {ItsAMatch} from "../src/components/matching/ItsAMatch";
 import {BlurredBackground} from "../src/components/matching/BlurredBackground";
 import {useObserver} from "../src/components/matching/hooks/useObserver";
+import {ProfileApiServiceI, StackProfileI} from "../src/api/ProfileApiService/ProfileApiServiceI";
 
 type HomeScreenProps = {}
 
@@ -20,11 +20,23 @@ export default function HomeScreen({}: HomeScreenProps): JSX.Element {
         ServiceInterface.LanguageServiceI,
     );
     const I18n = languageService.useTranslation();
-    const [stackProfiles, setStackProfiles] = useState([
-        buildProfile({user: user_jessica, songs: [songs[4], songs[1], songs[2]]}),
-        buildProfile({user: user_helena, songs: [songs[3], songs[0]]}),
-        buildProfile({user: user_isabella, songs: [songs[5], songs[3], songs[4]]}),
-    ]);
+    const profileApiService = getGlobalInstance<ProfileApiServiceI>(
+        ServiceInterface.ProfileApiServiceI,
+    );
+
+    const [stackProfiles, setStackProfiles] = useState<StackProfileI[]>([]);
+
+    useEffect(() => {
+        profileApiService
+            .getStackProfiles()
+            .then((stackProfiles) => {
+                setStackProfiles(stackProfiles)
+            })
+            .catch(err => {
+                // TODO handle error better
+                console.log("HomeScreen : ", err)
+            })
+    }, [])
 
     const [currentIdBackground, setCurrentIdBackground] = useState<Track['trackId'] | null>(null);
 
@@ -41,8 +53,6 @@ export default function HomeScreen({}: HomeScreenProps): JSX.Element {
         if (stackProfiles.length === 0) return;
         let cb = onNextSubscriber.current.subscribe((isYes: boolean) => {
             if (!isYes) return;
-
-            console.log('yes on ', stackProfiles[0].user.name);
 
             // TODO call the server
 
@@ -76,10 +86,17 @@ export default function HomeScreen({}: HomeScreenProps): JSX.Element {
     // On next, push a new profile in the stack
     useEffect(() => {
         let cb = onNextSubscriber.current.subscribe(() => {
-            setStackProfiles(stackProfiles => [
-                ...stackProfiles,
-                buildProfile({user: user_jessica, songs}),
-            ]);
+            profileApiService.getStackProfiles()
+                .then((newStackProfiles) => {
+                    setStackProfiles(stackProfiles => [
+                        ...stackProfiles,
+                        newStackProfiles[Math.floor(Math.random() * newStackProfiles.length)],
+                    ]);
+                })
+                .catch(err => {
+                    // TODO handle error better
+                    console.log("HomeScreen : ", err)
+                })
         });
         return () => {
             onNextSubscriber.current.unsubscribe(cb);
@@ -136,7 +153,7 @@ export default function HomeScreen({}: HomeScreenProps): JSX.Element {
                             <Card
                                 setCurrentIdBackground={setCurrentIdBackground}
                                 index={index}
-                                key={profile.id}
+                                key={profile.user.id}
                                 profile={profile}
                                 onNext={onNextSubscriber}
                             />
@@ -165,14 +182,6 @@ export default function HomeScreen({}: HomeScreenProps): JSX.Element {
         </>
     );
 };
-
-function buildProfile({user, songs}: { user: { name: string, image: any }, songs: Track[] }) {
-    return {
-        id: Math.random(),
-        user: user,
-        songs: songs,
-    }
-}
 
 const styles = {
     image_ellipse: {

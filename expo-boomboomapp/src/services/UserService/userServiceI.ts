@@ -1,6 +1,8 @@
+import {ImageSourcePropType} from "react-native";
+
 export type UserI = {
   profilePicture: {
-    uri:  string;
+    uri:  ImageSourcePropType;
     type: "video" | "image";
     name: string;
   };
@@ -11,9 +13,15 @@ export type UserI = {
   trackIds: string[];
 };
 
-export type UserState = {
-  isConnected: boolean;
-} & Partial<UserI>;
+export type UserState = UserStateConnected | UserStateNotConnected;
+
+export type UserStateConnected = {
+    isConnected: true;
+} & UserI;
+
+export type UserStateNotConnected = {
+    isConnected: false;
+};
 
 export enum Gender {
   MALE = 1,

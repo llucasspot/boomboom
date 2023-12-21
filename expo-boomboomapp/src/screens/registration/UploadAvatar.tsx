@@ -1,4 +1,4 @@
-import {Image, ImageStyle, TouchableOpacity, View} from "react-native";
+import {Image, ImageSourcePropType, ImageStyle, TouchableOpacity, View} from "react-native";
 import {useState} from "react";
 import * as ImagePicker from "expo-image-picker";
 import {useCoreStyles} from "../../services/StyleService/styles";
@@ -15,7 +15,8 @@ const CIRCLE_SIZE = 200;
 
 export default function UploadAvatar({setStepperLayoutCallback}: StepProps) {
     // TODO some bug with my component, setStepperLayoutCallback have to be called
-    setStepperLayoutCallback(() => {})
+    setStepperLayoutCallback(() => {
+    })
     const languageService = getGlobalInstance<LanguageService>(
         ServiceInterface.LanguageServiceI,
     );
@@ -39,7 +40,7 @@ export default function UploadAvatar({setStepperLayoutCallback}: StepProps) {
             // TODO to see if we keep type & name in state
             userService.updateUserState({
                 profilePicture: {
-                    uri: image.uri,
+                    uri: image.uri as ImageSourcePropType,
                     type: image.type ?? "image",
                     name: image.fileName ?? ""
                 }

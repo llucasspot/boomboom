@@ -10,11 +10,15 @@ import {
     ViewStyle
 } from "react-native";
 import React, {useEffect, useRef} from "react";
-import {user_yohan} from "../mokes";
 import {BlurredAura} from "./BlurredAura";
 import {IMAGES} from "../../../assets/assets";
 import {useCoreStyles} from "../../services/StyleService/styles";
 import {CustomButton} from "./common/CustomButton";
+import {getGlobalInstance} from "../../tsyringe/diUtils";
+import UserService from "../../services/UserService/UserService";
+import ServiceInterface from "../../tsyringe/ServiceInterface";
+import {Redirect} from "expo-router";
+import {RootStackScreen} from "../../navigation/RootStackScreenNavigator/RootStack";
 
 export type ItsAMatchProps = {
     onClose: () => void,
@@ -26,9 +30,15 @@ const CONTENT_PADDING = 20
 // TODO add styles pattern and I18n
 
 export function ItsAMatch({onClose, matchedUser}: ItsAMatchProps) {
+    const userService = getGlobalInstance<UserService>(ServiceInterface.UserService)
+    const user = userService.useUser()
+    if (!user.isConnected) {
+        return <Redirect href={`/${RootStackScreen.AUTH_HOME}`}/>
+    }
+
     const coreStyles = useCoreStyles()
 
-    const photoMe = user_yohan.image;
+    const photoMe = user.profilePicture.uri;
     const photoMatched = matchedUser.image;
 
     const loopAnim = useRef(new Animated.Value(0)).current;
