@@ -37,6 +37,14 @@ export default class AuthService {
   async initialiseApplication(isDarkMode: boolean): Promise<void> {
     await this.styleService.initialiseService(isDarkMode);
     await this.languageService.initialiseService();
+    await this.initialiseService()
+  }
+
+  async initialiseService() {
+    const authToken = await this.storageService.getAuthenticateToken()
+    if (authToken) {
+      await this.authenticateUser(authToken)
+    }
   }
 
   async isUserConnected(): Promise<boolean> {
