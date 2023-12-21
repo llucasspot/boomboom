@@ -15,6 +15,7 @@ import {SpotifyApiMockService} from "../api/SpotifyApiService/SpotifyApiMockServ
 import {SpotifyApiServiceI} from "../api/SpotifyApiService/SpotifyApiServiceI";
 import {ProfileApiServiceI} from "../api/ProfileApiService/ProfileApiServiceI";
 import {ProfileApiMockService} from "../api/ProfileApiService/ProfileApiMockService";
+import AppService from "../services/AppService/AppService";
 
 const IS_APP_IN_MOCK_MODE = ConfigurationService.isAppInMockMode()
 
@@ -46,4 +47,8 @@ injectSingleton<SpotifyApiServiceI>(
 injectSingleton<ProfileApiServiceI>(
   ServiceInterface.ProfileApiServiceI,
     IS_APP_IN_MOCK_MODE ? ProfileApiMockService : ProfileApiService
+);
+injectSingleton<AppService>(
+    ServiceInterface.AppService,
+    AppService
 );

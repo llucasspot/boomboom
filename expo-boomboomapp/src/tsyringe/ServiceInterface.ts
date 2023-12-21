@@ -9,6 +9,7 @@ enum ServiceInterface {
   ConfigurationService = 'ConfigurationService',
   SpotifyApiServiceI = 'SpotifyApiServiceI',
   ProfileApiServiceI = 'ProfileApiServiceI',
+  AppService = 'AppService',
 }
 
 export default ServiceInterface;
