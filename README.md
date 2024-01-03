@@ -97,6 +97,7 @@ Pages intégrées :
 
 ## Crédits
 
-Integration maquette : Crédite"Stéphane Wouters"
+- Intégration des différentes pages de la maquette et animations par [Stéphane Wouters](https://github.com/Doelia/boumboum-app)
+- Adaptation en typescript, réorganisation du code et branchement au backend par llucas.spot
 
 Si vous récupérez notre travail, merci de créditer "Stéphane Wouters" et "llucas.spot" et de nous en notifier.
