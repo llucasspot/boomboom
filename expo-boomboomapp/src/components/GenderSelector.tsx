@@ -13,7 +13,7 @@ type GenderSelectorProps = {
 export default function GenderSelector({
   selectedGender,
   setSelectedGender,
-}: Readonly<GenderSelectorProps>) {
+}: GenderSelectorProps) {
   const isSelectedGender = useCallback(
     (gender: Gender) => {
       return selectedGender === gender;
