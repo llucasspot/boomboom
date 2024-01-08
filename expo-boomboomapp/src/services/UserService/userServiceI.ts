@@ -1,8 +1,8 @@
-import {ImageSourcePropType} from "react-native";
+import { ImageSourcePropType } from "react-native";
 
 export type UserI = {
   profilePicture: {
-    uri:  ImageSourcePropType;
+    uri: ImageSourcePropType;
     type: "video" | "image";
     name: string;
   };
@@ -16,11 +16,11 @@ export type UserI = {
 export type UserState = UserStateConnected | UserStateNotConnected;
 
 export type UserStateConnected = {
-    isConnected: true;
+  isConnected: true;
 } & UserI;
 
 export type UserStateNotConnected = {
-    isConnected: false;
+  isConnected: false;
 };
 
 export enum Gender {
@@ -28,3 +28,10 @@ export enum Gender {
   FEMALE = 2,
   NO_SPECIFIC = 3,
 }
+
+export const GenderTextMapping: Record<Gender, string> = {
+  // TODO : I18n
+  [Gender.MALE]: 'Male',
+  [Gender.FEMALE]: 'Female',
+  [Gender.NO_SPECIFIC]: 'No Specific',
+};
