@@ -1,33 +1,36 @@
-# Boumboum-app
+# Boumboum app
 
 Intégration du projet Bouboum de [Benjamin Code](https://www.youtube.com/watch?v=JDl3P7wZw50) en react native.
 
-L'application n'est pas connectée au backend, elle utilise des données mokéees.
+## Avancement du projet
 
+[Démo intégration graphique](https://www.youtube.com/watch?v=QbPcjVUnF00&ab_channel=St%C3%A9phaneWouters)
 
-| ![](_docs/screenshots/home.png) | ![](_docs/screenshots/matching.png) | ![](_docs/screenshots/itsamatch.png) |
-|----------------|-----------------|----------------|
+### TODO
 
+Intégration graphique :
+- [x] Home page
+- [x] Inscription étape 1 : choix avatar
+- [x] Inscription étape 2 : Informations personnelles
+- [x] Inscription étape 3 : Selection des musiques préférées
+- [x] Matching
+- [ ] Page édition de profil
+- [ ] Page liste des matchs
 
-## Démo vidéo
+Accessibilité :
+- [ ] Dark mode (30%)
+- [ ] Traduction en/fr (20%)
 
-https://www.youtube.com/watch?v=QbPcjVUnF00&ab_channel=St%C3%A9phaneWouters
+Branchement au backend :
+- [ ] TODO à définir
 
-## Démo jouable
+## Développement
 
-Vous pouvez facilement tester l'application boumboum sur votre téléphone sans récupérer le code source.
-
-1. Installer l'application [Expo Go](https://expo.dev/client) sur votre téléphone
-2. Scanner le QR code suivant correspondant à votre platforme :
-
-| Android              | iOS |
-|----------------------|-----|
-| ![QR code Android](https://qr.expo.dev/eas-update?updateId=0181d522-690c-42ac-8e90-f889845f712a&appScheme=exp&host=u.expo.dev) |  ![Qr Code iOS](https://qr.expo.dev/eas-update?updateId=ccc1c0ad-ea51-4099-a855-01266edfa6e2&appScheme=exp&host=u.expo.dev)   |
-
-## Structure du projet
+### Structure du projet
 
 ```
 ├── ...
+├── app/                : points d'entrée pour la navigation expo-router
 └── src
     ├── api/
     ├── assets/
@@ -43,29 +46,13 @@ Vous pouvez facilement tester l'application boumboum sur votre téléphone sans 
 └── ...
 ```
 
-## Configuration
+### Configuration
 
-1. modification du fichier d'env
+Dupliquer le fichier `.env.exemple` en `.env` pour adapter les variables d'environnement à votre configuration.
 
-Ajoutez un fichier .env a la racine du project avec les variables suivants :
+Pour travailler en local sans serveur avec des données mockées, passer la variable `EXPO_PUBLIC_MOCK_MODE` du `.env` a `true`
 
-EXPO_PUBLIC_API_URL : base url du backend boomboom /api
-EXPO_PUBLIC_BY_PASS_SIGN_IN_SCREEN : boolean pour bypass le login
-EXPO_PUBLIC_MOCK_MODE : boolean pour utiliser des data mockées
-
-2. Config dashboard dev Spotify
-
-Ne pas oubliez de créer une app sso dans le [dashboard](https://developer.spotify.com/dashboard) dev spotify.  
-Ne pas oubliez d'ajouter un utilisateur test
-
-## Développement
-
-1. Mise en place du backend boomboom is (EXPO_PUBLIC_MOCK_MODE = true)
-
-Prendre la version modifier du backend boomboom pour fonctionner avec l'implémentation sso :
-https://github.com/llucasspot/boumboum-back
-
-2. Execution  
+### Execution  
 
 L'application utilise expo, vous n'avez donc pas besoin d'installer un environnement android ou ios.
 suffit d'installer l'application [Expo GO](https://expo.dev/client) sur votre téléphone.
@@ -78,16 +65,18 @@ npm run start
 
 Puis scanner le QR code qui s'affiche dans le terminal avec l'application `Expo Go` sur votre téléphone.
 
-## TODO
+### Liaison avec le backend
 
-Pages intégrées :
-- [x] Home page
-- [x] Inscription étape 1 : choix avatar
-- [x] Inscription étape 2 : Informations personnelles
-- [x] Inscription étape 3 : Selection des musiques préférées
-- [x] Matching
-- [ ] Page édition de profil
-- [ ] Page liste des matchs
+Pour travailler avec le serveur, passer la variable .env `EXPO_PUBLIC_MOCK_MODE` a `false`
+
+Prendre la version modifiée du backend boomboom pour fonctionner avec l'implémentation sso :
+https://github.com/llucasspot/boumboum-back
+
+
+
+Ne pas oubliez de créer une app sso dans le [dashboard](https://developer.spotify.com/dashboard) dev spotify.  
+Ne pas oubliez d'ajouter un utilisateur test
+
 
 ## Liens connexes
 
@@ -97,7 +86,7 @@ Pages intégrées :
 
 ## Crédits
 
-- Intégration des différentes pages de la maquette et animations par [Stéphane Wouters](https://github.com/Doelia/boumboum-app)
-- Adaptation en typescript, réorganisation du code et branchement au backend par llucas.spot
+- Adaptation en typescript, organisation du code et branchement au backend par llucas.spot
+- Intégration graphique et animations par [Stéphane Wouters](https://github.com/Doelia/boumboum-app)
 
-Si vous récupérez notre travail, merci de créditer "Stéphane Wouters" et "llucas.spot" et de nous en notifier.
+Si vous récupérez notre travail, merci de créditer "llucas.spot" "Stéphane Wouters" et de nous en notifier.
