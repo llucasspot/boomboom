@@ -1,3 +1,4 @@
+import { Gender } from '../../UserService/userServiceI';
 import LanguageTranslationType from '../beans/LanguageTranslationType';
 
 const en: LanguageTranslationType = {
@@ -14,7 +15,13 @@ const en: LanguageTranslationType = {
     cancel: 'Cancel',
     stepperHeader: 'Step {{step}} of {{numberOfStep}}'
   },
-  component: {},
+  component: {
+    GenderButton: {
+      [Gender.FEMALE]: "female",
+      [Gender.MALE]: "male",
+      [Gender.NO_SPECIFIC]: "No specific",
+    },
+  },
   screen: {
     SignInScreen: {
       spotifySignInButtonLabel: 'Sign in with spotify',

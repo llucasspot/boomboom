@@ -1,3 +1,5 @@
+import { Gender } from "../../UserService/userServiceI";
+
 type LanguageTranslationType = {
   common: {
     matches: string;
@@ -12,7 +14,11 @@ type LanguageTranslationType = {
     cancel: string;
     stepperHeader: string;
   };
-  component: {};
+  component: {
+    GenderButton: {
+      [key in Gender]: string
+    }
+  };
   screen: {
     SignInScreen: {
       title: string;

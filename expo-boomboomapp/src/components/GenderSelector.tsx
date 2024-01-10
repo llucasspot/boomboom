@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { Gender } from "../services/UserService/userServiceI";
 import useEStyles from "../hooks/useEStyles";
 import { View } from "../../components/Themed";
@@ -14,16 +14,12 @@ export default function GenderSelector({
   selectedGender,
   setSelectedGender,
 }: GenderSelectorProps) {
-  const isSelectedGender = useCallback(
-    (gender: Gender) => {
-      return selectedGender === gender;
-    },
-    [selectedGender]
-  );
+  const isSelectedGender = (gender: Gender) => selectedGender === gender;
+
   const styles = useEStyles({
     selectGenderContainer: {
       flexDirection: "row",
-      paddingTop: "0.8rem",
+      paddingTop: "$spacer3",
       justifyContent: "space-between",
     },
   });

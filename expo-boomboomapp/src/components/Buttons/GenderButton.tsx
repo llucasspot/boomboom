@@ -5,11 +5,11 @@ import {
   BaseButtonIconPosition,
   BaseButtonTheme,
 } from "./BaseButton";
-import {
-  Gender,
-  GenderTextMapping,
-} from "../../services/UserService/userServiceI";
+import { Gender } from "../../services/UserService/userServiceI";
 import useEStyles from "../../hooks/useEStyles";
+import { getGlobalInstance } from "../../tsyringe/diUtils";
+import LanguageService from "../../services/LanguageService/LanguageService";
+import ServiceInterface from "../../tsyringe/ServiceInterface";
 
 type GenderButtonProps = {
   gender: Gender;
@@ -24,9 +24,20 @@ export function GenderButton({
   isSelected,
   iconName,
 }: Readonly<GenderButtonProps>) {
+  const languageService = getGlobalInstance<LanguageService>(
+    ServiceInterface.LanguageServiceI
+  );
+
+  const I18n = languageService.useTranslation();
+
+  function translate(key: string, gender: Gender): string {
+    const contructFullKey = `${key}.${gender}`;
+    return I18n.t(contructFullKey);
+  }
+
   const styles = useEStyles({
     buttonText: {
-      fontSize: "0.8rem",
+      fontSize: "$pFontSize",
     },
   });
   return (
@@ -35,7 +46,7 @@ export function GenderButton({
       icon={iconName}
       color={"$secondaryColor"}
       iconPosition={BaseButtonIconPosition.LEFT}
-      content={GenderTextMapping[gender]}
+      content={translate("component.GenderButton", gender)}
       textStyle={styles.buttonText}
       theme={isSelected ? BaseButtonTheme.CONTAINED : BaseButtonTheme.OUTLINED}
     />

@@ -28,10 +28,3 @@ export enum Gender {
   FEMALE = 2,
   NO_SPECIFIC = 3,
 }
-
-export const GenderTextMapping: Record<Gender, string> = {
-  // TODO : I18n
-  [Gender.MALE]: 'Male',
-  [Gender.FEMALE]: 'Female',
-  [Gender.NO_SPECIFIC]: 'No Specific',
-};
