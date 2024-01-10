@@ -17,8 +17,8 @@ const en: LanguageTranslationType = {
   },
   component: {
     GenderButton: {
-      [Gender.FEMALE]: "female",
-      [Gender.MALE]: "male",
+      [Gender.FEMALE]: "Female",
+      [Gender.MALE]: "Male",
       [Gender.NO_SPECIFIC]: "No specific",
     },
   },
