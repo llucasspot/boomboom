@@ -1,4 +1,4 @@
-import {StyleState} from "./StyleStateServiceI";
+import { StyleState } from "./StyleStateServiceI";
 
 export const colors = (styleState: StyleState) => {
     return {
