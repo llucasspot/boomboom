@@ -30,11 +30,6 @@ export function GenderButton({
 
   const I18n = languageService.useTranslation();
 
-  function translate(key: string, gender: Gender): string {
-    const contructFullKey = `${key}.${gender}`;
-    return I18n.t(contructFullKey);
-  }
-
   const styles = useEStyles({
     buttonText: {
       fontSize: "$pFontSize",
@@ -46,7 +41,7 @@ export function GenderButton({
       icon={iconName}
       color={"$secondaryColor"}
       iconPosition={BaseButtonIconPosition.LEFT}
-      content={translate("component.GenderButton", gender)}
+      content={I18n.t(`component.GenderButton.${gender}`)}
       textStyle={styles.buttonText}
       theme={isSelected ? BaseButtonTheme.CONTAINED : BaseButtonTheme.OUTLINED}
     />
