@@ -1,24 +1,25 @@
-import {ImageSourcePropType} from 'react-native';
-import {IconName} from './IconName';
-import {IconTheme} from './IconTheme';
-import boomboomLogo from '../../assets/logo.png';
-import boomboomText from '../../assets/logo_text.svg';
-import boomboomLogoWithboomboomText from '../../assets/zoom_logo.svg';
-import bigBoomboomLogo from '../../assets/zoom_logo_only.png';
-import aniBg from '../../assets/bg-ani.svg';
-import spotifyLogo from '../../assets/spotify.png';
-import pfp from '../../assets/pfp.png';
-import edit from '../../assets/edit.svg';
-import femaleGender from '../../assets/femaleGender.svg';
-import maleGender from '../../assets/maleGender.svg';
-import noSpecificGender from '../../assets/noSpecificGender.svg';
-import check from '../../assets/check.svg';
-import heart from '../../assets/heart.png';
-import xCross from '../../assets/x-cross.svg';
-import arrowLeft from '../../assets/feather_icons/arrow-letf.svg';
-import trash2 from '../../assets/feather_icons/trash-2.svg';
-import search from '../../assets/feather_icons/search.svg';
-import plus from '../../assets/feather_icons/plus.svg';
+import { ImageSourcePropType } from "react-native";
+
+import { IconName } from "./IconName";
+import { IconTheme } from "./IconTheme";
+import aniBg from "../../assets/bg-ani.svg";
+import check from "../../assets/check.svg";
+import edit from "../../assets/edit.svg";
+import arrowLeft from "../../assets/feather_icons/arrow-letf.svg";
+import plus from "../../assets/feather_icons/plus.svg";
+import search from "../../assets/feather_icons/search.svg";
+import trash2 from "../../assets/feather_icons/trash-2.svg";
+import femaleGender from "../../assets/femaleGender.svg";
+import heart from "../../assets/heart.png";
+import boomboomLogo from "../../assets/logo.png";
+import boomboomText from "../../assets/logo_text.svg";
+import maleGender from "../../assets/maleGender.svg";
+import noSpecificGender from "../../assets/noSpecificGender.svg";
+import pfp from "../../assets/pfp.png";
+import spotifyLogo from "../../assets/spotify.png";
+import xCross from "../../assets/x-cross.svg";
+import boomboomLogoWithboomboomText from "../../assets/zoom_logo.svg";
+import bigBoomboomLogo from "../../assets/zoom_logo_only.png";
 
 export type Svg = string;
 

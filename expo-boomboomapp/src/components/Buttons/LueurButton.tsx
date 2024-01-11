@@ -1,9 +1,10 @@
-import React from 'react';
-import {BaseButton, BaseButtonProps} from './BaseButton';
-import {SvgXml} from 'react-native-svg';
-import lueurs from '../../assets/lueurs.svg';
+import React from "react";
+import { SvgXml } from "react-native-svg";
 
-export type LueurButtonProps = Omit<BaseButtonProps, 'content'> & {
+import { BaseButton, BaseButtonProps } from "./BaseButton";
+import lueurs from "../../assets/lueurs.svg";
+
+export type LueurButtonProps = Omit<BaseButtonProps, "content"> & {
   content: string | number;
 };
 export const LueurButton = ({
@@ -13,8 +14,8 @@ export const LueurButton = ({
   return (
     <BaseButton
       {...props}
-      color={_color ?? '$secondaryColor'}
-      contentBackground={<SvgXml width={'100%'} height={'100%'} xml={lueurs} />}
+      color={_color ?? "$secondaryColor"}
+      contentBackground={<SvgXml width="100%" height="100%" xml={lueurs} />}
     />
   );
 };

@@ -1,12 +1,13 @@
-import {useMemo} from 'react';
-import {ImageStyle, TextStyle, ViewStyle} from 'react-native';
-import {getGlobalInstance} from '../tsyringe/diUtils';
-import ServiceInterface from '../tsyringe/ServiceInterface';
-import {StyleState} from '../services/StyleService/StyleStateServiceI';
-import {createEStyleSheet} from '../utils/styleUtils';
-import StyleService from '../services/StyleService/StyleService';
+import { useMemo } from "react";
+import { ImageStyle, TextStyle, ViewStyle } from "react-native";
 
-type NamedStyles<T> = {[P in keyof T]: ViewStyle | TextStyle | ImageStyle};
+import StyleService from "../services/StyleService/StyleService";
+import { StyleState } from "../services/StyleService/StyleStateServiceI";
+import ServiceInterface from "../tsyringe/ServiceInterface";
+import { getGlobalInstance } from "../tsyringe/diUtils";
+import { createEStyleSheet } from "../utils/styleUtils";
+
+type NamedStyles<T> = { [P in keyof T]: ViewStyle | TextStyle | ImageStyle };
 
 export default function useEStyles<T>(
   styles: T | NamedStyles<T>,

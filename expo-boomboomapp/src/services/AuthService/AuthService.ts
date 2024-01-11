@@ -1,15 +1,16 @@
-import {inject, singleton} from 'tsyringe';
-import UserService from '../UserService/UserService';
-import ServiceInterface from '../../tsyringe/ServiceInterface';
-import {Logger} from '../LoggerService/LoggerServiceI';
-import LoggerService from '../LoggerService/LoggerService';
-import ConfigurationService from '../ConfigurationService/ConfigurationService';
-import StorageService from '../StorageService/StorageService';
-import StyleService from '../StyleService/StyleService';
-import LanguageService from '../LanguageService/LanguageService';
-import {UserStateConnected} from "../UserService/userServiceI";
-import {ProfileApiServiceI} from "../../api/ProfileApiService/ProfileApiServiceI";
-import {ImageSourcePropType} from "react-native";
+import { ImageSourcePropType } from "react-native";
+import { inject, singleton } from "tsyringe";
+
+import { ProfileApiServiceI } from "../../api/ProfileApiService/ProfileApiServiceI";
+import ServiceInterface from "../../tsyringe/ServiceInterface";
+import ConfigurationService from "../ConfigurationService/ConfigurationService";
+import LanguageService from "../LanguageService/LanguageService";
+import LoggerService from "../LoggerService/LoggerService";
+import { Logger } from "../LoggerService/LoggerServiceI";
+import StorageService from "../StorageService/StorageService";
+import StyleService from "../StyleService/StyleService";
+import UserService from "../UserService/UserService";
+import { UserStateConnected } from "../UserService/userServiceI";
 
 @singleton()
 export default class AuthService {
@@ -37,13 +38,13 @@ export default class AuthService {
   async initialiseApplication(isDarkMode: boolean): Promise<void> {
     await this.styleService.initialiseService(isDarkMode);
     await this.languageService.initialiseService();
-    await this.initialiseService()
+    await this.initialiseService();
   }
 
   async initialiseService() {
-    const authToken = await this.storageService.getAuthenticateToken()
+    const authToken = await this.storageService.getAuthenticateToken();
     if (authToken) {
-      await this.authenticateUser(authToken)
+      await this.authenticateUser(authToken);
     }
   }
 
@@ -56,9 +57,9 @@ export default class AuthService {
     const profile = await this.profileApiService.getProfile();
     this.userService.updateUserState({
       profilePicture: {
-        uri:  profile.avatar as ImageSourcePropType,
+        uri: profile.avatar as ImageSourcePropType,
         type: "image",
-        name: '',
+        name: "",
       },
       fullName: profile.name,
       dateOfBirth: profile.dateOfBirth,
@@ -71,19 +72,19 @@ export default class AuthService {
 
   async authenticateUser(authToken?: string): Promise<void> {
     if (authToken) {
-      await this.storageService.setAuthenticateToken(authToken)
+      await this.storageService.setAuthenticateToken(authToken);
     }
     const userInfo = await this.getUserInfo();
     if (this.configurationService.isAppInDebugMode()) {
       const token = await this.storageService.getAuthenticateToken();
-      this.logger.debug('userInfo : ', {userInfo, token});
+      this.logger.debug("userInfo : ", { userInfo, token });
       this.logger.info(this.configurationService.getApiUrl());
     }
     this.userService.authenticateUserState(userInfo);
   }
 
   async signOutUser(): Promise<void> {
-    await this.storageService.removeAuthenticateToken()
+    await this.storageService.removeAuthenticateToken();
     this.userService.resetUserState();
   }
 }

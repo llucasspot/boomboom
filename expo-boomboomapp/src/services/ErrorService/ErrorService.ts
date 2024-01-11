@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import {inject, singleton} from 'tsyringe';
-import ServiceInterface from '../../tsyringe/ServiceInterface';
-import LoggerService from '../LoggerService/LoggerService';
-import {observable, useObservable} from 'micro-observables';
-import {RootStackScreen} from '../../navigation/RootStackScreenNavigator/RootStack';
-import {useEffect} from 'react';
-import {router} from "expo-router";
-import {Logger} from "../LoggerService/LoggerServiceI";
+import { router } from "expo-router";
+import { observable, useObservable } from "micro-observables";
+import { useEffect } from "react";
+import { inject, singleton } from "tsyringe";
+
+import { RootStackScreen } from "../../navigation/RootStackScreenNavigator/RootStack";
+import ServiceInterface from "../../tsyringe/ServiceInterface";
 import AuthService from "../AuthService/AuthService";
+import LoggerService from "../LoggerService/LoggerService";
+import { Logger } from "../LoggerService/LoggerServiceI";
 
 type AxiosError = {
   response?: {
@@ -44,14 +45,14 @@ export default class ErrorService {
     @inject(ServiceInterface.AuthService)
     private authService: AuthService,
   ) {
-    this.logger = this.loggerService.create(ErrorService.name)
+    this.logger = this.loggerService.create(ErrorService.name);
   }
 
   // TODO to implement
   handleAxiosError(error: AxiosError) {
     if (error.response) {
       this.logger.error(
-        'Server responded with error:',
+        "Server responded with error:",
         error.response.status,
         error.response.data,
       );
@@ -59,7 +60,7 @@ export default class ErrorService {
     this._error.update(() => {
       return error;
     });
-    throw error
+    throw error;
   }
 
   useListenError() {
@@ -73,12 +74,10 @@ export default class ErrorService {
   }
 
   // TODO to implement
-  private handleHTTPStatusErrors(
-    status?: number,
-  ) {
+  private handleHTTPStatusErrors(status?: number) {
     switch (status) {
       case 401:
-        this.authService.signOutUser()
+        this.authService.signOutUser();
         router.replace(`/${RootStackScreen.AUTH_HOME}`);
         break;
       case 403:

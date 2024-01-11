@@ -16,8 +16,8 @@ type LanguageTranslationType = {
   };
   component: {
     GenderButton: {
-      [key in Gender]: string
-    }
+      [key in Gender]: string;
+    };
   };
   screen: {
     SignInScreen: {
@@ -34,8 +34,8 @@ type LanguageTranslationType = {
       submitButton: string;
     };
     SongPicker: {
-      searchBarPlaceholder: string
-    }
+      searchBarPlaceholder: string;
+    };
   };
 };
 

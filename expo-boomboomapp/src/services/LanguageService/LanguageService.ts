@@ -1,13 +1,14 @@
-import i18next from 'i18next';
-import {initReactI18next, useTranslation} from 'react-i18next';
-import {inject, singleton} from 'tsyringe';
-import en from './Languages/en';
-import fr from './Languages/fr';
-import ServiceInterface from '../../tsyringe/ServiceInterface';
-import {SupportedLanguages} from './LanguageServiceI';
-import StorageService from '../StorageService/StorageService';
+import i18next from "i18next";
+import { initReactI18next, useTranslation } from "react-i18next";
+import { inject, singleton } from "tsyringe";
+
+import { SupportedLanguages } from "./LanguageServiceI";
+import en from "./Languages/en";
+import fr from "./Languages/fr";
+import ServiceInterface from "../../tsyringe/ServiceInterface";
 import LoggerService from "../LoggerService/LoggerService";
-import {Logger} from "../LoggerService/LoggerServiceI";
+import { Logger } from "../LoggerService/LoggerServiceI";
+import StorageService from "../StorageService/StorageService";
 
 @singleton()
 export default class LanguageService {
@@ -18,14 +19,14 @@ export default class LanguageService {
     @inject(ServiceInterface.LoggerService)
     private loggerService: LoggerService,
   ) {
-    this.logger = loggerService.create(LanguageService.name)
+    this.logger = loggerService.create(LanguageService.name);
     this.initialise();
   }
 
   private initialise(): void {
     i18next.use(initReactI18next).init({
-      compatibilityJSON: 'v3',
-      fallbackLng: 'en',
+      compatibilityJSON: "v3",
+      fallbackLng: "en",
       supportedLngs: Object.values(SupportedLanguages),
       resources: {
         en: {
@@ -57,7 +58,7 @@ export default class LanguageService {
     this.storageService
       .setLanguage(language)
       .then(() => i18next.changeLanguage(language))
-      .catch(error => this.logger.error(error));
+      .catch((error) => this.logger.error(error));
   }
 
   translate(string: string): string {
@@ -65,6 +66,7 @@ export default class LanguageService {
   }
 
   useTranslation() {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     return useTranslation();
   }
 }

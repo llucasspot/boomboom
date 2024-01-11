@@ -8,11 +8,10 @@ export type StyleState = {
   errorColor: string;
 };
 
-
 export const COLORS = {
-  PINK: '#ED2272',
-  DARK_BLUE: '#2F215F',
-}
+  PINK: "#ED2272",
+  DARK_BLUE: "#2F215F",
+};
 
 export type ThemeConfig = [string, string, string, string, string, string];
 export const themeConfigs: Record<Theme, ThemeConfig> = {
@@ -26,13 +25,20 @@ export const themeConfigs: Record<Theme, ThemeConfig> = {
       '$errorColor'
     ]
     */
-  DARK: ['#15131E', '#F3F0F5', COLORS.PINK, '#F3F0F5', '#23C766', '#EF4B56'],
-  LIGHT: ['#FFFFFF', '#5E5D71', COLORS.PINK, COLORS.DARK_BLUE, '#23C766', '#EF4B56'],
+  DARK: ["#15131E", "#F3F0F5", COLORS.PINK, "#F3F0F5", "#23C766", "#EF4B56"],
+  LIGHT: [
+    "#FFFFFF",
+    "#5E5D71",
+    COLORS.PINK,
+    COLORS.DARK_BLUE,
+    "#23C766",
+    "#EF4B56",
+  ],
 };
 
 export enum Theme {
-  DARK = 'DARK',
-  LIGHT = 'LIGHT',
+  DARK = "DARK",
+  LIGHT = "LIGHT",
 }
 
 export const DEFAULT_THEME: Theme = Theme.LIGHT;

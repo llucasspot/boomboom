@@ -1,29 +1,29 @@
-import { TextInput, View } from "react-native";
 import React, { useRef, useState } from "react";
-import { useCoreStyles } from "../../services/StyleService/styles";
-import { getGlobalInstance } from "../../tsyringe/diUtils";
-import LanguageService from "../../services/LanguageService/LanguageService";
-import ServiceInterface from "../../tsyringe/ServiceInterface";
-import UserService from "../../services/UserService/UserService";
-import { Gender } from "../../services/UserService/userServiceI";
+import { TextInput, View } from "react-native";
 
-import { StepProps } from "../../components/ScreenStepperLayout";
 import { Text } from "../../../components/Themed";
 import GenderSelector from "../../components/GenderSelector";
+import { StepProps } from "../../components/ScreenStepperLayout";
+import LanguageService from "../../services/LanguageService/LanguageService";
+import { useCoreStyles } from "../../services/StyleService/styles";
+import UserService from "../../services/UserService/UserService";
+import { Gender } from "../../services/UserService/userServiceI";
+import ServiceInterface from "../../tsyringe/ServiceInterface";
+import { getGlobalInstance } from "../../tsyringe/diUtils";
 
 export function ProfileForm({ setStepperLayoutCallback }: StepProps) {
   const languageService = getGlobalInstance<LanguageService>(
-    ServiceInterface.LanguageServiceI
+    ServiceInterface.LanguageServiceI,
   );
   const userService = getGlobalInstance<UserService>(
-    ServiceInterface.UserService
+    ServiceInterface.UserService,
   );
   const I18n = languageService.useTranslation();
 
   const coreStyles = useCoreStyles();
 
   const updateRefValue = (
-    ref: React.MutableRefObject<TextInput | undefined>
+    ref: React.MutableRefObject<TextInput | undefined>,
   ) => {
     return (value: string) => {
       // TODO use lib like 'react hook form'
@@ -33,7 +33,7 @@ export function ProfileForm({ setStepperLayoutCallback }: StepProps) {
   };
 
   const getValueFromRef = (
-    ref: React.MutableRefObject<TextInput | undefined>
+    ref: React.MutableRefObject<TextInput | undefined>,
   ) => {
     // TODO use lib like 'react hook form'
     // @ts-ignore
@@ -64,7 +64,7 @@ export function ProfileForm({ setStepperLayoutCallback }: StepProps) {
           // @ts-ignore
           ref={fullNameTextInputRef}
           onChangeText={updateRefValue(fullNameTextInputRef)}
-          placeholder={"John Doe"}
+          placeholder="John Doe"
         />
       </View>
       <View>
@@ -75,7 +75,7 @@ export function ProfileForm({ setStepperLayoutCallback }: StepProps) {
           // @ts-ignore
           ref={dateOfBirthTextInputRef}
           onChangeText={updateRefValue(dateOfBirthTextInputRef)}
-          placeholder={"MM/DD/YY"}
+          placeholder="MM/DD/YY"
         />
       </View>
       <View>

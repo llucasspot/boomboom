@@ -1,9 +1,10 @@
 import React from "react";
-import { Gender } from "../services/UserService/userServiceI";
-import useEStyles from "../hooks/useEStyles";
-import { View } from "../../components/Themed";
+
 import { GenderButton } from "./Buttons/GenderButton";
 import { IconName } from "./Icons/IconName";
+import { View } from "../../components/Themed";
+import useEStyles from "../hooks/useEStyles";
+import { Gender } from "../services/UserService/userServiceI";
 
 type GenderSelectorProps = {
   selectedGender: Gender;

@@ -1,7 +1,8 @@
-import StorageService from '../services/StorageService/StorageService';
-import axios, {AxiosInstance} from 'axios';
-import ConfigurationService from '../services/ConfigurationService/ConfigurationService';
-import ErrorService from '../services/ErrorService/ErrorService';
+import axios, { AxiosInstance } from "axios";
+
+import ConfigurationService from "../services/ConfigurationService/ConfigurationService";
+import ErrorService from "../services/ErrorService/ErrorService";
+import StorageService from "../services/StorageService/StorageService";
 
 export class ApiService {
   protected apiRequester: AxiosInstance;
@@ -25,21 +26,21 @@ export class ApiService {
 
   private initialiseService() {
     this.apiRequester.interceptors.response.use(
-      response => {
+      (response) => {
         // Any status code that lies within the range of 2xx causes this function to trigger
         return response;
       },
-      error => {
+      (error) => {
         // Any status codes outside the range of 2xx cause this function to trigger
         return this.errorService.handleAxiosError(error);
       },
     );
     this.apiRequester.interceptors.request.use(
-      async config => {
+      async (config) => {
         config.headers.Authorization = `Bearer ${await this.storageService.getAuthenticateToken()}`;
         return config;
       },
-      error => {
+      (error) => {
         // Do something with request error
         return Promise.reject(error);
       },

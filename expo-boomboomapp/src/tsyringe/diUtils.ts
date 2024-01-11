@@ -1,6 +1,7 @@
-import {DependencyContainer, Lifecycle} from 'tsyringe';
-import {constructor} from 'tsyringe/dist/typings/types';
-import ServiceInterface from './ServiceInterface';
+import { DependencyContainer, Lifecycle } from "tsyringe";
+import { constructor } from "tsyringe/dist/typings/types";
+
+import ServiceInterface from "./ServiceInterface";
 
 type Injector = DependencyContainer;
 
@@ -19,7 +20,7 @@ export function getGlobalInstance<T>(
 ): T {
   if (!globalInjector) {
     throw new Error(
-      'Global injector is not defined, ' +
+      "Global injector is not defined, " +
         'you must call "configureGlobalInjector" before trying to use "getInstance"',
     );
   }
@@ -32,7 +33,7 @@ export function injectSingleton<T>(
 ): void {
   if (!globalInjector) {
     throw new Error(
-      'Global injector is not defined, ' +
+      "Global injector is not defined, " +
         'you must call "configureGlobalInjector" before trying to use "getInstance"',
     );
   }

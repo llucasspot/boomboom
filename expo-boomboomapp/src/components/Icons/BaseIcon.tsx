@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react';
+import React, { useCallback, useMemo } from "react";
 import {
   ColorValue,
   Image,
@@ -7,15 +7,16 @@ import {
   StyleProp,
   StyleSheet,
   ViewStyle,
-} from 'react-native';
-import {SvgXml} from 'react-native-svg';
-import useEStyle from '../../hooks/useEStyle';
-import iconConfig, {IconConfig} from './icon.config';
-import {IconName} from './IconName';
-import {IconTheme} from './IconTheme';
-import {styleSheetCompose} from '../../utils/styleUtils';
+} from "react-native";
+import { SvgXml } from "react-native-svg";
 
-export type Icon = ({...props}: Omit<BaseIconProps, 'name'>) => JSX.Element;
+import { IconName } from "./IconName";
+import { IconTheme } from "./IconTheme";
+import iconConfig, { IconConfig } from "./icon.config";
+import useEStyle from "../../hooks/useEStyle";
+import { styleSheetCompose } from "../../utils/styleUtils";
+
+export type Icon = ({ ...props }: Omit<BaseIconProps, "name">) => JSX.Element;
 
 export type BaseIconProps = {
   name: IconName;
@@ -28,7 +29,7 @@ export type BaseIconProps = {
 const getIconToRender = (name: IconName, theme: IconTheme): IconConfig => {
   const iconsAvailables = iconConfig[name];
   const iconFound = iconsAvailables.find(
-    iconAvailable => iconAvailable.theme === theme,
+    (iconAvailable) => iconAvailable.theme === theme,
   );
   if (iconFound) {
     return iconFound;
@@ -47,23 +48,23 @@ const getIconToRenderProperties = (
     case IconTheme.FONTAWESOME_REGULAR:
       return {
         svgColorPropertyColor: color,
-        svgFillPropertyColor: 'transparent',
+        svgFillPropertyColor: "transparent",
       };
     case IconTheme.FONTAWESOME_SOLID:
       return {
-        svgColorPropertyColor: 'transparent',
+        svgColorPropertyColor: "transparent",
         svgFillPropertyColor: color,
       };
     default:
       return {
-        svgColorPropertyColor: 'transparent',
+        svgColorPropertyColor: "transparent",
         svgFillPropertyColor: color,
       };
   }
 };
 
 const isIconSrcAnSvg = (src: string | ImageSourcePropType): src is string => {
-  return typeof src === 'string';
+  return typeof src === "string";
 };
 
 type SvgProperties = {
@@ -74,13 +75,13 @@ type SvgProperties = {
 const BaseIcon = ({
   name,
   size = 32,
-  color = 'black',
+  color = "black",
   theme = IconTheme.BOOMBOOM,
   style,
 }: BaseIconProps): JSX.Element => {
   const eStyle = useEStyle(style);
-  const eColorr = useEStyle({backgroundColor: color});
-  const eColor = eColorr?.backgroundColor ?? 'black';
+  const eColorr = useEStyle({ backgroundColor: color });
+  const eColor = eColorr?.backgroundColor ?? "black";
   const iconToRender: IconConfig = useMemo<IconConfig>(
     () => getIconToRender(name, theme),
     [],

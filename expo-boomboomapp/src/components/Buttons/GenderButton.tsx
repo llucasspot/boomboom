@@ -1,15 +1,16 @@
 import React from "react";
-import { IconName } from "../Icons/IconName";
+
 import {
   BaseButton,
   BaseButtonIconPosition,
   BaseButtonTheme,
 } from "./BaseButton";
-import { Gender } from "../../services/UserService/userServiceI";
 import useEStyles from "../../hooks/useEStyles";
-import { getGlobalInstance } from "../../tsyringe/diUtils";
 import LanguageService from "../../services/LanguageService/LanguageService";
+import { Gender } from "../../services/UserService/userServiceI";
 import ServiceInterface from "../../tsyringe/ServiceInterface";
+import { getGlobalInstance } from "../../tsyringe/diUtils";
+import { IconName } from "../Icons/IconName";
 
 type GenderButtonProps = {
   gender: Gender;
@@ -25,7 +26,7 @@ export function GenderButton({
   iconName,
 }: Readonly<GenderButtonProps>) {
   const languageService = getGlobalInstance<LanguageService>(
-    ServiceInterface.LanguageServiceI
+    ServiceInterface.LanguageServiceI,
   );
 
   const I18n = languageService.useTranslation();
@@ -39,7 +40,7 @@ export function GenderButton({
     <BaseButton
       onPress={onPress}
       icon={iconName}
-      color={"$secondaryColor"}
+      color="$secondaryColor"
       iconPosition={BaseButtonIconPosition.LEFT}
       content={I18n.t(`component.GenderButton.${gender}`)}
       textStyle={styles.buttonText}

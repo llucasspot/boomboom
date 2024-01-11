@@ -1,6 +1,8 @@
-import {observable, useObservable} from 'micro-observables';
-import EStyleSheet from 'react-native-extended-stylesheet';
-import {inject, singleton} from 'tsyringe';
+import { observable, useObservable } from "micro-observables";
+import { Dimensions } from "react-native";
+import EStyleSheet from "react-native-extended-stylesheet";
+import { inject, singleton } from "tsyringe";
+
 import {
   DEFAULT_STYLE_STATE,
   DEFAULT_THEME,
@@ -8,11 +10,17 @@ import {
   Theme,
   ThemeConfig,
   themeConfigs,
-} from './StyleStateServiceI';
-import ServiceInterface from '../../tsyringe/ServiceInterface';
-import StorageService from '../StorageService/StorageService';
-import {Dimensions} from 'react-native';
-import {borderRadius, colors, elevations, fontSizes, fontWeights, spacers} from "./styleVariable";
+} from "./StyleStateServiceI";
+import {
+  borderRadius,
+  colors,
+  elevations,
+  fontSizes,
+  fontWeights,
+  spacers,
+} from "./styleVariable";
+import ServiceInterface from "../../tsyringe/ServiceInterface";
+import StorageService from "../StorageService/StorageService";
 
 @singleton()
 export default class StyleService {
@@ -27,7 +35,7 @@ export default class StyleService {
   ) {}
 
   async initialiseService(isDarkMode: boolean) {
-    const {width} = Dimensions.get('window');
+    const { width } = Dimensions.get("window");
     this.update({
       // TODO responsive : rem : a etudier les tailles des bases
       remBase: width > 340 ? 18 : 16,
@@ -44,7 +52,7 @@ export default class StyleService {
   }
 
   update(properties: Partial<StyleState>): void {
-    this._style.update(oldStyle => {
+    this._style.update((oldStyle) => {
       const newStyle = {
         ...oldStyle,
         ...properties,
@@ -68,7 +76,7 @@ export default class StyleService {
     return this.getThemeConfig()[theme];
   }
 
-  getThemeConfig(): {[key in Theme]: ThemeConfig} {
+  getThemeConfig(): { [key in Theme]: ThemeConfig } {
     return themeConfigs;
   }
 

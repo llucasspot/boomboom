@@ -1,6 +1,7 @@
-import {consoleTransport, logger} from 'react-native-logs';
-import {singleton} from 'tsyringe';
-import {Logger} from './LoggerServiceI';
+import { consoleTransport, logger } from "react-native-logs";
+import { singleton } from "tsyringe";
+
+import { Logger } from "./LoggerServiceI";
 
 // this logger will print as exemple : "<time> | <LoggerExtensionName> | <message>"
 @singleton()
@@ -12,9 +13,9 @@ export default class LoggerService {
     transportOptions: {
       // SENTRY: Sentry,
       colors: {
-        info: 'blueBright',
-        warn: 'yellowBright',
-        error: 'redBright',
+        info: "blueBright",
+        warn: "yellowBright",
+        error: "redBright",
       },
     },
   });

@@ -1,12 +1,13 @@
-import React, {PropsWithChildren} from 'react';
-import {View, ViewStyle} from 'react-native';
-import {getGlobalInstance} from '../tsyringe/diUtils';
-import ServiceInterface from '../tsyringe/ServiceInterface';
-import LanguageService from '../services/LanguageService/LanguageService';
-import useEStyles from '../hooks/useEStyles';
-import {LueurButton} from './Buttons/LueurButton';
-import {Logo} from './Logo';
-import { SafeAreaView } from 'react-native-safe-area-context'
+import React, { PropsWithChildren } from "react";
+import { View, ViewStyle } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+import { LueurButton } from "./Buttons/LueurButton";
+import { Logo } from "./Logo";
+import useEStyles from "../hooks/useEStyles";
+import LanguageService from "../services/LanguageService/LanguageService";
+import ServiceInterface from "../tsyringe/ServiceInterface";
+import { getGlobalInstance } from "../tsyringe/diUtils";
 
 type StepScreenProps = PropsWithChildren<{
   contentStyle?: ViewStyle;
@@ -29,25 +30,25 @@ export const StepScreenLayout = ({
   const styles = useEStyles({
     mainContainer: {
       flex: 1,
-      backgroundColor: '$backgroundColor',
+      backgroundColor: "$backgroundColor",
     },
     footer: {
-      marginHorizontal: '$spacer6',
-      marginVertical: '$spacer6',
+      marginHorizontal: "$spacer6",
+      marginVertical: "$spacer6",
     },
     header: {
-      marginHorizontal: '$spacer6',
-      marginVertical: '$spacer6',
+      marginHorizontal: "$spacer6",
+      marginVertical: "$spacer6",
     },
     content: {
       flex: 1,
-      paddingHorizontal: '$spacer6',
+      paddingHorizontal: "$spacer6",
       ...contentStyle,
     },
     title: {
-      color: '$secondaryColor',
-      fontSize: '1.2rem',
-      fontWeight: 'bold',
+      color: "$secondaryColor",
+      fontSize: "1.2rem",
+      fontWeight: "bold",
     },
   });
 
@@ -62,7 +63,7 @@ export const StepScreenLayout = ({
       <View style={styles.footer}>
         <LueurButton
           onPress={handleNextStep}
-          content={isLastStep ? I18n.t('common.over') : I18n.t('common.next')}
+          content={isLastStep ? I18n.t("common.over") : I18n.t("common.next")}
         />
       </View>
     </SafeAreaView>

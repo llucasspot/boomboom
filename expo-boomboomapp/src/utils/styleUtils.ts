@@ -1,5 +1,6 @@
-import {StyleProp, StyleSheet} from 'react-native';
-import EStyleSheet from 'react-native-extended-stylesheet';
+import { StyleProp, StyleSheet } from "react-native";
+import EStyleSheet from "react-native-extended-stylesheet";
+
 import NamedStyles = StyleSheet.NamedStyles;
 
 type StyleSheetCreateFunction = <T>(
@@ -23,9 +24,9 @@ export const styleSheetCompose = <T>(
 ): T => {
   if (styles.length === 1) {
     // @ts-ignore
-    return {...style, ...styles[0]};
+    return { ...style, ...styles[0] };
   }
   const [style2, ...otherStyles] = styles;
   // @ts-ignore
-  return styleSheetCompose({...style, ...style2}, ...otherStyles);
+  return styleSheetCompose({ ...style, ...style2 }, ...otherStyles);
 };
