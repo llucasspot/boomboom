@@ -6,7 +6,6 @@ import { inject, singleton } from "tsyringe";
 
 import { RootStackScreen } from "../../navigation/RootStackScreenNavigator/RootStack";
 import ServiceInterface from "../../tsyringe/ServiceInterface";
-import AuthService from "../AuthService/AuthService";
 import LoggerService from "../LoggerService/LoggerService";
 import { Logger } from "../LoggerService/LoggerServiceI";
 
@@ -42,8 +41,6 @@ export default class ErrorService {
   constructor(
     @inject(ServiceInterface.LoggerService)
     private loggerService: LoggerService,
-    @inject(ServiceInterface.AuthService)
-    private authService: AuthService,
   ) {
     this.logger = this.loggerService.create(ErrorService.name);
   }
@@ -77,7 +74,6 @@ export default class ErrorService {
   private handleHTTPStatusErrors(status?: number) {
     switch (status) {
       case 401:
-        this.authService.signOutUser();
         router.replace(`/${RootStackScreen.AUTH_HOME}`);
         break;
       case 403:

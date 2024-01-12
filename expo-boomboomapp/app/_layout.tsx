@@ -6,7 +6,7 @@ import {
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useColorScheme } from "react-native";
 
 import "../src/tsyringe/tsyringe.config";
@@ -24,29 +24,10 @@ export {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const appService = getGlobalInstance<AppService>(ServiceInterface.AppService);
-  const errorService = getGlobalInstance<ErrorService>(
-    ServiceInterface.ErrorService,
-  );
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
-  const isDarkMode = useColorScheme() === "dark";
-  const [appInitialised, setAppInitialised] = useState<boolean>(false);
-
-  errorService.useListenError();
-
-  useEffect(() => {
-    appService
-      .initialiseApplication(isDarkMode)
-      .then(() => {})
-      // TODO handle catch better
-      .catch((err) => console.log("RootLayoutNav : ", err))
-      .finally(() => {
-        setAppInitialised(true);
-      });
-  }, []);
 
   useEffect(() => {
     if (!loaded) {
@@ -60,7 +41,7 @@ export default function RootLayout() {
     if (error) throw error;
   }, [error]);
 
-  if (!loaded || !appInitialised) {
+  if (!loaded) {
     return null;
   }
   return <RootLayoutNav />;
@@ -68,6 +49,20 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const isDarkMode = useColorScheme() === "dark";
+  const appService = getGlobalInstance<AppService>(ServiceInterface.AppService);
+  const errorService = getGlobalInstance<ErrorService>(
+    ServiceInterface.ErrorService,
+  );
+
+  errorService.useListenError();
+
+  useEffect(() => {
+    appService
+      .initialiseApplication(isDarkMode)
+      .then(() => {})
+      // TODO handle catch better
+      .catch((err) => console.log("RootLayoutNav : ", err));
+  }, []);
 
   return (
     <ThemeProvider value={isDarkMode ? DarkTheme : DefaultTheme}>
