@@ -41,22 +41,25 @@ export function SongPicker({
   debounceTime = DEFAULT_DEBOUNCE_TIME,
 }: SongPickerProps) {
   const spotifyApiService = getGlobalInstance<SpotifyApiServiceI>(
-    ServiceInterface.SpotifyApiServiceI,
+    ServiceInterface.SpotifyApiServiceI
   );
   const languageService = getGlobalInstance<LanguageService>(
-    ServiceInterface.LanguageServiceI,
+    ServiceInterface.LanguageServiceI
   );
   const I18n = languageService.useTranslation();
   const onSearch = (searchString?: string): void => {
-    spotifyApiService
-      .fetchTracksNyName(searchString)
-      .then((tracks): void => {
-        setFetchedSongs(tracks);
-      })
-      .catch((error) => {
-        // TODO handle error better
-        console.log("spotifyApiService : ", error);
-      });
+    if (searchString != undefined && searchString != "") {
+      spotifyApiService
+        .fetchTracksNyName(searchString)
+        .then((tracks): void => {
+          setFetchedSongs([]);
+          setFetchedSongs(tracks.data);
+        })
+        .catch((error) => {
+          // TODO handle error better
+          console.log("spotifyApiService : ", error);
+        });
+    }
   };
 
   useEffect(() => {
@@ -66,6 +69,8 @@ export function SongPicker({
   const debouncedSearch = debounce(onSearch, debounceTime);
 
   const [fetchedSongs, setFetchedSongs] = useState<Track[]>([]);
+
+  console.log("useSTATE");
 
   function cancel() {
     onBack();
@@ -131,7 +136,7 @@ export function SongPicker({
               placeholderTextColor={(styles.textInput as TextStyle).color}
               autoFocus
               placeholder={I18n.t(
-                "screen.searchBarPlaceholder.searchBarPlaceholder",
+                "screen.searchBarPlaceholder.searchBarPlaceholder"
               )}
               onChangeText={debouncedSearch}
               style={{ ...coreStyles.FONT_INPUT, ...styles.searchBarTextInput }}
@@ -147,8 +152,7 @@ export function SongPicker({
             <View style={styles.fetchedSongsContainer}>
               {fetchedSongs
                 .filter(
-                  (song) =>
-                    !mySongs.find((mySong) => mySong.name === song.name),
+                  (song) => !mySongs.find((mySong) => mySong.name === song.name)
                 )
                 .map((song, index) => (
                   <SongCard
