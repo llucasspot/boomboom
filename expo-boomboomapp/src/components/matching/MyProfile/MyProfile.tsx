@@ -5,10 +5,8 @@ import {
   ImageSourcePropType,
   Platform,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 import { RootStackScreen } from "../../../navigation/RootStackScreenNavigator/RootStack";
 import { useCoreStyles } from "../../../services/StyleService/styles";
@@ -16,6 +14,8 @@ import UserService from "../../../services/UserService/UserService";
 import ServiceInterface from "../../../tsyringe/ServiceInterface";
 import { getGlobalInstance } from "../../../tsyringe/diUtils";
 import { ProfileForm } from "../common/ProfileForm";
+import { Screen } from "../../navigation/Screen";
+import LanguageService from "../../../services/LanguageService/LanguageService";
 
 const CONTENT_PADDING = 30;
 
@@ -27,10 +27,16 @@ type MyProfileProps = {
 
 export function MyProfile({ onBack }: MyProfileProps) {
   const userService = getGlobalInstance<UserService>(
-    ServiceInterface.UserService,
+    ServiceInterface.UserService
   );
+  const languageService = getGlobalInstance<LanguageService>(
+    ServiceInterface.LanguageServiceI
+  );
+
   const user = userService.useUser();
   const coreStyles = useCoreStyles();
+
+  const I18n = languageService.useTranslation();
 
   if (!user.isConnected) {
     return <Redirect href={`/${RootStackScreen.AUTH_HOME}`} />;
@@ -42,23 +48,7 @@ export function MyProfile({ onBack }: MyProfileProps) {
   }
 
   return (
-    <SafeAreaView style={{}}>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          paddingHorizontal: CONTENT_PADDING,
-        }}
-      >
-        <Text style={coreStyles.H3}>Profile</Text>
-        <TouchableOpacity onPress={onBack}>
-          <Text>Back</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={{ height: 20 }} />
-
+    <Screen title={I18n.t("screen.MyProfile.title")} onGoBack={onBack}>
       <View style={{ alignItems: "center", gap: 10 }}>
         <Image
           source={user.profilePicture.uri as ImageSourcePropType}
@@ -83,6 +73,6 @@ export function MyProfile({ onBack }: MyProfileProps) {
           <Button title="Debug : Back to home" onPress={btnReset} />
         )}
       </View>
-    </SafeAreaView>
+    </Screen>
   );
 }

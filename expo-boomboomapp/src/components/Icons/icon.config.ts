@@ -6,6 +6,7 @@ import aniBg from "../../assets/bg-ani.svg";
 import check from "../../assets/check.svg";
 import edit from "../../assets/edit.svg";
 import arrowLeft from "../../assets/feather_icons/arrow-letf.svg";
+import arrowRight from "../../assets/feather_icons/arrow-right.svg";
 import plus from "../../assets/feather_icons/plus.svg";
 import search from "../../assets/feather_icons/search.svg";
 import trash2 from "../../assets/feather_icons/trash-2.svg";
@@ -119,6 +120,12 @@ const iconConfig: IconsConfig = {
     {
       theme: IconTheme.FEATHER,
       svg: arrowLeft,
+    },
+  ],
+  [IconName.ARROW_RIGHT]: [
+    {
+      theme: IconTheme.FEATHER,
+      svg: arrowRight,
     },
   ],
   [IconName.TRASH]: [

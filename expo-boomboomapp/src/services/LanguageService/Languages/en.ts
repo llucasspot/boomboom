@@ -21,6 +21,9 @@ const en: LanguageTranslationType = {
       [Gender.MALE]: "Male",
       [Gender.NO_SPECIFIC]: "No specific",
     },
+    ReturnButton: {
+      back: "Back",
+    },
   },
   screen: {
     SignInScreen: {
@@ -39,6 +42,9 @@ const en: LanguageTranslationType = {
     },
     SongPicker: {
       searchBarPlaceholder: "Search...",
+    },
+    MyProfile: {
+      title: "Profile",
     },
   },
 };
