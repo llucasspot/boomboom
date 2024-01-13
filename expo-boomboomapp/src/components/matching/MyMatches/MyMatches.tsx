@@ -1,36 +1,13 @@
-import { Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-
-import { useCoreStyles } from "../../../services/StyleService/styles";
-
-const CONTENT_PADDING = 30;
+import { Screen } from "../../navigation/Screen";
 
 type MyMatchesProps = {
   onBack: () => void;
 };
 
-// TODO add styles pattern and I18n
-
 export function MyMatches({ onBack }: MyMatchesProps) {
-  const coreStyles = useCoreStyles();
-
   return (
-    <SafeAreaView style={{}}>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          paddingHorizontal: CONTENT_PADDING,
-        }}
-      >
-        <Text style={coreStyles.H3}>Matches</Text>
-        <TouchableOpacity onPress={onBack}>
-          <Text>Back</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={{ height: 20 }} />
-    </SafeAreaView>
+    <Screen title="Matches" onGoBack={onBack}>
+      {/* TODO: Implement this view */}
+    </Screen>
   );
 }
