@@ -7,6 +7,7 @@ import { Pressable } from "react-native";
 import { getGlobalInstance } from "../../tsyringe/diUtils";
 import LanguageService from "../../services/LanguageService/LanguageService";
 import ServiceInterface from "../../tsyringe/ServiceInterface";
+import {getEStyleSheetValue} from "../../utils/styleUtils";
 
 type ReturnButtonProps = {
   goBack?: boolean;
@@ -37,6 +38,7 @@ export function ReturnButton({
       color: "$secondaryColor",
     },
   });
+  const iconSize = getEStyleSheetValue<number>("$buttonFontSize");
 
   const I18n = languageService.useTranslation();
 
@@ -48,10 +50,8 @@ export function ReturnButton({
     <Pressable onPress={onPress} style={styles.goBackButton}>
       <Text style={styles.back}>{I18n.t("component.ReturnButton.back")}</Text>
       <View style={styles.iconContainer}>
-        <BaseIcon size={ICON_SIZE} name={IconName.ARROW_RIGHT} />
+        <BaseIcon size={iconSize} name={IconName.ARROW_RIGHT} />
       </View>
     </Pressable>
   );
 }
-
-const ICON_SIZE = 12;

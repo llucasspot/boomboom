@@ -1,14 +1,13 @@
 import React, { type PropsWithChildren } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Edge } from "react-native-safe-area-context";
-
 import { Header } from "./Header";
 import { SafeView } from "./SafeView";
 import { View } from "../../../components/Themed";
 import useEStyles from "../../hooks/useEStyles";
+import {NativeSafeAreaViewProps} from "react-native-safe-area-context/src/SafeArea.types";
 
 type ScreenProps = {
-  edges?: Edge[];
+  edges?: NativeSafeAreaViewProps['edges'];
   title?: string | null;
   goBack?: boolean;
   shouldSkipMargins?: boolean;
@@ -16,7 +15,7 @@ type ScreenProps = {
   onGoBack?: () => void;
 };
 
-const Screen = ({
+export const Screen = ({
   children,
   edges,
   title,
@@ -31,19 +30,17 @@ const Screen = ({
     },
   });
 
-  const Content = <View style={styles.content}>{children}</View>;
+  const content = <View style={styles.content}>{children}</View>;
 
   return (
     <SafeView edges={edges}>
       <Header title={title} goBack={goBack} onGoBack={onGoBack} />
 
       {isScrollable ? (
-        <KeyboardAwareScrollView>{Content}</KeyboardAwareScrollView>
+        <KeyboardAwareScrollView>{content}</KeyboardAwareScrollView>
       ) : (
-        <>{Content}</>
+        <>{content}</>
       )}
     </SafeView>
   );
 };
-
-export { Screen };
