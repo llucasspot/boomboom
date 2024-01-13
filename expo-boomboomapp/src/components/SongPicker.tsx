@@ -48,18 +48,19 @@ export function SongPicker({
   );
   const I18n = languageService.useTranslation();
   const onSearch = (searchString?: string): void => {
-    if (searchString != undefined && searchString != "") {
-      spotifyApiService
-        .fetchTracksNyName(searchString)
-        .then((tracks): void => {
-          setFetchedSongs([]);
-          setFetchedSongs(tracks.data);
-        })
-        .catch((error) => {
-          // TODO handle error better
-          console.log("spotifyApiService : ", error);
-        });
+    if (!searchString || searchString.trim() === "") {
+      return; // No need to proceed if the search string is empty
     }
+    spotifyApiService
+      .fetchTracksNyName(searchString)
+      .then((tracks): void => {
+        setFetchedSongs([]);
+        setFetchedSongs(tracks.data);
+      })
+      .catch((error) => {
+        // TODO handle error better
+        console.log("spotifyApiService : ", error);
+      });
   };
 
   useEffect(() => {
@@ -69,8 +70,6 @@ export function SongPicker({
   const debouncedSearch = debounce(onSearch, debounceTime);
 
   const [fetchedSongs, setFetchedSongs] = useState<Track[]>([]);
-
-  console.log("useSTATE");
 
   function cancel() {
     onBack();
