@@ -24,7 +24,7 @@ import { UserFormData, UserProfileForm } from "../common/UserProfileForm";
 import useEStyles from "../../../hooks/useEStyles";
 import { ProfileApiService } from "../../../api/ProfileApiService/ProfileApiService";
 import * as yup from "yup";
-import {yupResolver} from "@hookform/resolvers/yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const CONTENT_PADDING = 30;
 
@@ -36,17 +36,17 @@ type MyProfileProps = {
 
 export function MyProfile({ onBack }: MyProfileProps) {
   const userService = getGlobalInstance<UserService>(
-    ServiceInterface.UserService
+    ServiceInterface.UserService,
   );
   const languageService = getGlobalInstance<LanguageService>(
-    ServiceInterface.LanguageServiceI
+    ServiceInterface.LanguageServiceI,
   );
   const authService = getGlobalInstance<AuthService>(
-    ServiceInterface.AuthService
+    ServiceInterface.AuthService,
   );
 
   const profileApiService = getGlobalInstance<ProfileApiService>(
-    ServiceInterface.ProfileApiServiceI
+    ServiceInterface.ProfileApiServiceI,
   );
 
   const user = userService.useUser();
@@ -66,17 +66,18 @@ export function MyProfile({ onBack }: MyProfileProps) {
   } = useForm<Partial<UserFormData>>({
     // TODO I18n
     // @ts-ignore TODO
-    resolver: yupResolver(yup.object().shape({
-      fullName: yup
+    resolver: yupResolver(
+      yup.object().shape({
+        fullName: yup
           .string()
-          .matches(/^[a-zA-Z0-9]*$/, 'Full name must be alphanumeric'),
-      dateOfBirth: yup
-          .date(),
-      gender: yup
+          .matches(/^[a-zA-Z0-9]*$/, "Full name must be alphanumeric"),
+        dateOfBirth: yup.date(),
+        gender: yup
           .mixed<Gender>()
-          .oneOf(Object.values(Gender) as Gender[], 'Invalid gender'),
-      description: yup.string().default(''),
-    })),
+          .oneOf(Object.values(Gender) as Gender[], "Invalid gender"),
+        description: yup.string().default(""),
+      }),
+    ),
   });
 
   useEffect(() => {
@@ -126,9 +127,9 @@ export function MyProfile({ onBack }: MyProfileProps) {
 
       <View style={{ padding: CONTENT_PADDING }}>
         <UserProfileForm
-            // @ts-ignore TODO UserProfileForm
-            control={control}
-            errors={errors}
+          // @ts-ignore TODO UserProfileForm
+          control={control}
+          errors={errors}
         />
         <BaseButton
           content={I18n.t("screen.MyProfile.saveButton")}

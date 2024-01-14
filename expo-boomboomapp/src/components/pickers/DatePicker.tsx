@@ -17,10 +17,7 @@ type DatePickerProps = {
 
 type ModeType = "date";
 
-export function DatePicker({
-  title,
-  control,
-}: Readonly<DatePickerProps>) {
+export function DatePicker({ title, control }: Readonly<DatePickerProps>) {
   const coreStyles = useCoreStyles();
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState<ModeType>("date");

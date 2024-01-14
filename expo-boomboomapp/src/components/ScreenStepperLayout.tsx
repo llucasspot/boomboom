@@ -19,7 +19,9 @@ import ServiceInterface from "../tsyringe/ServiceInterface";
 import { getGlobalInstance } from "../tsyringe/diUtils";
 
 export type StepProps = {
-  setStepperLayoutCallback: (cb: (props: { navigateOnNextStep: () => void }) => void) => void;
+  setStepperLayoutCallback: (
+    cb: (props: { navigateOnNextStep: () => void }) => void,
+  ) => void;
 };
 
 type ChildType = (props: StepProps) => ReactNode;
@@ -34,7 +36,7 @@ export function ScreenStepperLayout({
   children,
 }: StepScreenProps): JSX.Element {
   const languageService = getGlobalInstance<LanguageService>(
-    ServiceInterface.LanguageServiceI
+    ServiceInterface.LanguageServiceI,
   );
   const I18n = languageService.useTranslation();
   const nestedNavigationRef =
@@ -49,7 +51,9 @@ export function ScreenStepperLayout({
     setStepperLayoutCallback(() => {});
   };
 
-  const setStepperLayoutCallback = (cb: (props: { navigateOnNextStep: () => void }) => Promise<void> | void) => {
+  const setStepperLayoutCallback = (
+    cb: (props: { navigateOnNextStep: () => void }) => Promise<void> | void,
+  ) => {
     stepperLayoutCallback.current.value = cb;
   };
 
@@ -61,7 +65,7 @@ export function ScreenStepperLayout({
   };
 
   const onContinue = async () => {
-    await stepperLayoutCallback.current.value({navigateOnNextStep});
+    await stepperLayoutCallback.current.value({ navigateOnNextStep });
     resetStepperLayoutCallback();
   };
 

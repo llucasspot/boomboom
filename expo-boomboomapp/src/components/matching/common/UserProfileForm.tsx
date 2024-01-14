@@ -2,7 +2,7 @@ import { Control, Controller, FieldErrors } from "react-hook-form";
 import { Text, TextInput, View } from "react-native";
 
 import { useCoreStyles } from "../../../services/StyleService/styles";
-import {UserI} from "../../../services/UserService/userServiceI";
+import { UserI } from "../../../services/UserService/userServiceI";
 
 import LanguageService from "../../../services/LanguageService/LanguageService";
 import ServiceInterface from "../../../tsyringe/ServiceInterface";
@@ -10,37 +10,36 @@ import { getGlobalInstance } from "../../../tsyringe/diUtils";
 import GenderSelector from "../../GenderSelector";
 import { DatePicker } from "../../pickers/DatePicker";
 import useEStyles from "../../../hooks/useEStyles";
-import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-export type UserFormData = Omit<UserI, 'profilePicture' | 'trackIds'>;
+export type UserFormData = Omit<UserI, "profilePicture" | "trackIds">;
 
 type UserProfileFormProps = {
   control: Control<UserFormData, any>;
   errors: FieldErrors<UserFormData | Partial<UserFormData>>;
 };
 
-export function UserProfileForm({
-  control,
-  errors,
-}: UserProfileFormProps) {
+export function UserProfileForm({ control, errors }: UserProfileFormProps) {
   const languageService = getGlobalInstance<LanguageService>(
-    ServiceInterface.LanguageServiceI
+    ServiceInterface.LanguageServiceI,
   );
   const I18n = languageService.useTranslation();
 
   const coreStyles = useCoreStyles();
-    const styles = useEStyles({
-        formContainer: {
-            display: 'flex',
-            gap: '$spacer5'
-        },
-        formErrorText: {
-            color: '$errorColor'
-        }
-    });
+  const styles = useEStyles({
+    formContainer: {
+      display: "flex",
+      gap: "$spacer5",
+    },
+    formErrorText: {
+      color: "$errorColor",
+    },
+  });
 
   const FormErrorMessage = () => (
-    <Text style={styles.formErrorText}>{I18n.t("component.UserProfileForm.errorMessage")}</Text>
+    <Text style={styles.formErrorText}>
+      {I18n.t("component.UserProfileForm.errorMessage")}
+    </Text>
   );
 
   return (
@@ -63,10 +62,7 @@ export function UserProfileForm({
       />
       {errors.fullName && <FormErrorMessage />}
 
-      <DatePicker
-        title={I18n.t("common.dateOfBirth")}
-        control={control}
-      />
+      <DatePicker title={I18n.t("common.dateOfBirth")} control={control} />
       {errors.dateOfBirth && <FormErrorMessage />}
 
       <Controller

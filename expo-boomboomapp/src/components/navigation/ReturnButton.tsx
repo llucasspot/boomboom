@@ -19,7 +19,7 @@ export function ReturnButton({
   onPress,
 }: Readonly<ReturnButtonProps>) {
   const languageService = getGlobalInstance<LanguageService>(
-    ServiceInterface.LanguageServiceI
+    ServiceInterface.LanguageServiceI,
   );
 
   const styles = useEStyles({

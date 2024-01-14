@@ -3,7 +3,7 @@ import { Track } from "../SpotifyApiService/SpotifyApiServiceI";
 
 export abstract class ProfileI {
   abstract id: string;
-  abstract dateOfBirth: Date;
+  abstract dateOfBirth: string;
   abstract description: string;
   abstract avatar: string;
   abstract preferedGenderId: Gender;
@@ -30,11 +30,11 @@ export type CreateProfileBody = {
   name: string;
 };
 
-export type EditProfileBody = Partial<CreateProfileBody>
+export type EditProfileBody = Partial<CreateProfileBody>;
 
 export abstract class ProfileApiServiceI {
   abstract createProfile(
-    createProfileBody: CreateProfileBody
+    createProfileBody: CreateProfileBody,
   ): Promise<ProfileI>;
 
   abstract getProfile(): Promise<ProfileI>;
@@ -43,5 +43,5 @@ export abstract class ProfileApiServiceI {
 
   abstract editProfile(editedProfileBody: EditProfileBody): Promise<ProfileI>;
 
-  abstract uploadAvatar(uri: string): Promise<void>
+  abstract uploadAvatar(uri: string): Promise<void>;
 }

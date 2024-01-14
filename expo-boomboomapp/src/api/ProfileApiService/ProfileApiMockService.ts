@@ -13,7 +13,6 @@ import {
   user_jessica,
   user_yohan,
 } from "../../mocks/mokes";
-import { Gender } from "../../services/UserService/userServiceI";
 
 @singleton()
 export class ProfileApiMockService implements ProfileApiServiceI {
@@ -36,11 +35,11 @@ export class ProfileApiMockService implements ProfileApiServiceI {
           },
           songs,
         };
-      })
+      }),
     );
   }
   async editProfile(editedProfileBody: EditProfileBody) {
-    return Promise.resolve({...user_yohan, ...editedProfileBody});
+    return Promise.resolve({ ...user_yohan, ...editedProfileBody });
   }
 
   async uploadAvatar(uri: string): Promise<void> {}

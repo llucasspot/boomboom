@@ -11,21 +11,21 @@ import { SongPicker } from "../../components/SongPicker";
 import useEStyles from "../../hooks/useEStyles";
 import { RootStackScreen } from "../../navigation/RootStackScreenNavigator/RootStack";
 import { useCoreStyles } from "../../services/StyleService/styles";
-import {getGlobalInstance} from "../../tsyringe/diUtils";
+import { getGlobalInstance } from "../../tsyringe/diUtils";
 import ServiceInterface from "../../tsyringe/ServiceInterface";
-import {ProfileApiServiceI} from "../../api/ProfileApiService/ProfileApiServiceI";
+import { ProfileApiServiceI } from "../../api/ProfileApiService/ProfileApiServiceI";
 import UserService from "../../services/UserService/UserService";
-import {UserStateConnected} from "../../services/UserService/userServiceI";
+import { UserStateConnected } from "../../services/UserService/userServiceI";
 
 // TODO use styles
 const CONTENT_PADDING = 20;
 
 export default function FavoriteSongs({ setStepperLayoutCallback }: StepProps) {
   const userService = getGlobalInstance<UserService>(
-      ServiceInterface.UserService
+    ServiceInterface.UserService,
   );
   const profileApiService = getGlobalInstance<ProfileApiServiceI>(
-      ServiceInterface.ProfileApiServiceI
+    ServiceInterface.ProfileApiServiceI,
   );
   const [mySongs, setMySongs] = useState<Track[]>([]);
 
@@ -46,8 +46,7 @@ export default function FavoriteSongs({ setStepperLayoutCallback }: StepProps) {
   });
 
   // @ts-ignore TODO useUser
-  const user:
-      UserStateConnected  = userService.useUser()
+  const user: UserStateConnected = userService.useUser();
 
   function searchSong() {
     setPickSongModalVisible(true);
@@ -59,14 +58,14 @@ export default function FavoriteSongs({ setStepperLayoutCallback }: StepProps) {
 
   setStepperLayoutCallback(async () => {
     try {
-      await profileApiService.uploadAvatar(user.profilePicture.uri as string)
+      await profileApiService.uploadAvatar(user.profilePicture.uri as string);
       await profileApiService.createProfile({
         dateOfBirth: user.dateOfBirth,
         description: user.description,
         preferedGenderId: user.gender,
-        trackIds: mySongs.map(song => song.trackId),
-        name: user.fullName
-      })
+        trackIds: mySongs.map((song) => song.trackId),
+        name: user.fullName,
+      });
       router.replace(`/${RootStackScreen.WELCOME_SCREEN}`);
     } catch (err) {
       // TODO handle error better
