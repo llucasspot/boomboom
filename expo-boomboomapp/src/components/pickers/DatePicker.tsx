@@ -3,9 +3,8 @@ import DateTimePicker, {
 } from "@react-native-community/datetimepicker";
 import React, { useState } from "react";
 import { Control, Controller } from "react-hook-form";
-import { Platform } from "react-native";
+import { Platform, View, Text } from "react-native";
 
-import { Text, View } from "../../../components/Themed";
 import { useCoreStyles } from "../../services/StyleService/styles";
 import { BaseButton, BaseButtonTheme } from "../Buttons/BaseButton";
 import { type UserFormData } from "../matching/common/UserProfileForm";

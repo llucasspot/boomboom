@@ -1,10 +1,10 @@
-import { Text } from "react-native";
-import React from "react";
-import { useCoreStyles } from "../../services/StyleService/styles";
-import { View } from "../../../components/Themed";
-import useEStyles from "../../hooks/useEStyles";
-import { ReturnButton } from "./ReturnButton";
 import { useNavigation } from "expo-router";
+import React from "react";
+import { Text, View } from "react-native";
+
+import { ReturnButton } from "./ReturnButton";
+import useEStyles from "../../hooks/useEStyles";
+import { useCoreStyles } from "../../services/StyleService/styles";
 
 type HeaderProps = {
   title?: string | null;

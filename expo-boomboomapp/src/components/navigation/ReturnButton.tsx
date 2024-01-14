@@ -1,13 +1,13 @@
 import React from "react";
+import { Pressable, Text, View } from "react-native";
+
 import useEStyles from "../../hooks/useEStyles";
-import { Text, View } from "../../../components/Themed";
-import BaseIcon from "../Icons/BaseIcon";
-import { IconName } from "../Icons/IconName";
-import { Pressable } from "react-native";
-import { getGlobalInstance } from "../../tsyringe/diUtils";
 import LanguageService from "../../services/LanguageService/LanguageService";
 import ServiceInterface from "../../tsyringe/ServiceInterface";
+import { getGlobalInstance } from "../../tsyringe/diUtils";
 import { getEStyleSheetValue } from "../../utils/styleUtils";
+import BaseIcon from "../Icons/BaseIcon";
+import { IconName } from "../Icons/IconName";
 
 type ReturnButtonProps = {
   goBack?: boolean;

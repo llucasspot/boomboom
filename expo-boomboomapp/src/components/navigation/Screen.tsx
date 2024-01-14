@@ -1,8 +1,9 @@
 import React, { type PropsWithChildren } from "react";
+import { View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 import { Header } from "./Header";
 import { SafeView } from "./SafeView";
-import { View } from "../../../components/Themed";
 import useEStyles from "../../hooks/useEStyles";
 
 type ScreenProps = {
