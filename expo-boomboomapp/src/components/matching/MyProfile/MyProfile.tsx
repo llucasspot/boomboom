@@ -8,14 +8,23 @@ import {
   View,
 } from "react-native";
 
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { RootStackScreen } from "../../../navigation/RootStackScreenNavigator/RootStack";
+import AuthService from "../../../services/AuthService/AuthService";
+import LanguageService from "../../../services/LanguageService/LanguageService";
 import { useCoreStyles } from "../../../services/StyleService/styles";
 import UserService from "../../../services/UserService/UserService";
+import { Gender } from "../../../services/UserService/userServiceI";
 import ServiceInterface from "../../../tsyringe/ServiceInterface";
 import { getGlobalInstance } from "../../../tsyringe/diUtils";
-import { ProfileForm } from "../common/ProfileForm";
+import { BaseButton } from "../../Buttons/BaseButton";
 import { Screen } from "../../navigation/Screen";
-import LanguageService from "../../../services/LanguageService/LanguageService";
+import { UserFormData, UserProfileForm } from "../common/UserProfileForm";
+import useEStyles from "../../../hooks/useEStyles";
+import { ProfileApiService } from "../../../api/ProfileApiService/ProfileApiService";
+import * as yup from "yup";
+import {yupResolver} from "@hookform/resolvers/yup";
 
 const CONTENT_PADDING = 30;
 
@@ -32,9 +41,60 @@ export function MyProfile({ onBack }: MyProfileProps) {
   const languageService = getGlobalInstance<LanguageService>(
     ServiceInterface.LanguageServiceI
   );
+  const authService = getGlobalInstance<AuthService>(
+    ServiceInterface.AuthService
+  );
+
+  const profileApiService = getGlobalInstance<ProfileApiService>(
+    ServiceInterface.ProfileApiServiceI
+  );
 
   const user = userService.useUser();
+
   const coreStyles = useCoreStyles();
+  const styles = useEStyles({
+    button: {
+      marginTop: "$spacer9",
+    },
+  });
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<Partial<UserFormData>>({
+    // TODO I18n
+    // @ts-ignore TODO
+    resolver: yupResolver(yup.object().shape({
+      fullName: yup
+          .string()
+          .matches(/^[a-zA-Z0-9]*$/, 'Full name must be alphanumeric'),
+      dateOfBirth: yup
+          .date(),
+      gender: yup
+          .mixed<Gender>()
+          .oneOf(Object.values(Gender) as Gender[], 'Invalid gender'),
+      description: yup.string().default(''),
+    })),
+  });
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const userInfo = await authService.getUserInfo();
+        if (!userInfo.isConnected) {
+          reset({
+            gender: Gender.NO_SPECIFIC,
+          });
+          return;
+        }
+        reset(userInfo);
+      } catch (error) {
+        console.error("Error fetching user info:", error);
+      }
+    })();
+  }, []);
 
   const I18n = languageService.useTranslation();
 
@@ -65,7 +125,19 @@ export function MyProfile({ onBack }: MyProfileProps) {
       <View style={{ height: 20 }} />
 
       <View style={{ padding: CONTENT_PADDING }}>
-        <ProfileForm />
+        <UserProfileForm
+            control={control}
+            errors={errors}
+        />
+        <BaseButton
+          content={I18n.t("screen.MyProfile.saveButton")}
+          color="$secondaryColor"
+          style={styles.button}
+          onPress={handleSubmit((data) => {
+            profileApiService.editProfile(data);
+            userService.updateUserState(data);
+          })}
+        />
       </View>
 
       <View>

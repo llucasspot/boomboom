@@ -7,14 +7,17 @@ import useEStyles from "../../hooks/useEStyles";
 
 type SafeViewProps = NativeSafeAreaViewProps;
 
-const SafeView = ({ children, edges }: PropsWithChildren<SafeViewProps>) => {
+const SafeView = ({ children, style, ...props }: PropsWithChildren<SafeViewProps>) => {
   const styles = useEStyles({
     wrapper: {
       flex: 1,
     },
   });
   return (
-    <SafeAreaView edges={edges} style={styles.wrapper}>
+    <SafeAreaView {...props} style={{
+      ...styles.wrapper,
+      ...style as object
+    }}>
       {children}
     </SafeAreaView>
   );
