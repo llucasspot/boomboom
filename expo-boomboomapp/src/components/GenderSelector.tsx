@@ -7,15 +7,15 @@ import useEStyles from "../hooks/useEStyles";
 import { Gender } from "../services/UserService/userServiceI";
 
 type GenderSelectorProps = {
-  selectedGender: Gender;
-  setSelectedGender: React.Dispatch<React.SetStateAction<Gender>>;
+  onChange: (selectedGender: Gender) => void;
+  value: Gender;
 };
 
 export default function GenderSelector({
-  selectedGender,
-  setSelectedGender,
+  onChange,
+  value,
 }: GenderSelectorProps) {
-  const isSelectedGender = (gender: Gender) => selectedGender === gender;
+  const isSelectedGender = (gender: Gender) => value === gender;
 
   const styles = useEStyles({
     selectGenderContainer: {
@@ -28,19 +28,19 @@ export default function GenderSelector({
     <View style={styles.selectGenderContainer}>
       <GenderButton
         gender={Gender.MALE}
-        onPress={() => setSelectedGender(Gender.MALE)}
+        onPress={() => onChange(Gender.MALE)}
         isSelected={isSelectedGender(Gender.MALE)}
         iconName={IconName.MALE_GENDER}
       />
       <GenderButton
         gender={Gender.FEMALE}
-        onPress={() => setSelectedGender(Gender.FEMALE)}
+        onPress={() => onChange(Gender.FEMALE)}
         isSelected={isSelectedGender(Gender.FEMALE)}
         iconName={IconName.FEMALE_GENDER}
       />
       <GenderButton
         gender={Gender.NO_SPECIFIC}
-        onPress={() => setSelectedGender(Gender.NO_SPECIFIC)}
+        onPress={() => onChange(Gender.NO_SPECIFIC)}
         isSelected={isSelectedGender(Gender.NO_SPECIFIC)}
         iconName={IconName.NO_SPECIFIC_GENDER}
       />

@@ -29,12 +29,21 @@ export type CreateProfileBody = {
   trackIds: string[];
 };
 
+export type EditProfileBody = {
+  fullName?: string;
+  dateOfBirth?: string;
+  gender?: Gender;
+  description?: string;
+};
+
 export abstract class ProfileApiServiceI {
   abstract createProfile(
-    createProfileBody: CreateProfileBody,
+    createProfileBody: CreateProfileBody
   ): Promise<ProfileI>;
 
   abstract getProfile(): Promise<ProfileI>;
 
   abstract getStackProfiles(): Promise<StackProfileI[]>;
+
+  abstract editProfile(editedProfileBody: EditProfileBody): Promise<ProfileI>;
 }

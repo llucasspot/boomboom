@@ -5,6 +5,7 @@ import {
   ProfileI,
   ProfileApiServiceI,
   StackProfileI,
+  EditProfileBody,
 } from "./ProfileApiServiceI";
 import ConfigurationService from "../../services/ConfigurationService/ConfigurationService";
 import ErrorService from "../../services/ErrorService/ErrorService";
@@ -23,7 +24,7 @@ export class ProfileApiService
     @inject(ServiceInterface.ConfigurationService)
     protected configurationService: ConfigurationService,
     @inject(ServiceInterface.ErrorService)
-    protected errorService: ErrorService,
+    protected errorService: ErrorService
   ) {
     super("profile", storageService, configurationService, errorService);
   }
@@ -41,6 +42,15 @@ export class ProfileApiService
   async getStackProfiles() {
     // TODO url
     const res = await this.apiRequester.get<StackProfileI[]>("/TODO");
+    return res.data;
+  }
+
+  async editProfile(editedProfileBody: EditProfileBody) {
+    // TODO url
+    const res = await this.apiRequester.put<ProfileI>(
+      "/TODO",
+      editedProfileBody
+    );
     return res.data;
   }
 }

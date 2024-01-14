@@ -21,6 +21,9 @@ type LanguageTranslationType = {
     ReturnButton: {
       back: string;
     };
+    UserProfileForm: {
+      errorMessage: string;
+    };
   };
   screen: {
     SignInScreen: {
@@ -41,6 +44,7 @@ type LanguageTranslationType = {
     };
     MyProfile: {
       title: string;
+      saveButton: string;
     };
   };
 };

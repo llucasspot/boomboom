@@ -34,7 +34,7 @@ export function ScreenStepperLayout({
   children,
 }: StepScreenProps): JSX.Element {
   const languageService = getGlobalInstance<LanguageService>(
-    ServiceInterface.LanguageServiceI,
+    ServiceInterface.LanguageServiceI
   );
   const I18n = languageService.useTranslation();
   const nestedNavigationRef =

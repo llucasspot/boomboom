@@ -35,6 +35,7 @@
     "micro-observables": "^1.7.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.49.3",
     "react-i18next": "^13.5.0",
     "react-native": "0.72.6",
     "react-native-extended-stylesheet": "^0.12.0",

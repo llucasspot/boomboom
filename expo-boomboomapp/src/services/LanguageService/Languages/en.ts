@@ -24,6 +24,9 @@ const en: LanguageTranslationType = {
     ReturnButton: {
       back: "Back",
     },
+    UserProfileForm: {
+      errorMessage: "This is required.",
+    },
   },
   screen: {
     SignInScreen: {
@@ -45,6 +48,7 @@ const en: LanguageTranslationType = {
     },
     MyProfile: {
       title: "Profile",
+      saveButton: "Save",
     },
   },
 };

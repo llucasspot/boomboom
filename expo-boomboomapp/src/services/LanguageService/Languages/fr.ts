@@ -24,6 +24,9 @@ const fr: LanguageTranslationType = {
     ReturnButton: {
       back: "Retour",
     },
+    UserProfileForm: {
+      errorMessage: "Le champ est requis.",
+    },
   },
   screen: {
     SignInScreen: {
@@ -44,6 +47,7 @@ const fr: LanguageTranslationType = {
     },
     MyProfile: {
       title: "Profil",
+      saveButton: "Enregistrer",
     },
   },
 };

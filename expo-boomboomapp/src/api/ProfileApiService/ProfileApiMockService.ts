@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import {
   CreateProfileBody,
+  EditProfileBody,
   ProfileApiServiceI,
   StackProfileI,
 } from "./ProfileApiServiceI";
@@ -12,6 +13,7 @@ import {
   user_jessica,
   user_yohan,
 } from "../../mocks/mokes";
+import { Gender } from "../../services/UserService/userServiceI";
 
 @singleton()
 export class ProfileApiMockService implements ProfileApiServiceI {
@@ -34,7 +36,16 @@ export class ProfileApiMockService implements ProfileApiServiceI {
           },
           songs,
         };
-      }),
+      })
     );
+  }
+  async editProfile(editedProfileBody: EditProfileBody) {
+    const { description, dateOfBirth, fullName, gender } = editedProfileBody;
+    user_yohan.description = description as string;
+    user_yohan.dateOfBirth = dateOfBirth as string;
+    user_yohan.name = fullName as string;
+    user_yohan.preferedGenderId = gender as Gender;
+
+    return Promise.resolve(user_yohan);
   }
 }
