@@ -8,10 +8,10 @@ export type Track = {
   uri: string;
 };
 
+export type FetchTracksNyNameResponse = { data: Track[] };
+
 export abstract class SpotifyApiServiceI {
   abstract fetchTop5Tracks(): Promise<Track[]>;
 
-  abstract fetchTracksNyName(
-    name?: string
-  ): Promise<{ data: Track[]; status: boolean }>;
+  abstract fetchTracksNyName(name?: string): Promise<FetchTracksNyNameResponse>;
 }

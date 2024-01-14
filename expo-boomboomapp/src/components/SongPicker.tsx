@@ -41,20 +41,19 @@ export function SongPicker({
   debounceTime = DEFAULT_DEBOUNCE_TIME,
 }: SongPickerProps) {
   const spotifyApiService = getGlobalInstance<SpotifyApiServiceI>(
-    ServiceInterface.SpotifyApiServiceI
+    ServiceInterface.SpotifyApiServiceI,
   );
   const languageService = getGlobalInstance<LanguageService>(
-    ServiceInterface.LanguageServiceI
+    ServiceInterface.LanguageServiceI,
   );
   const I18n = languageService.useTranslation();
   const onSearch = (searchString?: string): void => {
-    if (!searchString || searchString.trim() === "") {
-      return; // No need to proceed if the search string is empty
+    if (!searchString) {
+      return;
     }
     spotifyApiService
       .fetchTracksNyName(searchString)
       .then((tracks): void => {
-        setFetchedSongs([]);
         setFetchedSongs(tracks.data);
       })
       .catch((error) => {
@@ -134,9 +133,7 @@ export function SongPicker({
             <TextInput
               placeholderTextColor={(styles.textInput as TextStyle).color}
               autoFocus
-              placeholder={I18n.t(
-                "screen.searchBarPlaceholder.searchBarPlaceholder"
-              )}
+              placeholder={I18n.t("screen.SongPicker.searchBarPlaceholder")}
               onChangeText={debouncedSearch}
               style={{ ...coreStyles.FONT_INPUT, ...styles.searchBarTextInput }}
             />
@@ -151,7 +148,8 @@ export function SongPicker({
             <View style={styles.fetchedSongsContainer}>
               {fetchedSongs
                 .filter(
-                  (song) => !mySongs.find((mySong) => mySong.name === song.name)
+                  (song) =>
+                    !mySongs.find((mySong) => mySong.name === song.name),
                 )
                 .map((song, index) => (
                   <SongCard
