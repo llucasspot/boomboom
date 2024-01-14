@@ -20,9 +20,11 @@ import ServiceInterface from "../../../tsyringe/ServiceInterface";
 import { getGlobalInstance } from "../../../tsyringe/diUtils";
 import { BaseButton } from "../../Buttons/BaseButton";
 import { Screen } from "../../navigation/Screen";
-import { UserFormProps, UserProfileForm } from "../common/UserProfileForm";
+import { UserFormData, UserProfileForm } from "../common/UserProfileForm";
 import useEStyles from "../../../hooks/useEStyles";
 import { ProfileApiService } from "../../../api/ProfileApiService/ProfileApiService";
+import * as yup from "yup";
+import {yupResolver} from "@hookform/resolvers/yup";
 
 const CONTENT_PADDING = 30;
 
@@ -61,7 +63,21 @@ export function MyProfile({ onBack }: MyProfileProps) {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<UserFormProps>();
+  } = useForm<Partial<UserFormData>>({
+    // TODO I18n
+    // @ts-ignore TODO
+    resolver: yupResolver(yup.object().shape({
+      fullName: yup
+          .string()
+          .matches(/^[a-zA-Z0-9]*$/, 'Full name must be alphanumeric'),
+      dateOfBirth: yup
+          .date(),
+      gender: yup
+          .mixed<Gender>()
+          .oneOf(Object.values(Gender) as Gender[], 'Invalid gender'),
+      description: yup.string().default(''),
+    })),
+  });
 
   useEffect(() => {
     (async () => {
@@ -109,7 +125,10 @@ export function MyProfile({ onBack }: MyProfileProps) {
       <View style={{ height: 20 }} />
 
       <View style={{ padding: CONTENT_PADDING }}>
-        <UserProfileForm inputsIsRequired control={control} errors={errors} />
+        <UserProfileForm
+            control={control}
+            errors={errors}
+        />
         <BaseButton
           content={I18n.t("screen.MyProfile.saveButton")}
           color="$secondaryColor"

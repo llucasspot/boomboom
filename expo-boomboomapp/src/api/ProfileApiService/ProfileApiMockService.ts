@@ -40,12 +40,8 @@ export class ProfileApiMockService implements ProfileApiServiceI {
     );
   }
   async editProfile(editedProfileBody: EditProfileBody) {
-    const { description, dateOfBirth, fullName, gender } = editedProfileBody;
-    user_yohan.description = description as string;
-    user_yohan.dateOfBirth = dateOfBirth as string;
-    user_yohan.name = fullName as string;
-    user_yohan.preferedGenderId = gender as Gender;
-
-    return Promise.resolve(user_yohan);
+    return Promise.resolve({...user_yohan, ...editedProfileBody});
   }
+
+  async uploadAvatar(uri: string): Promise<void> {}
 }

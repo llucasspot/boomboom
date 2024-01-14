@@ -4,25 +4,23 @@ import { Header } from "./Header";
 import { SafeView } from "./SafeView";
 import { View } from "../../../components/Themed";
 import useEStyles from "../../hooks/useEStyles";
-import {NativeSafeAreaViewProps} from "react-native-safe-area-context/src/SafeArea.types";
 
 type ScreenProps = {
-  edges?: NativeSafeAreaViewProps['edges'];
   title?: string | null;
   goBack?: boolean;
   shouldSkipMargins?: boolean;
   isScrollable?: boolean;
   onGoBack?: () => void;
-};
+} & React.ComponentProps<typeof SafeView>;
 
 export const Screen = ({
   children,
-  edges,
   title,
   goBack,
   shouldSkipMargins = false,
   isScrollable = true,
   onGoBack,
+  ...props
 }: PropsWithChildren<ScreenProps>) => {
   const styles = useEStyles({
     content: {
@@ -33,7 +31,7 @@ export const Screen = ({
   const content = <View style={styles.content}>{children}</View>;
 
   return (
-    <SafeView edges={edges}>
+    <SafeView {...props}>
       <Header title={title} goBack={goBack} onGoBack={onGoBack} />
 
       {isScrollable ? (

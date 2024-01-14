@@ -15,17 +15,22 @@ import useEStyles from "../../hooks/useEStyles";
 import UserService from "../../services/UserService/UserService";
 import ServiceInterface from "../../tsyringe/ServiceInterface";
 import { getGlobalInstance } from "../../tsyringe/diUtils";
+import {UserStateConnected} from "../../services/UserService/userServiceI";
 
 const CIRCLE_SIZE = 200;
 
 export default function UploadAvatar({ setStepperLayoutCallback }: StepProps) {
-  // TODO some bug with my component, setStepperLayoutCallback have to be called
-  setStepperLayoutCallback(() => {});
   const userService = getGlobalInstance<UserService>(
     ServiceInterface.UserService,
   );
 
-  const [image] = useState();
+  setStepperLayoutCallback(({navigateOnNextStep}) => {
+    navigateOnNextStep()
+  });
+
+  // @ts-ignore TODO useUser
+  const user: UserStateConnected = userService.useUser()
+  const image = user.profilePicture.uri as string
 
   async function pick() {
     const result = await ImagePicker.launchImageLibraryAsync({

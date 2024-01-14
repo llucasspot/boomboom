@@ -19,7 +19,7 @@ import ServiceInterface from "../tsyringe/ServiceInterface";
 import { getGlobalInstance } from "../tsyringe/diUtils";
 
 export type StepProps = {
-  setStepperLayoutCallback: (cb: () => void) => void;
+  setStepperLayoutCallback: (cb: (props: { navigateOnNextStep: () => void }) => void) => void;
 };
 
 type ChildType = (props: StepProps) => ReactNode;
@@ -42,14 +42,14 @@ export function ScreenStepperLayout({
   const [step, setStep] = useState<number>(0);
 
   const stepperLayoutCallback = useRef({
-    value: () => {},
+    value: (props: { navigateOnNextStep: () => void }) => {},
   });
 
   const resetStepperLayoutCallback = () => {
     setStepperLayoutCallback(() => {});
   };
 
-  const setStepperLayoutCallback = (cb: () => Promise<void> | void) => {
+  const setStepperLayoutCallback = (cb: (props: { navigateOnNextStep: () => void }) => Promise<void> | void) => {
     stepperLayoutCallback.current.value = cb;
   };
 
@@ -61,12 +61,8 @@ export function ScreenStepperLayout({
   };
 
   const onContinue = async () => {
-    await stepperLayoutCallback.current.value();
+    await stepperLayoutCallback.current.value({navigateOnNextStep});
     resetStepperLayoutCallback();
-    if (isLastStep) {
-      return;
-    }
-    navigateOnNextStep();
   };
 
   const isLastStep = step + 1 === numberOfStep;

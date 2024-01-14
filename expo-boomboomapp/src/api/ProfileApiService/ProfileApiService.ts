@@ -12,6 +12,7 @@ import ErrorService from "../../services/ErrorService/ErrorService";
 import StorageService from "../../services/StorageService/StorageService";
 import ServiceInterface from "../../tsyringe/ServiceInterface";
 import { ApiService } from "../ApiService";
+import * as FileSystem from "expo-file-system";
 
 @singleton()
 export class ProfileApiService
@@ -52,5 +53,33 @@ export class ProfileApiService
       editedProfileBody
     );
     return res.data;
+  }
+
+  async uploadAvatar(uri: string): Promise<void> {
+    try {
+      const response = await FileSystem.uploadAsync(
+          `${this.apiRequester.getUri()}/avatar`,
+          uri,
+          {
+            httpMethod: 'POST',
+            fieldName: 'avatar',
+            uploadType: FileSystem.FileSystemUploadType.MULTIPART,
+            headers: {
+              Authorization: `Bearer ${await this.storageService.getAuthenticateToken()}`
+            }
+          }
+      );
+      this.handleFileSystemUploadAsyncResponse(response)
+    } catch (error) {
+      // TODO handle error
+      console.error('Error uploading image:', error);
+    }
+  };
+
+  private handleFileSystemUploadAsyncResponse(response: FileSystem.FileSystemUploadResult) {
+    if (response.status >= 200 && response.status < 300) {
+      return response;
+    }
+    throw response.body;
   }
 }

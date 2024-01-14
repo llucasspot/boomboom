@@ -8,12 +8,12 @@ import { Gender } from "../services/UserService/userServiceI";
 
 type GenderSelectorProps = {
   onChange: (selectedGender: Gender) => void;
-  value: Gender;
+  value?: Gender;
 };
 
 export default function GenderSelector({
   onChange,
-  value,
+  value = Gender.NO_SPECIFIC,
 }: GenderSelectorProps) {
   const isSelectedGender = (gender: Gender) => value === gender;
 

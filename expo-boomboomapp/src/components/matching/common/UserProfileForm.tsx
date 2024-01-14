@@ -2,46 +2,51 @@ import { Control, Controller, FieldErrors } from "react-hook-form";
 import { Text, TextInput, View } from "react-native";
 
 import { useCoreStyles } from "../../../services/StyleService/styles";
-import { UserStateConnected } from "../../../services/UserService/userServiceI";
+import {UserI} from "../../../services/UserService/userServiceI";
 
 import LanguageService from "../../../services/LanguageService/LanguageService";
 import ServiceInterface from "../../../tsyringe/ServiceInterface";
 import { getGlobalInstance } from "../../../tsyringe/diUtils";
 import GenderSelector from "../../GenderSelector";
 import { DatePicker } from "../../pickers/DatePicker";
+import useEStyles from "../../../hooks/useEStyles";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
-export type UserFormProps = Partial<Omit<UserStateConnected, "isConnected">>;
+export type UserFormData = Omit<UserI, 'profilePicture' | 'trackIds'>;
 
 type UserProfileFormProps = {
-  inputsIsRequired?: boolean;
-  control: Control;
-  errors: FieldErrors;
+  control: Control<UserFormData | Partial<UserFormData>, any>;
+  errors: FieldErrors<UserFormData | Partial<UserFormData>>;
 };
 
 export function UserProfileForm({
-  inputsIsRequired = true,
   control,
   errors,
-}: Readonly<UserProfileFormProps>) {
+}: UserProfileFormProps) {
   const languageService = getGlobalInstance<LanguageService>(
     ServiceInterface.LanguageServiceI
   );
-
   const I18n = languageService.useTranslation();
 
   const coreStyles = useCoreStyles();
+    const styles = useEStyles({
+        formContainer: {
+            display: 'flex',
+            gap: '$spacer5'
+        },
+        formErrorText: {
+            color: '$errorColor'
+        }
+    });
 
   const FormErrorMessage = () => (
-    <Text>{I18n.t("component.UserProfileForm.errorMessage")}</Text>
+    <Text style={styles.formErrorText}>{I18n.t("component.UserProfileForm.errorMessage")}</Text>
   );
 
   return (
-    <View style={{ gap: 32 }}>
+    <KeyboardAwareScrollView contentContainerStyle={styles.formContainer}>
       <Controller
         control={control}
-        rules={{
-          required: inputsIsRequired,
-        }}
         name="fullName"
         render={({ field: { onChange, onBlur, value } }) => (
           <View>
@@ -61,15 +66,11 @@ export function UserProfileForm({
       <DatePicker
         title={I18n.t("common.dateOfBirth")}
         control={control}
-        isRequired={inputsIsRequired}
       />
       {errors.dateOfBirth && <FormErrorMessage />}
 
       <Controller
         control={control}
-        rules={{
-          required: inputsIsRequired,
-        }}
         name="gender"
         render={({ field: { onChange, value } }) => (
           <View>
@@ -82,9 +83,6 @@ export function UserProfileForm({
 
       <Controller
         control={control}
-        rules={{
-          required: inputsIsRequired,
-        }}
         name="description"
         render={({ field: { onChange, onBlur, value } }) => (
           <View>
@@ -100,6 +98,6 @@ export function UserProfileForm({
         )}
       />
       {errors.description && <FormErrorMessage />}
-    </View>
+    </KeyboardAwareScrollView>
   );
 }

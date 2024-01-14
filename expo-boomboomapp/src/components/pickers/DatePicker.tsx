@@ -3,11 +3,11 @@ import { Control, Controller } from "react-hook-form";
 import { TextInput } from "react-native";
 import { Text, View } from "../../../components/Themed";
 import { useCoreStyles } from "../../services/StyleService/styles";
-import { type UserFormProps } from "../matching/common/UserProfileForm";
+import { type UserFormData } from "../matching/common/UserProfileForm";
 
 type DatePickerProps = {
   title: string;
-  control: Control<UserFormProps, any>;
+  control: Control<UserFormData | Partial<UserFormData>, any>;
   isRequired?: boolean;
 };
 
@@ -31,10 +31,10 @@ export function DatePicker({
           <Text style={{ ...coreStyles.P }}>{title}</Text>
           <TextInput
             style={{ ...coreStyles.INPUT_TEXT }}
-            value={value}
+            value={value?.toString()}
             onChangeText={onChange}
             onBlur={onBlur}
-            placeholder="MM/DD/YY"
+            placeholder="yyyy-MM-dd"
           />
         </View>
       )}
