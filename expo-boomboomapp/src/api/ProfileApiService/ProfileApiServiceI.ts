@@ -23,7 +23,7 @@ export type StackProfileI = {
 };
 
 export type CreateProfileBody = {
-  dateOfBirth: Date;
+  dateOfBirth: string;
   description: string;
   preferedGenderId: Gender;
   trackIds: string[];

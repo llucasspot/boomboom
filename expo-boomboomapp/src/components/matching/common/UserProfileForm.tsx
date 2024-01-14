@@ -15,7 +15,7 @@ import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 export type UserFormData = Omit<UserI, 'profilePicture' | 'trackIds'>;
 
 type UserProfileFormProps = {
-  control: Control<UserFormData | Partial<UserFormData>, any>;
+  control: Control<UserFormData, any>;
   errors: FieldErrors<UserFormData | Partial<UserFormData>>;
 };
 

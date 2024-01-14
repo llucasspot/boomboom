@@ -10,7 +10,8 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "ts-check": "tsc",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "format-check": "prettier --check 'src/**/*.{js,jsx,ts,tsx,json,css,md}'"
   },
   "jest": {
     "preset": "jest-expo"
@@ -19,6 +20,7 @@
     "@expo/vector-icons": "^13.0.0",
     "@hookform/resolvers": "^3.3.4",
     "@react-native-async-storage/async-storage": "^1.21.0",
+    "@react-native-community/datetimepicker": "7.2.0",
     "@react-navigation/native": "^6.0.2",
     "axios": "^1.6.2",
     "expo": "~49.0.18",

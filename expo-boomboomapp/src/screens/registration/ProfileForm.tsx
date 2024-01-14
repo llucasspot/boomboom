@@ -40,7 +40,7 @@ export function ProfileForm({ setStepperLayoutCallback }: StepProps) {
           .mixed<Gender>()
           .oneOf(Object.values(Gender) as Gender[], 'Invalid gender')
           .required('Gender is required'),
-      description: yup.string().default(''),
+      description: yup.string(),
     })),
     defaultValues: {
       gender: Gender.NO_SPECIFIC,

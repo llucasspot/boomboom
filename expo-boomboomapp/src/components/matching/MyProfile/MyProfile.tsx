@@ -126,6 +126,7 @@ export function MyProfile({ onBack }: MyProfileProps) {
 
       <View style={{ padding: CONTENT_PADDING }}>
         <UserProfileForm
+            // @ts-ignore TODO UserProfileForm
             control={control}
             errors={errors}
         />
@@ -133,8 +134,8 @@ export function MyProfile({ onBack }: MyProfileProps) {
           content={I18n.t("screen.MyProfile.saveButton")}
           color="$secondaryColor"
           style={styles.button}
-          onPress={handleSubmit((data) => {
-            profileApiService.editProfile(data);
+          onPress={handleSubmit(async (data) => {
+            await profileApiService.editProfile(data);
             userService.updateUserState(data);
           })}
         />

@@ -64,7 +64,7 @@ export default function FavoriteSongs({ setStepperLayoutCallback }: StepProps) {
         dateOfBirth: user.dateOfBirth,
         description: user.description,
         preferedGenderId: user.gender,
-        trackIds: user.trackIds,
+        trackIds: mySongs.map(song => song.trackId),
         name: user.fullName
       })
       router.replace(`/${RootStackScreen.WELCOME_SCREEN}`);
@@ -73,8 +73,6 @@ export default function FavoriteSongs({ setStepperLayoutCallback }: StepProps) {
       console.log("FavoriteSongs : ", err);
     }
   });
-
-  console.log(mySongs)
 
   return (
     <>

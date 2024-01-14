@@ -154,7 +154,7 @@ export function SongPicker({
                 .map((song, index) => (
                   <SongCard
                     song={song}
-                    key={song.name}
+                    key={song.trackId}
                     icon={() => (
                       <BaseButton
                         icon={IconName.PLUS}

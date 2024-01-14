@@ -2142,6 +2142,13 @@
     prompts "^2.4.0"
     semver "^7.5.2"
 
+"@react-native-community/datetimepicker@7.2.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@react-native-community/datetimepicker/-/datetimepicker-7.2.0.tgz#db8c03dbf49bf3c24b06b617a8467d8b05511f62"
+  integrity sha512-dO1sQy83M/EvnHE2egto05iwXZX7EYn5f/VDMp6afZFRFXRiRo7CzB3VFg4B55gJRJMNBv06NYMLPM3SlpnEGQ==
+  dependencies:
+    invariant "^2.2.4"
+
 "@react-native/assets-registry@^0.72.0":
   version "0.72.0"
   resolved "https://registry.yarnpkg.com/@react-native/assets-registry/-/assets-registry-0.72.0.tgz#c82a76a1d86ec0c3907be76f7faf97a32bbed05d"

@@ -7,7 +7,7 @@ export type UserI = {
     name: string;
   };
   fullName: string;
-  dateOfBirth: Date;
+  dateOfBirth: string;
   gender: Gender;
   description: string;
   trackIds: string[];
