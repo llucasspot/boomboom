@@ -1,14 +1,17 @@
 export type Track = {
-  popularity?: string;
+  popularity?: number;
   name: string; // song name
   trackId: string;
   album?: string; // album name
   image?: string; // song image
-  artistName: string;
+  artistName?: string;
+  uri: string;
 };
+
+export type FetchTracksNyNameResponse = { data: Track[] };
 
 export abstract class SpotifyApiServiceI {
   abstract fetchTop5Tracks(): Promise<Track[]>;
 
-  abstract fetchTracksNyName(name?: string): Promise<Track[]>;
+  abstract fetchTracksNyName(name?: string): Promise<FetchTracksNyNameResponse>;
 }

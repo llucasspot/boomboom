@@ -1,6 +1,10 @@
 import { inject, singleton } from "tsyringe";
 
-import { SpotifyApiServiceI, Track } from "./SpotifyApiServiceI";
+import {
+  FetchTracksNyNameResponse,
+  SpotifyApiServiceI,
+  Track,
+} from "./SpotifyApiServiceI";
 import ConfigurationService from "../../services/ConfigurationService/ConfigurationService";
 import ErrorService from "../../services/ErrorService/ErrorService";
 import StorageService from "../../services/StorageService/StorageService";
@@ -28,12 +32,15 @@ export class SpotifyApiService
     return res.data;
   }
 
-  async fetchTracksNyName(name?: string) {
-    const res = await this.apiRequester.get<Track[]>("/track-by-name", {
-      params: {
-        name,
+  async fetchTracksNyName(name?: string): Promise<FetchTracksNyNameResponse> {
+    const res = await this.apiRequester.get<FetchTracksNyNameResponse>(
+      "/track-by-name",
+      {
+        params: {
+          name,
+        },
       },
-    });
+    );
     return res.data;
   }
 }

@@ -33,13 +33,27 @@ export function SongCard({ song, icon }: SongCardProps) {
   return (
     <View key={song.trackId} style={coreStyles.SONG_CARD}>
       <View style={styles.cardSubContainer}>
-        <Image
-          source={song.image as ImageSourcePropType}
-          style={coreStyles.SONG_CARD_IMAGE as ImageStyle}
-        />
-        <View style={styles.textContainer}>
-          <Text style={{ ...coreStyles.FONT_SONGTITLE }}>{song.name}</Text>
-          <Text style={{ ...coreStyles.P }}>{song.artistName}</Text>
+        {song.image && (
+          <Image
+            source={song.image as ImageSourcePropType}
+            style={coreStyles.SONG_CARD_IMAGE as ImageStyle}
+          />
+        )}
+        <View style={{ ...styles.textContainer, flex: 1 }}>
+          <Text
+            style={{ ...coreStyles.FONT_SONGTITLE }}
+            numberOfLines={2}
+            ellipsizeMode="tail"
+          >
+            {song.name}
+          </Text>
+          <Text
+            style={{ ...coreStyles.P }}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {song.artistName}
+          </Text>
         </View>
       </View>
       {icon()}

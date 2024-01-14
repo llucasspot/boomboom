@@ -48,10 +48,13 @@ export function SongPicker({
   );
   const I18n = languageService.useTranslation();
   const onSearch = (searchString?: string): void => {
+    if (!searchString) {
+      return;
+    }
     spotifyApiService
       .fetchTracksNyName(searchString)
       .then((tracks): void => {
-        setFetchedSongs(tracks);
+        setFetchedSongs(tracks.data);
       })
       .catch((error) => {
         // TODO handle error better
@@ -130,9 +133,7 @@ export function SongPicker({
             <TextInput
               placeholderTextColor={(styles.textInput as TextStyle).color}
               autoFocus
-              placeholder={I18n.t(
-                "screen.searchBarPlaceholder.searchBarPlaceholder",
-              )}
+              placeholder={I18n.t("screen.SongPicker.searchBarPlaceholder")}
               onChangeText={debouncedSearch}
               style={{ ...coreStyles.FONT_INPUT, ...styles.searchBarTextInput }}
             />
