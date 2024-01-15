@@ -31,7 +31,24 @@ module.exports = {
     "unused-imports",
   ],
   rules: {
-    // TODO : Check how fix errors.
-    "@typescript-eslint/no-var-requires": "off",
+    "no-redeclare": "error",
+    "react/prop-types": "off",
+    "react/jsx-boolean-value": "error",
+    "react/react-in-jsx-scope": "off",
+    "react-native/no-unused-styles": "error",
+    "react-native/no-color-literals": "warn",
+    "react-native/no-inline-styles": "off", // TODO: Turn on an fix this errors
+    "react/no-unescaped-entities": [
+      "error",
+      {
+        forbid: [
+          {
+            char: ">",
+            alternatives: ["&gt;"],
+          },
+        ],
+      },
+    ],
+    "unused-imports/no-unused-imports": "error",
   },
 };

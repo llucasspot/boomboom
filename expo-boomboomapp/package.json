@@ -11,7 +11,7 @@
     "test": "jest --watchAll",
     "ts-check": "tsc",
     "format-check": "prettier --check 'src/**/*.{js,jsx,ts,tsx,json,css,md}'",
-    "lint": "eslint . --ext=.ts",
+    "lint": "eslint ./ --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,md}'"
   },
   "jest": {
