@@ -2,12 +2,10 @@
 import { router } from "expo-router";
 import { observable, useObservable } from "micro-observables";
 import { useEffect } from "react";
-import { inject, singleton } from "tsyringe";
+import { singleton } from "tsyringe";
 
 import { RootStackScreen } from "../../navigation/RootStackScreenNavigator/RootStack";
-import ServiceInterface from "../../tsyringe/ServiceInterface";
-import LoggerService from "../LoggerService/LoggerService";
-import { Logger } from "../LoggerService/LoggerServiceI";
+import { GenericService } from "../GenericService";
 
 type AxiosError = {
   response?: {
@@ -19,10 +17,9 @@ type AxiosError = {
 };
 
 @singleton()
-export default class ErrorService {
+export default class ErrorService extends GenericService {
   private _error = observable<AxiosError | null>(null);
   private readonly error = this._error.readOnly();
-  private logger: Logger;
 
   useError(): AxiosError | null {
     return ((): AxiosError | null => useObservable(this.error))();
@@ -36,13 +33,6 @@ export default class ErrorService {
 
   private getError(): AxiosError | null {
     return this._error.get();
-  }
-
-  constructor(
-    @inject(ServiceInterface.LoggerService)
-    private loggerService: LoggerService,
-  ) {
-    this.logger = this.loggerService.create(ErrorService.name);
   }
 
   // TODO to implement

@@ -2,15 +2,12 @@ import { inject, singleton } from "tsyringe";
 
 import ServiceInterface from "../../tsyringe/ServiceInterface";
 import AuthService from "../AuthService/AuthService";
+import { GenericService } from "../GenericService";
 import LanguageService from "../LanguageService/LanguageService";
-import LoggerService from "../LoggerService/LoggerService";
-import { Logger } from "../LoggerService/LoggerServiceI";
 import StyleService from "../StyleService/StyleService";
 
 @singleton()
-export default class AppService {
-  private readonly logger: Logger;
-
+export default class AppService extends GenericService {
   constructor(
     @inject(ServiceInterface.StyleServiceI)
     private styleService: StyleService,
@@ -18,10 +15,8 @@ export default class AppService {
     private languageService: LanguageService,
     @inject(ServiceInterface.AuthService)
     private authService: AuthService,
-    @inject(ServiceInterface.LoggerService)
-    private loggerService: LoggerService,
   ) {
-    this.logger = loggerService.create(AppService.name);
+    super();
   }
 
   async initialiseApplication(isDarkMode: boolean): Promise<void> {

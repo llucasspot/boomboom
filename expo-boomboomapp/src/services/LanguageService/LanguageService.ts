@@ -6,20 +6,16 @@ import { SupportedLanguages } from "./LanguageServiceI";
 import en from "./Languages/en";
 import fr from "./Languages/fr";
 import ServiceInterface from "../../tsyringe/ServiceInterface";
-import LoggerService from "../LoggerService/LoggerService";
-import { Logger } from "../LoggerService/LoggerServiceI";
+import { GenericService } from "../GenericService";
 import StorageService from "../StorageService/StorageService";
 
 @singleton()
-export default class LanguageService {
-  private logger: Logger;
+export default class LanguageService extends GenericService {
   constructor(
     @inject(ServiceInterface.StorageServiceI)
     private storageService: StorageService,
-    @inject(ServiceInterface.LoggerService)
-    private loggerService: LoggerService,
   ) {
-    this.logger = loggerService.create(LanguageService.name);
+    super();
     this.initialise();
   }
 

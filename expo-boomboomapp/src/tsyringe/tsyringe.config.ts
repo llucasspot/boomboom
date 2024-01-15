@@ -13,7 +13,6 @@ import AuthService from "../services/AuthService/AuthService";
 import ConfigurationService from "../services/ConfigurationService/ConfigurationService";
 import ErrorService from "../services/ErrorService/ErrorService";
 import LanguageService from "../services/LanguageService/LanguageService";
-import LoggerService from "../services/LoggerService/LoggerService";
 import StorageService from "../services/StorageService/StorageService";
 import StyleService from "../services/StyleService/StyleService";
 import UserService from "../services/UserService/UserService";
@@ -37,7 +36,6 @@ injectSingleton<ConfigurationService>(
   ConfigurationService,
 );
 injectSingleton<AuthService>(ServiceInterface.AuthService, AuthService);
-injectSingleton<LoggerService>(ServiceInterface.LoggerService, LoggerService);
 injectSingleton<AuthService>(ServiceInterface.AuthService, AuthService);
 injectSingleton<UserService>(ServiceInterface.UserService, UserService);
 injectSingleton<ErrorService>(ServiceInterface.ErrorService, ErrorService);

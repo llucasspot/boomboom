@@ -5,7 +5,6 @@ enum ServiceInterface {
   UserService = "UserService",
   AuthService = "AuthService",
   ErrorService = "ErrorService",
-  LoggerService = "LoggerService",
   ConfigurationService = "ConfigurationService",
   SpotifyApiServiceI = "SpotifyApiServiceI",
   ProfileApiServiceI = "ProfileApiServiceI",
