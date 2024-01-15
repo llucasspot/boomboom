@@ -1,6 +1,15 @@
 name: CI Checks
 
-on: [push, pull_request]
+on:
+  push:
+    paths:
+      - "expo-boomboomapp/**"
+      - .github/workflows/checks.yml
+  pull_request:
+
+defaults:
+  run:
+    working-directory: expo-boomboomapp
 
 jobs:
   build:
@@ -11,24 +20,17 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '21'
-
+          node-version: 21
+          cache: "npm"
+          cache-dependency-path: ./package-lock.json
       - name: Install Dependencies
-        run: |
-          cd expo-boomboomapp
-          npm install
+        run: npm install
 
       - name: Run Lint
-        run: |
-          cd expo-boomboomapp
-          npm run lint
+        run: npm run lint
 
       - name: Check Formatting
-        run: |
-          cd expo-boomboomapp
-          npm run format-check
+        run: npm run format-check
 
       - name: Check Ts
-        run: |
-          cd expo-boomboomapp
-          npm run ts-check
+        run: npm run ts-check
