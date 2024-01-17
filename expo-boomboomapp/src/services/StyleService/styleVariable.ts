@@ -6,7 +6,9 @@ export const colors = (styleState: StyleState) => {
     $backgroundColor: styleState.backgroundColor,
     $fontColor: styleState.fontColor,
     $primaryColor: styleState.primaryColor,
+    $onPrimaryColor: styleState.onPrimaryColor,
     $secondaryColor: styleState.secondaryColor,
+    $onSecondaryColor: styleState.onSecondaryColor,
     $successColor: styleState.successColor,
     $errorColor: styleState.errorColor,
     // colors

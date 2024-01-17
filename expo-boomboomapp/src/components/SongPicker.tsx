@@ -156,10 +156,7 @@ export function SongPicker({
                     song={song}
                     key={song.trackId}
                     icon={() => (
-                      <BaseButton
-                        icon={IconName.PLUS}
-                        onPress={() => pick(song)}
-                      />
+                      <BaseButton icon="plus" onPress={() => pick(song)} />
                     )}
                   />
                 ))}

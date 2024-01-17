@@ -107,7 +107,7 @@ export default function FavoriteSongs({ setStepperLayoutCallback }: StepProps) {
               ? "Add a new song..."
               : "Remove a song before adding a new one"}
           </Text>
-          <BaseButton color="$errorColor" icon={IconName.ARROW_LEFT} />
+          <BaseButton color="$primaryColor" icon="arrow-left" />
         </TouchableOpacity>
 
         <ScrollView style={{ marginTop: 15 }}>
@@ -118,8 +118,8 @@ export default function FavoriteSongs({ setStepperLayoutCallback }: StepProps) {
                 key={song.trackId}
                 icon={() => (
                   <BaseButton
-                    color="$errorColor"
-                    icon={IconName.ARROW_LEFT}
+                    color="$primaryColor"
+                    icon="arrow-left"
                     onPress={() => removeSong(song.name)}
                   />
                 )}

@@ -38,7 +38,7 @@ export default class StyleService {
     const { width } = Dimensions.get("window");
     this.update({
       // TODO responsive : rem : a etudier les tailles des bases
-      remBase: width > 340 ? 18 : 16,
+      remBase: width > 340 ? 16 : 14,
     });
     await this.updateTheme(isDarkMode ? Theme.DARK : Theme.LIGHT);
   }
@@ -85,11 +85,6 @@ export default class StyleService {
       return theme;
     });
     const themeColors = this.getThemeColors(theme);
-    this.update({
-      backgroundColor: themeColors[0],
-      fontColor: themeColors[1],
-      primaryColor: themeColors[2],
-      secondaryColor: themeColors[3],
-    });
+    this.update(themeColors);
   }
 }

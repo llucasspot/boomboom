@@ -41,10 +41,11 @@ export function GenderButton({
       onPress={onPress}
       icon={iconName}
       color="$secondaryColor"
+      textColor="$onSecondaryColor"
       iconPosition={BaseButtonIconPosition.LEFT}
       content={I18n.t(`component.GenderButton.${gender}`)}
       textStyle={styles.buttonText}
-      theme={isSelected ? BaseButtonTheme.CONTAINED : BaseButtonTheme.OUTLINED}
+      theme={isSelected ? BaseButtonTheme.CONTAINED : BaseButtonTheme.INLINE}
     />
   );
 }

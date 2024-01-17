@@ -47,10 +47,6 @@ export function ScreenStepperLayout({
     value: (props: { navigateOnNextStep: () => void }) => {},
   });
 
-  const resetStepperLayoutCallback = () => {
-    setStepperLayoutCallback(() => {});
-  };
-
   const setStepperLayoutCallback = (
     cb: (props: { navigateOnNextStep: () => void }) => Promise<void> | void,
   ) => {
@@ -66,7 +62,6 @@ export function ScreenStepperLayout({
 
   const onContinue = async () => {
     await stepperLayoutCallback.current.value({ navigateOnNextStep });
-    resetStepperLayoutCallback();
   };
 
   const isLastStep = step + 1 === numberOfStep;
@@ -99,6 +94,9 @@ export function ScreenStepperLayout({
     stepTitle: {
       marginBottom: "0.8rem",
     },
+    navigationContainer: {
+      backgroundColor: "$backgroundColor",
+    },
   });
 
   function onPressBack() {
@@ -122,7 +120,7 @@ export function ScreenStepperLayout({
           // TODO to see
           // @ts-ignore
           colors: {
-            background: "white",
+            background: styles.navigationContainer.backgroundColor as string,
           },
         }}
         ref={nestedNavigationRef}

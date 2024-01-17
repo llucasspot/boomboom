@@ -1,8 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Animated, View } from "react-native";
 
-import { BaseButton } from "./Buttons/BaseButton";
-import { IconName } from "./Icons/IconName";
+import { BaseButton, BaseButtonTheme } from "./Buttons/BaseButton";
 import useEStyles from "../hooks/useEStyles";
 
 type RegistrationNavigationProps = {
@@ -60,9 +59,10 @@ export function Progressheader({
   return (
     <View style={styles.container}>
       <BaseButton
+        theme={BaseButtonTheme.INLINE}
         onPress={onPressBack}
-        icon={IconName.ARROW_LEFT}
-        color="$backgroundColor"
+        icon="arrow-left"
+        color="$fontColor"
         textStyle={{
           color: "$grey",
         }}

@@ -3,7 +3,9 @@ export type StyleState = {
   backgroundColor: string;
   fontColor: string;
   primaryColor: string;
+  onPrimaryColor: string;
   secondaryColor: string;
+  onSecondaryColor: string;
   successColor: string;
   errorColor: string;
 };
@@ -13,27 +15,28 @@ export const COLORS = {
   DARK_BLUE: "#2F215F",
 };
 
-export type ThemeConfig = [string, string, string, string, string, string];
+export type ThemeConfig = Omit<StyleState, "remBase">;
 export const themeConfigs: Record<Theme, ThemeConfig> = {
-  /*
-    THEME_NAME: [
-      '$backgroundColor',
-      '$fontColor',
-      '$primaryColor',
-      '$secondaryColor',
-      '$successColor',
-      '$errorColor'
-    ]
-    */
-  DARK: ["#15131E", "#F3F0F5", COLORS.PINK, "#F3F0F5", "#23C766", "#EF4B56"],
-  LIGHT: [
-    "#FFFFFF",
-    "#5E5D71",
-    COLORS.PINK,
-    COLORS.DARK_BLUE,
-    "#23C766",
-    "#EF4B56",
-  ],
+  DARK: {
+    backgroundColor: "#15131E",
+    fontColor: "#F3F0F5",
+    primaryColor: COLORS.PINK,
+    secondaryColor: "#F3F0F5",
+    onPrimaryColor: COLORS.PINK,
+    onSecondaryColor: COLORS.DARK_BLUE,
+    successColor: "#23C766",
+    errorColor: "#EF4B56",
+  },
+  LIGHT: {
+    backgroundColor: "#FFFFFF",
+    fontColor: "#5E5D71",
+    primaryColor: COLORS.PINK,
+    secondaryColor: COLORS.DARK_BLUE,
+    onPrimaryColor: "white",
+    onSecondaryColor: "white",
+    successColor: "#23C766",
+    errorColor: "#EF4B56",
+  },
 };
 
 export enum Theme {
@@ -45,10 +48,12 @@ export const DEFAULT_THEME: Theme = Theme.LIGHT;
 
 export const DEFAULT_STYLE_STATE: StyleState = {
   remBase: 16,
-  backgroundColor: themeConfigs[DEFAULT_THEME][0],
-  fontColor: themeConfigs[DEFAULT_THEME][1],
-  primaryColor: themeConfigs[DEFAULT_THEME][2],
-  secondaryColor: themeConfigs[DEFAULT_THEME][3],
-  successColor: themeConfigs[DEFAULT_THEME][4],
-  errorColor: themeConfigs[DEFAULT_THEME][5],
+  backgroundColor: themeConfigs[DEFAULT_THEME].backgroundColor,
+  fontColor: themeConfigs[DEFAULT_THEME].fontColor,
+  primaryColor: themeConfigs[DEFAULT_THEME].primaryColor,
+  secondaryColor: themeConfigs[DEFAULT_THEME].secondaryColor,
+  onPrimaryColor: themeConfigs[DEFAULT_THEME].onPrimaryColor,
+  onSecondaryColor: themeConfigs[DEFAULT_THEME].onSecondaryColor,
+  successColor: themeConfigs[DEFAULT_THEME].successColor,
+  errorColor: themeConfigs[DEFAULT_THEME].errorColor,
 };
