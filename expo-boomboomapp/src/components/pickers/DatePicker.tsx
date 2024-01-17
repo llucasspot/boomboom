@@ -31,9 +31,19 @@ export function DatePicker({ title, control }: Readonly<DatePickerProps>) {
     controllerOnChange: (date: string) => void;
   }) => {
     if (isIos) {
-      return <IosDatePicker controllerOnChange={controllerOnChange} dateFormatter={formatDate} />;
+      return (
+        <IosDatePicker
+          controllerOnChange={controllerOnChange}
+          dateFormatter={formatDate}
+        />
+      );
     }
-    return <AndroidDatePicker controllerOnChange={controllerOnChange} dateFormatter={formatDate} />;
+    return (
+      <AndroidDatePicker
+        controllerOnChange={controllerOnChange}
+        dateFormatter={formatDate}
+      />
+    );
   };
 
   return (
