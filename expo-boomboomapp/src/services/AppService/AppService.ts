@@ -22,6 +22,5 @@ export default class AppService extends GenericService {
   async initialiseApplication(isDarkMode: boolean): Promise<void> {
     await this.styleService.initialiseService(isDarkMode);
     await this.languageService.initialiseService();
-    await this.authService.initialiseService();
   }
 }

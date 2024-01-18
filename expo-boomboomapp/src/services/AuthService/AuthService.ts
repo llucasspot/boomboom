@@ -4,6 +4,7 @@ import { inject, singleton } from "tsyringe";
 import { ProfileApiServiceI } from "../../api/ProfileApiService/ProfileApiServiceI";
 import ServiceInterface from "../../tsyringe/ServiceInterface";
 import ConfigurationService from "../ConfigurationService/ConfigurationService";
+import { AppError, AppErrorMessage } from "../ErrorService/AppError";
 import { GenericService } from "../GenericService";
 import LanguageService from "../LanguageService/LanguageService";
 import StorageService from "../StorageService/StorageService";
@@ -30,33 +31,34 @@ export default class AuthService extends GenericService {
     super();
   }
 
-  async initialiseService() {
-    const authToken = await this.storageService.getAuthenticateToken();
-    if (authToken) {
-      await this.authenticateUser(authToken);
-    }
-  }
-
   async isUserConnected(): Promise<boolean> {
     const token = await this.storageService.getAuthenticateToken();
     return !!token;
   }
 
   async getUserInfo(): Promise<UserStateConnected> {
-    const profile = await this.profileApiService.getProfile();
-    this.userService.updateUserState({
-      profilePicture: {
-        uri: profile.avatar as ImageSourcePropType,
-        type: "image",
-        name: "",
-      },
-      fullName: profile.name,
-      dateOfBirth: profile.dateOfBirth,
-      gender: profile.preferedGenderId,
-      description: profile.description,
-      trackIds: profile.trackIds,
-    });
-    return this.userService.getUserState() as UserStateConnected;
+    try {
+      const profile = await this.profileApiService.getProfile();
+      this.userService.updateUserState({
+        profilePicture: {
+          uri: profile.avatar as ImageSourcePropType,
+          type: "image",
+          name: "",
+        },
+        fullName: profile.name,
+        dateOfBirth: profile.dateOfBirth,
+        gender: profile.preferedGenderId,
+        description: profile.description,
+        trackIds: profile.trackIds,
+      });
+      return this.userService.getUserState() as UserStateConnected;
+      // @ts-ignore TODO to see AxiosError
+    } catch (err: AxiosError) {
+      if (err.response.status === 404) {
+        throw new AppError(AppErrorMessage.PROFILE_NOT_SET);
+      }
+      throw err;
+    }
   }
 
   async authenticateUser(authToken?: string): Promise<void> {
@@ -67,7 +69,6 @@ export default class AuthService extends GenericService {
     if (this.configurationService.isAppInDebugMode()) {
       const token = await this.storageService.getAuthenticateToken();
       this.logger.debug("userInfo : ", { userInfo, token });
-      this.logger.info(this.configurationService.getApiUrl());
     }
     this.userService.authenticateUserState(userInfo);
   }

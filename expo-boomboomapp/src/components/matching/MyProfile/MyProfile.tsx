@@ -1,4 +1,7 @@
-import { Redirect, router } from "expo-router";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { router } from "expo-router";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import {
   Button,
   Image,
@@ -7,24 +10,24 @@ import {
   Text,
   View,
 } from "react-native";
+import * as yup from "yup";
 
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { ProfileApiService } from "../../../api/ProfileApiService/ProfileApiService";
+import useEStyles from "../../../hooks/useEStyles";
 import { RootStackScreen } from "../../../navigation/RootStackScreenNavigator/RootStack";
 import AuthService from "../../../services/AuthService/AuthService";
 import LanguageService from "../../../services/LanguageService/LanguageService";
 import { useCoreStyles } from "../../../services/StyleService/styles";
 import UserService from "../../../services/UserService/UserService";
-import { Gender } from "../../../services/UserService/userServiceI";
+import {
+  Gender,
+  UserStateConnected,
+} from "../../../services/UserService/userServiceI";
 import ServiceInterface from "../../../tsyringe/ServiceInterface";
 import { getGlobalInstance } from "../../../tsyringe/diUtils";
 import { BaseButton } from "../../Buttons/BaseButton";
 import { Screen } from "../../navigation/Screen";
 import { UserFormData, UserProfileForm } from "../common/UserProfileForm";
-import useEStyles from "../../../hooks/useEStyles";
-import { ProfileApiService } from "../../../api/ProfileApiService/ProfileApiService";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 
 const CONTENT_PADDING = 30;
 
@@ -49,7 +52,8 @@ export function MyProfile({ onBack }: MyProfileProps) {
     ServiceInterface.ProfileApiServiceI,
   );
 
-  const user = userService.useUser();
+  // @ts-ignore TODO useUser
+  const user: UserStateConnected = userService.useUser();
 
   const coreStyles = useCoreStyles();
   const styles = useEStyles({
@@ -98,10 +102,6 @@ export function MyProfile({ onBack }: MyProfileProps) {
   }, []);
 
   const I18n = languageService.useTranslation();
-
-  if (!user.isConnected) {
-    return <Redirect href={`/${RootStackScreen.AUTH_HOME}`} />;
-  }
 
   function btnReset() {
     onBack();

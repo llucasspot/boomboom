@@ -32,14 +32,11 @@ export default function UploadAvatar({
   });
 
   // @ts-ignore TODO useUser
-  const user: UserStateConnected = userService.useUser();
-  const avatar = user.profilePicture.uri as string;
+  const user: Partial<UserStateConnected> = userService.useUser();
+  const avatar = user.profilePicture?.uri as string;
 
   useEffect(() => {
-    setDisableSubmit(!user.profilePicture.uri);
-    return () => {
-      setDisableSubmit(false);
-    };
+    setDisableSubmit(!user.profilePicture?.uri);
   }, [user]);
 
   async function pick() {

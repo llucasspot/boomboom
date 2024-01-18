@@ -5,8 +5,11 @@ import { View } from "react-native";
 import useEStyles from "../../src/hooks/useEStyles";
 import { RootStackScreen } from "../../src/navigation/RootStackScreenNavigator/RootStack";
 import AuthService from "../../src/services/AuthService/AuthService";
-import ConfigurationService from "../../src/services/ConfigurationService/ConfigurationService";
-import UserService from "../../src/services/UserService/UserService";
+import {
+  AppError,
+  AppErrorMessage,
+} from "../../src/services/ErrorService/AppError";
+import StorageService from "../../src/services/StorageService/StorageService";
 import ServiceInterface from "../../src/tsyringe/ServiceInterface";
 import { getGlobalInstance } from "../../src/tsyringe/diUtils";
 
@@ -14,11 +17,8 @@ export default function SplashScreen(): JSX.Element {
   const authService = getGlobalInstance<AuthService>(
     ServiceInterface.AuthService,
   );
-  const userService = getGlobalInstance<UserService>(
-    ServiceInterface.UserService,
-  );
-  const configurationService = getGlobalInstance<ConfigurationService>(
-    ServiceInterface.ConfigurationService,
+  const storageService = getGlobalInstance<StorageService>(
+    ServiceInterface.StorageServiceI,
   );
   const styles = useEStyles({
     mainContainer: {
@@ -28,17 +28,29 @@ export default function SplashScreen(): JSX.Element {
     },
   });
 
+  const handleAuth = async (authToken: string) => {
+    try {
+      await authService.authenticateUser(authToken);
+      router.replace(`/${RootStackScreen.HOME}`);
+    } catch (err: unknown) {
+      if (
+        err instanceof AppError &&
+        err.message === AppErrorMessage.PROFILE_NOT_SET
+      ) {
+        router.replace(`/${RootStackScreen.LOGIN_SUCCESSFUL}`);
+        return;
+      }
+      throw err;
+    }
+  };
+
   useEffect(() => {
     authService
       .isUserConnected()
-      .then((isUserConnected) => {
-        if (userService.getUserState().isConnected) {
-          router.replace(`/${RootStackScreen.HOME}`);
-          return;
-        }
-        if (isUserConnected || configurationService.byPassSignInScreen()) {
-          router.replace(`/${RootStackScreen.LOGIN_SUCCESSFUL}`);
-          return;
+      .then(() => storageService.getAuthenticateToken())
+      .then((authToken) => {
+        if (authToken) {
+          return handleAuth(authToken);
         }
         router.replace(`/${RootStackScreen.AUTH_HOME}`);
       })

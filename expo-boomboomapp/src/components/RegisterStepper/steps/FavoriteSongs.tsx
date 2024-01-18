@@ -76,11 +76,14 @@ export default function FavoriteSongs({
   });
 
   useEffect(() => {
-    setDisableSubmit((user.trackIds ?? []).length < 5);
-    return () => {
+    setDisableSubmit(true);
+  }, []);
+
+  useEffect(() => {
+    if (mySongs.length === 4) {
       setDisableSubmit(false);
-    };
-  }, [user]);
+    }
+  }, [mySongs]);
 
   return (
     <>

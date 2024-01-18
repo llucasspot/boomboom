@@ -6,36 +6,34 @@ import StorageService from "../services/StorageService/StorageService";
 
 export class ApiService {
   protected apiRequester: AxiosInstance;
-  protected errorService: ErrorService;
-  protected storageService: StorageService;
 
   constructor(
-    subBaseURL: string,
-    storageService: StorageService,
-    configurationService: ConfigurationService,
-    errorService: ErrorService,
+    protected subBaseURL: string,
+    protected storageService: StorageService,
+    protected configurationService: ConfigurationService,
+    protected errorService: ErrorService,
   ) {
     this.errorService = errorService;
     this.storageService = storageService;
-    this.apiRequester = axios.create({
-      baseURL: `${configurationService.getApiUrl()}/${subBaseURL}`,
-      timeout: 1000,
-    });
-    this.initialiseService();
+    this.apiRequester = this.buildApiRequester();
   }
 
-  private initialiseService() {
-    this.apiRequester.interceptors.response.use(
+  private buildApiRequester() {
+    const apiRequester = axios.create({
+      baseURL: `${this.configurationService.getApiUrl()}/${this.subBaseURL}`,
+      timeout: 1000,
+    });
+    apiRequester.interceptors.response.use(
       (response) => {
         // Any status code that lies within the range of 2xx causes this function to trigger
         return response;
       },
       (error) => {
         // Any status codes outside the range of 2xx cause this function to trigger
-        return this.errorService.handleAxiosError(error);
+        throw error;
       },
     );
-    this.apiRequester.interceptors.request.use(
+    apiRequester.interceptors.request.use(
       async (config) => {
         config.headers.Authorization = `Bearer ${await this.storageService.getAuthenticateToken()}`;
         return config;
@@ -45,5 +43,6 @@ export class ApiService {
         return Promise.reject(error);
       },
     );
+    return apiRequester;
   }
 }

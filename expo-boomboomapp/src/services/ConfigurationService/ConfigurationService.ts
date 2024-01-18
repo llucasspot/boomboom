@@ -1,7 +1,14 @@
 import { singleton } from "tsyringe";
 
+import { GenericService } from "../GenericService";
+
 @singleton()
-export default class ConfigurationService {
+export default class ConfigurationService extends GenericService {
+  constructor() {
+    super();
+    this.logger.info(this.getApiUrl());
+  }
+
   static isAppInMockMode(): boolean {
     return process.env.EXPO_PUBLIC_MOCK_MODE === "true";
   }

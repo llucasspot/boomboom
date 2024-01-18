@@ -1,4 +1,3 @@
-import { Redirect } from "expo-router";
 import React, { useEffect, useRef } from "react";
 import {
   Animated,
@@ -15,9 +14,9 @@ import {
 import { BlurredAura } from "./BlurredAura";
 import { CustomButton } from "./common/CustomButton";
 import { IMAGES } from "../../../assets/assets";
-import { RootStackScreen } from "../../navigation/RootStackScreenNavigator/RootStack";
 import { useCoreStyles } from "../../services/StyleService/styles";
 import UserService from "../../services/UserService/UserService";
+import { UserStateConnected } from "../../services/UserService/userServiceI";
 import ServiceInterface from "../../tsyringe/ServiceInterface";
 import { getGlobalInstance } from "../../tsyringe/diUtils";
 
@@ -34,7 +33,8 @@ export function ItsAMatch({ onClose, matchedUser }: ItsAMatchProps) {
   const userService = getGlobalInstance<UserService>(
     ServiceInterface.UserService,
   );
-  const user = userService.useUser();
+  // @ts-ignore TODO useUser
+  const user: UserStateConnected = userService.useUser();
 
   const coreStyles = useCoreStyles();
 
@@ -97,10 +97,6 @@ export function ItsAMatch({ onClose, matchedUser }: ItsAMatchProps) {
   });
 
   function btnContact() {}
-
-  if (!user.isConnected) {
-    return <Redirect href={`/${RootStackScreen.AUTH_HOME}`} />;
-  }
 
   const photoMe = user.profilePicture.uri;
 
