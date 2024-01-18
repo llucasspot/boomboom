@@ -1,18 +1,12 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RegisterStepper } from "../src/components/RegisterStepper/RegisterStepper";
+import FavoriteSongs from "../src/components/RegisterStepper/steps/FavoriteSongs";
+import { ProfileForm } from "../src/components/RegisterStepper/steps/ProfileForm";
+import UploadAvatar from "../src/components/RegisterStepper/steps/UploadAvatar";
 
-import { ScreenStepperLayout } from "../src/components/ScreenStepperLayout";
-import { RegistrationStackScreenParamsList } from "../src/navigation/RegistrationStack/RegistrationStack";
-import FavoriteSongs from "../src/screens/registration/FavoriteSongs";
-import { ProfileForm } from "../src/screens/registration/ProfileForm";
-import UploadAvatar from "../src/screens/registration/UploadAvatar";
-
-type RegistrationProps =
-  NativeStackScreenProps<RegistrationStackScreenParamsList>;
-
-export default function Registration({ navigation }: RegistrationProps) {
+export default function Registration() {
   return (
-    <ScreenStepperLayout>
+    <RegisterStepper>
       {[UploadAvatar, ProfileForm, FavoriteSongs]}
-    </ScreenStepperLayout>
+    </RegisterStepper>
   );
 }

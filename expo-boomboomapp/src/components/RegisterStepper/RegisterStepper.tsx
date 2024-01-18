@@ -1,27 +1,26 @@
 import {
   createNavigationContainerRef,
+  EventArg,
   NavigationContainer,
 } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { ReactNode, useRef, useState } from "react";
 import { Text, View, ViewStyle } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { LueurButton } from "./Buttons/LueurButton";
-import { Progressheader } from "./Progressheader";
-import useEStyles from "../hooks/useEStyles";
-import {
-  RegistrationStack,
-  RegistrationStackScreenParamsList,
-} from "../navigation/RegistrationStack/RegistrationStack";
-import LanguageService from "../services/LanguageService/LanguageService";
-import { useCoreStyles } from "../services/StyleService/styles";
-import ServiceInterface from "../tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../tsyringe/diUtils";
+import useEStyles from "../../hooks/useEStyles";
+import LanguageService from "../../services/LanguageService/LanguageService";
+import { useCoreStyles } from "../../services/StyleService/styles";
+import ServiceInterface from "../../tsyringe/ServiceInterface";
+import { getGlobalInstance } from "../../tsyringe/diUtils";
+import { LueurButton } from "../Buttons/LueurButton";
+import { Progressheader } from "../Progressheader";
 
 export type StepProps = {
   setStepperLayoutCallback: (
     cb: (props: { navigateOnNextStep: () => void }) => void,
   ) => void;
+  setDisableSubmit: (enable: boolean) => void;
 };
 
 type ChildType = (props: StepProps) => ReactNode;
@@ -31,17 +30,23 @@ type StepScreenProps = {
   children: ChildType[];
 };
 
-export function ScreenStepperLayout({
-  contentStyle = {},
-  children,
-}: StepScreenProps): JSX.Element {
+export type RegistrationStackScreenParamsList = Record<
+  string,
+  { index: number }
+>;
+
+export const RegistrationStack =
+  createNativeStackNavigator<RegistrationStackScreenParamsList>();
+
+export function RegisterStepper({ children }: StepScreenProps): JSX.Element {
   const languageService = getGlobalInstance<LanguageService>(
     ServiceInterface.LanguageServiceI,
   );
   const I18n = languageService.useTranslation();
   const nestedNavigationRef =
     createNavigationContainerRef<RegistrationStackScreenParamsList>();
-  const [step, setStep] = useState<number>(0);
+  const [step, setStep] = useState<number>(1);
+  const [disableSubmit, setDisableSubmit] = useState<boolean>(true);
 
   const stepperLayoutCallback = useRef({
     value: (props: { navigateOnNextStep: () => void }) => {},
@@ -57,6 +62,7 @@ export function ScreenStepperLayout({
 
   const navigateOnNextStep = () => {
     const nextStep = step + 1;
+    // @ts-ignore TODO to see
     nestedNavigationRef.navigate(nextStep.toString());
   };
 
@@ -64,8 +70,8 @@ export function ScreenStepperLayout({
     await stepperLayoutCallback.current.value({ navigateOnNextStep });
   };
 
-  const isLastStep = step + 1 === numberOfStep;
-  const progress = (step + 1) / numberOfStep;
+  const isLastStep = step === numberOfStep;
+  const progress = step / numberOfStep;
 
   const coreStyles = useCoreStyles();
   const styles = useEStyles({
@@ -84,7 +90,6 @@ export function ScreenStepperLayout({
     content: {
       flex: 1,
       paddingHorizontal: "$spacer6",
-      ...contentStyle,
     },
     title: {
       color: "$secondaryColor",
@@ -103,17 +108,35 @@ export function ScreenStepperLayout({
     nestedNavigationRef.goBack();
   }
 
-  return (
-    <SafeAreaView style={styles.mainContainer}>
+  const Header = () => {
+    return (
       <View style={styles.header}>
         <Progressheader onPressBack={onPressBack} progress={progress} />
         <View>
           <Text style={{ ...coreStyles.P, ...styles.stepTitle }}>
-            {I18n.t("common.stepperHeader", { step: step + 1, numberOfStep })}
+            {I18n.t("common.stepperHeader", { step, numberOfStep })}
           </Text>
           <Text style={{ ...coreStyles.H2 }}>Upload profile picture</Text>
         </View>
       </View>
+    );
+  };
+
+  const Footer = () => {
+    return (
+      <View style={styles.footer}>
+        <LueurButton
+          disabled={disableSubmit}
+          onPress={onContinue}
+          content={isLastStep ? I18n.t("common.over") : I18n.t("common.next")}
+        />
+      </View>
+    );
+  };
+
+  return (
+    <SafeAreaView style={styles.mainContainer}>
+      <Header />
       <NavigationContainer
         independent
         theme={{
@@ -128,10 +151,11 @@ export function ScreenStepperLayout({
         <RegistrationStack.Navigator
           screenOptions={{ headerShown: false }}
           screenListeners={{
-            state: (e) => {
-              // TODO to see
-              // @ts-ignore
-              setStep(e.data.state.index);
+            // @ts-ignore TODO to see
+            state: (
+              e: EventArg<"state", false, RegistrationStackScreenParamsList>,
+            ) => {
+              setStep(e.data?.state.index);
             },
           }}
         >
@@ -146,6 +170,7 @@ export function ScreenStepperLayout({
                     <View style={styles.content}>
                       <Child
                         setStepperLayoutCallback={setStepperLayoutCallback}
+                        setDisableSubmit={setDisableSubmit}
                       />
                     </View>
                   );
@@ -155,12 +180,7 @@ export function ScreenStepperLayout({
           })}
         </RegistrationStack.Navigator>
       </NavigationContainer>
-      <View style={styles.footer}>
-        <LueurButton
-          onPress={onContinue}
-          content={isLastStep ? I18n.t("common.over") : I18n.t("common.next")}
-        />
-      </View>
+      <Footer />
     </SafeAreaView>
   );
 }

@@ -1,5 +1,5 @@
 import * as ImagePicker from "expo-image-picker";
-import { useState } from "react";
+import { useEffect } from "react";
 import {
   Image,
   ImageSourcePropType,
@@ -8,18 +8,21 @@ import {
   View,
 } from "react-native";
 
-import btnEdit from "../../assets/Registration/btn_edit.png";
-import iconUser from "../../assets/Registration/icon_user.png";
-import { StepProps } from "../../components/ScreenStepperLayout";
-import useEStyles from "../../hooks/useEStyles";
-import UserService from "../../services/UserService/UserService";
-import ServiceInterface from "../../tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../../tsyringe/diUtils";
-import { UserStateConnected } from "../../services/UserService/userServiceI";
+import btnEdit from "../../../assets/Registration/btn_edit.png";
+import iconUser from "../../../assets/Registration/icon_user.png";
+import useEStyles from "../../../hooks/useEStyles";
+import UserService from "../../../services/UserService/UserService";
+import { UserStateConnected } from "../../../services/UserService/userServiceI";
+import ServiceInterface from "../../../tsyringe/ServiceInterface";
+import { getGlobalInstance } from "../../../tsyringe/diUtils";
+import { StepProps } from "../RegisterStepper";
 
 const CIRCLE_SIZE = 200;
 
-export default function UploadAvatar({ setStepperLayoutCallback }: StepProps) {
+export default function UploadAvatar({
+  setStepperLayoutCallback,
+  setDisableSubmit,
+}: StepProps) {
   const userService = getGlobalInstance<UserService>(
     ServiceInterface.UserService,
   );
@@ -30,7 +33,14 @@ export default function UploadAvatar({ setStepperLayoutCallback }: StepProps) {
 
   // @ts-ignore TODO useUser
   const user: UserStateConnected = userService.useUser();
-  const image = user.profilePicture.uri as string;
+  const avatar = user.profilePicture.uri as string;
+
+  useEffect(() => {
+    setDisableSubmit(!user.profilePicture.uri);
+    return () => {
+      setDisableSubmit(false);
+    };
+  }, [user]);
 
   async function pick() {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -100,10 +110,12 @@ export default function UploadAvatar({ setStepperLayoutCallback }: StepProps) {
     <View style={styles.contentContainer}>
       <TouchableOpacity onPress={pick} style={styles.circle}>
         <View style={styles.imageContainer}>
-          {image && (
-            <Image source={{ uri: image }} style={styles.image as ImageStyle} />
-          )}
-          {!image && (
+          {avatar ? (
+            <Image
+              source={{ uri: avatar }}
+              style={styles.image as ImageStyle}
+            />
+          ) : (
             <Image source={iconUser} style={styles.imageEmpty as ImageStyle} />
           )}
         </View>
