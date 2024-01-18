@@ -1,13 +1,8 @@
 import React, { ReactNode, useMemo } from "react";
-import {
-  PressableProps,
-  StyleSheet,
-  TextStyle,
-  View,
-  ViewStyle,
-} from "react-native";
+import { StyleSheet, TextStyle, View, ViewStyle } from "react-native";
+import { StyleProp } from "react-native/Libraries/StyleSheet/StyleSheet";
 import { Button, IconButton } from "react-native-paper";
-import { Props as ReactNativePaperButton } from "react-native-paper/lib/typescript/components/Button/Button";
+import { Props as ReactNativePaperButtonProps } from "react-native-paper/lib/typescript/components/Button/Button";
 import { IconSource } from "react-native-paper/lib/typescript/components/Icon";
 
 import useEStyle from "../../hooks/useEStyle";
@@ -38,9 +33,9 @@ export type BaseButtonProps = {
   theme?: BaseButtonTheme;
   content?: ContentType;
   contentBackground?: ReactNode;
-  style?: ViewStyle;
-  textStyle?: TextStyle;
-} & Omit<PressableProps, "style">;
+  style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+} & Pick<ReactNativePaperButtonProps, "onPress" | "rippleColor">;
 
 export const BaseButton = ({
   loading = false,
@@ -51,12 +46,12 @@ export const BaseButton = ({
   content,
   contentBackground,
   icon,
+  style,
   iconPosition = BaseButtonIconPosition.RIGHT,
-  style: _style,
   textStyle: _textStyle,
   onPress,
+  rippleColor,
 }: BaseButtonProps): JSX.Element => {
-  const style = useEStyle(_style);
   const textStyle: TextStyle = useEStyle(_textStyle);
 
   const iconColor = useMemo(() => {
@@ -165,7 +160,7 @@ export const BaseButton = ({
   ];
 
   const propsWhenContentBackgroundIsNotSet: Pick<
-    ReactNativePaperButton,
+    ReactNativePaperButtonProps,
     "icon" | "onPress" | "disabled" | "loading" | "textColor"
   > = {
     icon: buttonIcon,
@@ -190,6 +185,7 @@ export const BaseButton = ({
         buttonColor={buttonColor}
         mode={mode}
         labelStyle={labelStyle}
+        rippleColor={rippleColor}
       >
         {content}
       </Button>
@@ -210,8 +206,8 @@ export const BaseButton = ({
             ]}
             loading={loading}
             onPress={onPress!}
-            disabled={disabled}
             textColor={buttonTextColor}
+            rippleColor={rippleColor}
           >
             {content}
           </Button>
