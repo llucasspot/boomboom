@@ -39,8 +39,6 @@ export abstract class ProfileApiServiceI {
 
   abstract getProfile(): Promise<ProfileI>;
 
-  abstract getStackProfiles(): Promise<StackProfileI[]>;
-
   abstract editProfile(editedProfileBody: EditProfileBody): Promise<ProfileI>;
 
   abstract uploadAvatar(uri: string): Promise<void>;

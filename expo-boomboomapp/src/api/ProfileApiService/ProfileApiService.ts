@@ -3,10 +3,9 @@ import { inject, singleton } from "tsyringe";
 
 import {
   CreateProfileBody,
-  ProfileI,
-  ProfileApiServiceI,
-  StackProfileI,
   EditProfileBody,
+  ProfileApiServiceI,
+  ProfileI,
 } from "./ProfileApiServiceI";
 import ConfigurationService from "../../services/ConfigurationService/ConfigurationService";
 import ErrorService from "../../services/ErrorService/ErrorService";
@@ -37,12 +36,6 @@ export class ProfileApiService
 
   async getProfile() {
     const res = await this.apiRequester.get<ProfileI>("/");
-    return res.data;
-  }
-
-  async getStackProfiles() {
-    // TODO url
-    const res = await this.apiRequester.get<StackProfileI[]>("/TODO");
     return res.data;
   }
 

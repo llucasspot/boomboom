@@ -13,10 +13,8 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { IMAGES } from "../../../../assets/assets";
-import {
-  ProfileApiServiceI,
-  StackProfileI,
-} from "../../../api/ProfileApiService/ProfileApiServiceI";
+import { MatchApiServiceI } from "../../../api/MatchApiService/MatchApiServiceI";
+import { StackProfileI } from "../../../api/ProfileApiService/ProfileApiServiceI";
 import { Track } from "../../../api/SpotifyApiService/SpotifyApiServiceI";
 import { BlurredBackground } from "../../../components/matching/BlurredBackground";
 import { Card } from "../../../components/matching/Card";
@@ -33,15 +31,15 @@ type HomeScreenProps = NativeStackScreenProps<
 >;
 
 export function HomeScreen({}: HomeScreenProps): JSX.Element {
-  const profileApiService = getGlobalInstance<ProfileApiServiceI>(
-    ServiceInterface.ProfileApiServiceI,
+  const matchApiService = getGlobalInstance<MatchApiServiceI>(
+    ServiceInterface.MatchApiServiceI,
   );
 
   const [stackProfiles, setStackProfiles] = useState<StackProfileI[]>([]);
 
   useEffect(() => {
-    profileApiService
-      .getStackProfiles()
+    matchApiService
+      .getProfiles()
       .then((stackProfiles) => {
         setStackProfiles(stackProfiles);
       })
@@ -100,8 +98,8 @@ export function HomeScreen({}: HomeScreenProps): JSX.Element {
   // On next, push a new profile in the stack
   useEffect(() => {
     const cb = onNextSubscriber.current.subscribe(() => {
-      profileApiService
-        .getStackProfiles()
+      matchApiService
+        .getProfiles()
         .then((newStackProfiles) => {
           setStackProfiles((stackProfiles) => [
             ...stackProfiles,

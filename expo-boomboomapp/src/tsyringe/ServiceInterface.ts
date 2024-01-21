@@ -1,4 +1,9 @@
 enum ServiceInterface {
+  // api
+  SpotifyApiServiceI = "SpotifyApiServiceI",
+  ProfileApiServiceI = "ProfileApiServiceI",
+  MatchApiServiceI = "MatchApiServiceI",
+  // others
   LanguageServiceI = "LanguageServiceI",
   StorageServiceI = "StorageServiceI",
   StyleServiceI = "StyleServiceI",
@@ -6,8 +11,6 @@ enum ServiceInterface {
   AuthService = "AuthService",
   ErrorService = "ErrorService",
   ConfigurationService = "ConfigurationService",
-  SpotifyApiServiceI = "SpotifyApiServiceI",
-  ProfileApiServiceI = "ProfileApiServiceI",
   AppService = "AppService",
 }
 

@@ -2,13 +2,13 @@ import React, { useEffect, useRef } from "react";
 import { Animated } from "react-native";
 
 import { CardContent } from "./CardContent";
-import { Profile } from "./beans/Profile";
 import { Observer } from "./hooks/useObserver";
+import { StackProfileI } from "../../api/ProfileApiService/ProfileApiServiceI";
 import { useCoreStyles } from "../../services/StyleService/styles";
 
 type CardProps = {
   index: number;
-  profile: Profile;
+  profile: StackProfileI;
   onNext: Observer;
   setCurrentIdBackground: React.Dispatch<React.SetStateAction<string | null>>;
 };

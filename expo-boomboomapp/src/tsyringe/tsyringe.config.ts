@@ -2,6 +2,9 @@ import { container } from "tsyringe";
 
 import ServiceInterface from "./ServiceInterface";
 import { configureGlobalInjector, injectSingleton } from "./diUtils";
+import { MatchApiMockService } from "../api/MatchApiService/MatchApiMockService";
+import { MatchApiService } from "../api/MatchApiService/MatchApiService";
+import { MatchApiServiceI } from "../api/MatchApiService/MatchApiServiceI";
 import { ProfileApiMockService } from "../api/ProfileApiService/ProfileApiMockService";
 import { ProfileApiService } from "../api/ProfileApiService/ProfileApiService";
 import { ProfileApiServiceI } from "../api/ProfileApiService/ProfileApiServiceI";
@@ -22,6 +25,21 @@ const IS_APP_IN_MOCK_MODE = ConfigurationService.isAppInMockMode();
 const injector = container.createChildContainer();
 configureGlobalInjector(injector);
 
+// api
+injectSingleton<SpotifyApiServiceI>(
+  ServiceInterface.SpotifyApiServiceI,
+  IS_APP_IN_MOCK_MODE ? SpotifyApiMockService : SpotifyApiService,
+);
+injectSingleton<ProfileApiServiceI>(
+  ServiceInterface.ProfileApiServiceI,
+  IS_APP_IN_MOCK_MODE ? ProfileApiMockService : ProfileApiService,
+);
+injectSingleton<MatchApiServiceI>(
+  ServiceInterface.MatchApiServiceI,
+  IS_APP_IN_MOCK_MODE ? MatchApiMockService : MatchApiService,
+);
+
+// others
 injectSingleton<StyleService>(ServiceInterface.StyleServiceI, StyleService);
 injectSingleton<LanguageService>(
   ServiceInterface.LanguageServiceI,
@@ -39,12 +57,4 @@ injectSingleton<AuthService>(ServiceInterface.AuthService, AuthService);
 injectSingleton<AuthService>(ServiceInterface.AuthService, AuthService);
 injectSingleton<UserService>(ServiceInterface.UserService, UserService);
 injectSingleton<ErrorService>(ServiceInterface.ErrorService, ErrorService);
-injectSingleton<SpotifyApiServiceI>(
-  ServiceInterface.SpotifyApiServiceI,
-  IS_APP_IN_MOCK_MODE ? SpotifyApiMockService : SpotifyApiService,
-);
-injectSingleton<ProfileApiServiceI>(
-  ServiceInterface.ProfileApiServiceI,
-  IS_APP_IN_MOCK_MODE ? ProfileApiMockService : ProfileApiService,
-);
 injectSingleton<AppService>(ServiceInterface.AppService, AppService);
