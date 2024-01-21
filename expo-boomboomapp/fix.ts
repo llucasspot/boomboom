@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const FILE_PATH = path.join(__dirname, "./node_modules/expo-router/entry.js");
+const FILE_PATH = path.join(__dirname, "./node_modules/expo/AppEntry.js");
 
 const checkFileExists = (filePath: string) => {
   if (!fs.existsSync(filePath)) {

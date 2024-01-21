@@ -1,3 +1,4 @@
+import { NavigationProp } from "@react-navigation/core/src/types";
 import {
   createNavigationContainerRef,
   EventArg,
@@ -16,29 +17,31 @@ import { getGlobalInstance } from "../../tsyringe/diUtils";
 import { LueurButton } from "../Buttons/LueurButton";
 import { Progressheader } from "../Progressheader";
 
-export type StepProps = {
+export type StepProps<T extends object> = {
   setStepperLayoutCallback: (
     cb: (props: { navigateOnNextStep: () => void }) => void,
   ) => void;
   setDisableSubmit: (enable: boolean) => void;
+  navigation: NavigationProp<T>;
 };
 
-type ChildType = (props: StepProps) => ReactNode;
+type ChildType<T extends object> = (props: StepProps<T>) => ReactNode;
 
-type StepScreenProps = {
+type StepScreenProps<T extends object> = {
   contentStyle?: ViewStyle;
-  children: ChildType[];
+  children: ChildType<T>[];
+  navigation: NavigationProp<T>;
 };
 
-export type RegistrationStackScreenParamsList = Record<
-  string,
-  { index: number }
->;
+type RegistrationStackScreenParamsList = Record<string, { index: number }>;
 
-export const RegistrationStack =
+const RegisterStepperStack =
   createNativeStackNavigator<RegistrationStackScreenParamsList>();
 
-export function RegisterStepper({ children }: StepScreenProps): JSX.Element {
+export function RegisterStepper<T extends object>({
+  children,
+  navigation,
+}: StepScreenProps<T>): JSX.Element {
   const languageService = getGlobalInstance<LanguageService>(
     ServiceInterface.LanguageServiceI,
   );
@@ -148,7 +151,7 @@ export function RegisterStepper({ children }: StepScreenProps): JSX.Element {
         }}
         ref={nestedNavigationRef}
       >
-        <RegistrationStack.Navigator
+        <RegisterStepperStack.Navigator
           screenOptions={{ headerShown: false }}
           screenListeners={{
             // @ts-ignore TODO to see
@@ -161,7 +164,7 @@ export function RegisterStepper({ children }: StepScreenProps): JSX.Element {
         >
           {children.map((Child, childIndex) => {
             return (
-              <RegistrationStack.Screen
+              <RegisterStepperStack.Screen
                 name={childIndex.toString()}
                 key={childIndex.toString()}
               >
@@ -169,16 +172,17 @@ export function RegisterStepper({ children }: StepScreenProps): JSX.Element {
                   return (
                     <View style={styles.content}>
                       <Child
+                        navigation={navigation}
                         setStepperLayoutCallback={setStepperLayoutCallback}
                         setDisableSubmit={setDisableSubmit}
                       />
                     </View>
                   );
                 }}
-              </RegistrationStack.Screen>
+              </RegisterStepperStack.Screen>
             );
           })}
-        </RegistrationStack.Navigator>
+        </RegisterStepperStack.Navigator>
       </NavigationContainer>
       <Footer />
     </SafeAreaView>

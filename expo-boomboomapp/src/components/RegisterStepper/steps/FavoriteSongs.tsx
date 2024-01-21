@@ -1,11 +1,13 @@
-import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Modal, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { ProfileApiServiceI } from "../../../api/ProfileApiService/ProfileApiServiceI";
 import { Track } from "../../../api/SpotifyApiService/SpotifyApiServiceI";
 import useEStyles from "../../../hooks/useEStyles";
-import { RootStackScreen } from "../../../navigation/RootStackScreenNavigator/RootStack";
+import {
+  RegisterStackParamsList,
+  RegisterStackScreen,
+} from "../../../navigation/RegisterStackScreenNavigator/RegisterStack";
 import { useCoreStyles } from "../../../services/StyleService/styles";
 import UserService from "../../../services/UserService/UserService";
 import { UserStateConnected } from "../../../services/UserService/userServiceI";
@@ -22,7 +24,8 @@ const CONTENT_PADDING = 20;
 export default function FavoriteSongs({
   setStepperLayoutCallback,
   setDisableSubmit,
-}: StepProps) {
+  navigation,
+}: StepProps<RegisterStackParamsList>) {
   const userService = getGlobalInstance<UserService>(
     ServiceInterface.UserService,
   );
@@ -68,7 +71,7 @@ export default function FavoriteSongs({
         trackIds: mySongs.map((song) => song.trackId),
         name: user.fullName,
       });
-      router.replace(`/${RootStackScreen.WELCOME_SCREEN}`);
+      navigation.navigate(RegisterStackScreen.WELCOME_SCREEN);
     } catch (err) {
       // TODO handle error better
       console.log("FavoriteSongs : ", err);

@@ -2,11 +2,11 @@ import { Gender } from "../../services/UserService/userServiceI";
 import { Track } from "../SpotifyApiService/SpotifyApiServiceI";
 
 export abstract class ProfileI {
-  abstract id: string;
-  abstract dateOfBirth: string;
+  abstract user_id: string;
+  abstract date_of_birth: string;
   abstract description: string;
   abstract avatar: string;
-  abstract preferedGenderId: Gender;
+  abstract prefered_gender_id: Gender;
   abstract userId: string;
   // TODO name & trackIds is not send my backend in getProfile endpoint
   abstract name: string;

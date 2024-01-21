@@ -30,7 +30,6 @@ Branchement au backend :
 
 ```
 ├── ...
-├── app/                : points d'entrée pour la navigation expo-router
 └── src
     ├── api/
     ├── assets/

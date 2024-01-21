@@ -1,22 +1,27 @@
-import {router} from "expo-router";
-import React, {useEffect, useRef} from "react";
-import {Animated, ImageStyle, Text, View} from "react-native";
-import {SafeAreaView} from "react-native-safe-area-context";
+import { useEffect, useRef } from "react";
+import { Animated, ImageStyle, View, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import girlBackground from "../src/assets/girl.png";
-import {BaseButtonIconPosition} from "../src/components/Buttons/BaseButton";
-import {LueurButton} from "../src/components/Buttons/LueurButton";
-import {Logo} from "../src/components/Logo";
-import {LueurBackground} from "../src/components/LueurBackground";
-import useEStyles from "../src/hooks/useEStyles";
-import {RootStackScreen} from "../src/navigation/RootStackScreenNavigator/RootStack";
-import AuthService from "../src/services/AuthService/AuthService";
-import ConfigurationService from "../src/services/ConfigurationService/ConfigurationService";
-import LanguageService from "../src/services/LanguageService/LanguageService";
-import ServiceInterface from "../src/tsyringe/ServiceInterface";
-import {getGlobalInstance} from "../src/tsyringe/diUtils";
+import girlBackground from "../../../assets/girl.png";
+import { BaseButtonIconPosition } from "../../../components/Buttons/BaseButton";
+import { LueurButton } from "../../../components/Buttons/LueurButton";
+import { Logo } from "../../../components/Logo";
+import { LueurBackground } from "../../../components/LueurBackground";
+import useEStyles from "../../../hooks/useEStyles";
+import AuthService from "../../../services/AuthService/AuthService";
+import ConfigurationService from "../../../services/ConfigurationService/ConfigurationService";
+import LanguageService from "../../../services/LanguageService/LanguageService";
+import ServiceInterface from "../../../tsyringe/ServiceInterface";
+import { getGlobalInstance } from "../../../tsyringe/diUtils";
+import { AuthStackParamsList, AuthStackScreenName } from "../AuthStack";
 
-export default function AuthScreen(): JSX.Element {
+type AuthScreenProps = NativeStackScreenProps<
+  AuthStackParamsList,
+  AuthStackScreenName.AUTH_HOME
+>;
+
+export function AuthScreen({ navigation }: AuthScreenProps): JSX.Element {
   const languageService = getGlobalInstance<LanguageService>(
     ServiceInterface.LanguageServiceI,
   );
@@ -71,10 +76,9 @@ export default function AuthScreen(): JSX.Element {
   const authenticate = async () => {
     if (configurationService.isAppInMockMode()) {
       await authService.authenticateUser();
-      router.replace(`/${RootStackScreen.LOGIN_SUCCESSFUL}`);
       return;
     }
-    router.push(`/${RootStackScreen.OAUTH_SCREEN}`);
+    navigation.push(AuthStackScreenName.OAUTH_SCREEN);
   };
 
   const fadeInAnim = useRef(new Animated.Value(0)).current;

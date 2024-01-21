@@ -1,3 +1,4 @@
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
 import {
   Image,
@@ -11,21 +12,27 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { IMAGES } from "../assets/assets";
+import { IMAGES } from "../../../../assets/assets";
 import {
   ProfileApiServiceI,
   StackProfileI,
-} from "../src/api/ProfileApiService/ProfileApiServiceI";
-import { Track } from "../src/api/SpotifyApiService/SpotifyApiServiceI";
-import { BlurredBackground } from "../src/components/matching/BlurredBackground";
-import { Card } from "../src/components/matching/Card";
-import { ItsAMatch } from "../src/components/matching/ItsAMatch";
-import { MenuHeader } from "../src/components/matching/MenuHeader";
-import { useObserver } from "../src/components/matching/hooks/useObserver";
-import ServiceInterface from "../src/tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../src/tsyringe/diUtils";
+} from "../../../api/ProfileApiService/ProfileApiServiceI";
+import { Track } from "../../../api/SpotifyApiService/SpotifyApiServiceI";
+import { BlurredBackground } from "../../../components/matching/BlurredBackground";
+import { Card } from "../../../components/matching/Card";
+import { ItsAMatch } from "../../../components/matching/ItsAMatch";
+import { MenuHeader } from "../../../components/matching/MenuHeader";
+import { useObserver } from "../../../components/matching/hooks/useObserver";
+import ServiceInterface from "../../../tsyringe/ServiceInterface";
+import { getGlobalInstance } from "../../../tsyringe/diUtils";
+import { RootStackParamsList, RootStackScreen } from "../RootStack";
 
-export default function HomeScreen(): JSX.Element {
+type HomeScreenProps = NativeStackScreenProps<
+  RootStackParamsList,
+  RootStackScreen.HOME
+>;
+
+export function HomeScreen({}: HomeScreenProps): JSX.Element {
   const profileApiService = getGlobalInstance<ProfileApiServiceI>(
     ServiceInterface.ProfileApiServiceI,
   );
