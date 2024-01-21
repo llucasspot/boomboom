@@ -1,18 +1,19 @@
-import { router } from "expo-router";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { WebView } from "react-native-webview";
 
-import { RootStackScreen } from "../src/navigation/RootStackScreenNavigator/RootStack";
-import AuthService from "../src/services/AuthService/AuthService";
-import ConfigurationService from "../src/services/ConfigurationService/ConfigurationService";
-import {
-  AppError,
-  AppErrorMessage,
-} from "../src/services/ErrorService/AppError";
-import ServiceInterface from "../src/tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../src/tsyringe/diUtils";
+import AuthService from "../../../services/AuthService/AuthService";
+import ConfigurationService from "../../../services/ConfigurationService/ConfigurationService";
+import ServiceInterface from "../../../tsyringe/ServiceInterface";
+import { getGlobalInstance } from "../../../tsyringe/diUtils";
+import { AuthStackParamsList, AuthStackScreenName } from "../AuthStack";
 
-export default function OauthViewScreen() {
+type OauthViewScreenProps = NativeStackScreenProps<
+  AuthStackParamsList,
+  AuthStackScreenName.OAUTH_SCREEN
+>;
+
+export function OauthViewScreen({ navigation }: OauthViewScreenProps) {
   const configurationService = getGlobalInstance<ConfigurationService>(
     ServiceInterface.ConfigurationService,
   );
@@ -30,19 +31,7 @@ export default function OauthViewScreen() {
   };
 
   const handleAuth = async (authToken: string) => {
-    try {
-      await authService.authenticateUser(authToken);
-      router.replace(`/${RootStackScreen.HOME}`);
-    } catch (err: unknown) {
-      if (
-          err instanceof AppError &&
-          err.message === AppErrorMessage.PROFILE_NOT_SET
-      ) {
-        router.replace(`/${RootStackScreen.LOGIN_SUCCESSFUL}`);
-        return;
-      }
-      throw err;
-    }
+    await authService.authenticateUser(authToken);
   };
 
   const extractTokenFromUrl = (url: string) => {

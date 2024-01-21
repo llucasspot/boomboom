@@ -98,11 +98,11 @@ export const user_jessica: StackProfileI = {
 };
 
 export const user_yohan: ProfileI = {
-  id: uuidv4(),
-  dateOfBirth: "01/01/1980",
+  user_id: uuidv4(),
+  date_of_birth: "01/01/1980",
   description: "Yohan description",
   avatar: require("../assets/mokes/yohan.png"),
-  preferedGenderId: Gender.MALE,
+  prefered_gender_id: Gender.MALE,
   userId: uuidv4(),
   // TODO name & trackIds is not send my backend in getProfile endpoint
   name: "Yohan",

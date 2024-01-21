@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { View } from "react-native";
 import * as yup from "yup";
 
+import { RegisterStackParamsList } from "../../../navigation/RegisterStackScreenNavigator/RegisterStack";
 import UserService from "../../../services/UserService/UserService";
 import { Gender } from "../../../services/UserService/userServiceI";
 import ServiceInterface from "../../../tsyringe/ServiceInterface";
@@ -14,7 +15,9 @@ import {
 } from "../../matching/common/UserProfileForm";
 import { StepProps } from "../RegisterStepper";
 
-export function ProfileForm({ setStepperLayoutCallback }: StepProps) {
+export function ProfileForm({
+  setStepperLayoutCallback,
+}: StepProps<RegisterStackParamsList>) {
   const userService = getGlobalInstance<UserService>(
     ServiceInterface.UserService,
   );

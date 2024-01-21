@@ -11,6 +11,7 @@ import {
 import btnEdit from "../../../assets/Registration/btn_edit.png";
 import iconUser from "../../../assets/Registration/icon_user.png";
 import useEStyles from "../../../hooks/useEStyles";
+import { RegisterStackParamsList } from "../../../navigation/RegisterStackScreenNavigator/RegisterStack";
 import UserService from "../../../services/UserService/UserService";
 import { UserStateConnected } from "../../../services/UserService/userServiceI";
 import ServiceInterface from "../../../tsyringe/ServiceInterface";
@@ -22,7 +23,7 @@ const CIRCLE_SIZE = 200;
 export default function UploadAvatar({
   setStepperLayoutCallback,
   setDisableSubmit,
-}: StepProps) {
+}: StepProps<RegisterStackParamsList>) {
   const userService = getGlobalInstance<UserService>(
     ServiceInterface.UserService,
   );

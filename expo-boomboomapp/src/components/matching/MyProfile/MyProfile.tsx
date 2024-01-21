@@ -1,5 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { router } from "expo-router";
+import { useNavigation } from "@react-navigation/core";
+import { NavigationProp } from "@react-navigation/core/src/types";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
@@ -14,7 +15,10 @@ import * as yup from "yup";
 
 import { ProfileApiService } from "../../../api/ProfileApiService/ProfileApiService";
 import useEStyles from "../../../hooks/useEStyles";
-import { RootStackScreen } from "../../../navigation/RootStackScreenNavigator/RootStack";
+import {
+  RootStackParamsList,
+  RootStackScreen,
+} from "../../../navigation/RootStackScreenNavigator/RootStack";
 import AuthService from "../../../services/AuthService/AuthService";
 import LanguageService from "../../../services/LanguageService/LanguageService";
 import { useCoreStyles } from "../../../services/StyleService/styles";
@@ -102,10 +106,11 @@ export function MyProfile({ onBack }: MyProfileProps) {
   }, []);
 
   const I18n = languageService.useTranslation();
+  const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
 
   function btnReset() {
     onBack();
-    router.push(`/${RootStackScreen.HOME}`);
+    navigation.navigate(RootStackScreen.HOME);
   }
 
   return (

@@ -1,9 +1,11 @@
-import { useNavigation } from "expo-router";
+import { useNavigation } from "@react-navigation/core";
+import { NavigationProp } from "@react-navigation/core/src/types";
 import React from "react";
 import { Text, View } from "react-native";
 
 import { ReturnButton } from "./ReturnButton";
 import useEStyles from "../../hooks/useEStyles";
+import { RootStackParamsList } from "../../navigation/RootStackScreenNavigator/RootStack";
 import { useCoreStyles } from "../../services/StyleService/styles";
 
 type HeaderProps = {
@@ -17,7 +19,7 @@ export function Header({
   title,
   onGoBack,
 }: Readonly<HeaderProps>) {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamsList>>();
 
   const coreStyles = useCoreStyles();
   const styles = useEStyles({

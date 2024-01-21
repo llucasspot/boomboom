@@ -1,20 +1,29 @@
-import { router } from "expo-router";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { LueurButton } from "../src/components/Buttons/LueurButton";
-import { LogoVertical } from "../src/components/LogoVertical";
-import { LueurBackground } from "../src/components/LueurBackground";
-import useEStyles from "../src/hooks/useEStyles";
-import { RootStackScreen } from "../src/navigation/RootStackScreenNavigator/RootStack";
-import LanguageService from "../src/services/LanguageService/LanguageService";
-import ServiceInterface from "../src/tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../src/tsyringe/diUtils";
+import { LueurButton } from "../../../components/Buttons/LueurButton";
+import { LogoVertical } from "../../../components/LogoVertical";
+import { LueurBackground } from "../../../components/LueurBackground";
+import useEStyles from "../../../hooks/useEStyles";
+import AuthService from "../../../services/AuthService/AuthService";
+import LanguageService from "../../../services/LanguageService/LanguageService";
+import ServiceInterface from "../../../tsyringe/ServiceInterface";
+import { getGlobalInstance } from "../../../tsyringe/diUtils";
+import { RegisterStackParamsList, RegisterStackScreen } from "../RegisterStack";
 
-export default function WelcomeScreen(): JSX.Element {
+type WelcomeScreenProps = NativeStackScreenProps<
+  RegisterStackParamsList,
+  RegisterStackScreen.WELCOME_SCREEN
+>;
+
+export function WelcomeScreen({ navigation }: WelcomeScreenProps): JSX.Element {
   const languageService = getGlobalInstance<LanguageService>(
     ServiceInterface.LanguageServiceI,
+  );
+  const authService = getGlobalInstance<AuthService>(
+    ServiceInterface.AuthService,
   );
   const I18n = languageService.useTranslation();
   const styles = useEStyles({
@@ -49,7 +58,7 @@ export default function WelcomeScreen(): JSX.Element {
   });
 
   const handleNextStep = async () => {
-    router.replace(`/${RootStackScreen.HOME}`);
+    await authService.authenticateUser();
   };
 
   return (

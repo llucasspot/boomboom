@@ -1,10 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { router } from "expo-router";
 import { observable, useObservable } from "micro-observables";
 import { useEffect } from "react";
 import { singleton } from "tsyringe";
 
-import { RootStackScreen } from "../../navigation/RootStackScreenNavigator/RootStack";
 import { GenericService } from "../GenericService";
 
 type AxiosError = {
@@ -64,7 +62,6 @@ export default class ErrorService extends GenericService {
   private handleHTTPStatusErrors(status?: number) {
     switch (status) {
       case 401:
-        router.replace(`/${RootStackScreen.AUTH_HOME}`);
         break;
       case 403:
         break;
