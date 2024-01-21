@@ -1,5 +1,9 @@
 import { Gender } from "../../UserService/userServiceI";
 
+type RegisterStepperStep = {
+  title: string;
+};
+
 type LanguageTranslationType = {
   common: {
     matches: string;
@@ -23,6 +27,13 @@ type LanguageTranslationType = {
     };
     UserProfileForm: {
       errorMessage: string;
+    };
+    RegisterStepper: {
+      step: {
+        "0": RegisterStepperStep;
+        "1": RegisterStepperStep;
+        "2": RegisterStepperStep;
+      };
     };
   };
   screen: {

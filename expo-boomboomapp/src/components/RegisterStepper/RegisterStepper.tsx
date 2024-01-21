@@ -48,7 +48,7 @@ export function RegisterStepper<T extends object>({
   const I18n = languageService.useTranslation();
   const nestedNavigationRef =
     createNavigationContainerRef<RegistrationStackScreenParamsList>();
-  const [step, setStep] = useState<number>(1);
+  const [step, setStep] = useState<number>(0);
   const [disableSubmit, setDisableSubmit] = useState<boolean>(true);
 
   const stepperLayoutCallback = useRef({
@@ -73,8 +73,8 @@ export function RegisterStepper<T extends object>({
     await stepperLayoutCallback.current.value({ navigateOnNextStep });
   };
 
-  const isLastStep = step === numberOfStep;
-  const progress = step / numberOfStep;
+  const isLastStep = step === numberOfStep - 1;
+  const progress = step / (numberOfStep - 1);
 
   const coreStyles = useCoreStyles();
   const styles = useEStyles({
@@ -117,9 +117,11 @@ export function RegisterStepper<T extends object>({
         <Progressheader onPressBack={onPressBack} progress={progress} />
         <View>
           <Text style={{ ...coreStyles.P, ...styles.stepTitle }}>
-            {I18n.t("common.stepperHeader", { step, numberOfStep })}
+            {I18n.t("common.stepperHeader", { step: step + 1, numberOfStep })}
           </Text>
-          <Text style={{ ...coreStyles.H2 }}>Upload profile picture</Text>
+          <Text style={{ ...coreStyles.H2 }}>
+            {I18n.t(`component.RegisterStepper.step.${step}.title`)}
+          </Text>
         </View>
       </View>
     );

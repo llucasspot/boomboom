@@ -31,7 +31,7 @@ export function SongCard({ song, icon }: SongCardProps) {
   });
 
   return (
-    <View key={song.trackId} style={coreStyles.SONG_CARD}>
+    <View style={coreStyles.SONG_CARD}>
       <View style={styles.cardSubContainer}>
         {song.image && (
           <Image

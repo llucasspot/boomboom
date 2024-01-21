@@ -27,6 +27,19 @@ const en: LanguageTranslationType = {
     UserProfileForm: {
       errorMessage: "This is required.",
     },
+    RegisterStepper: {
+      step: {
+        "0": {
+          title: "Upload profile picture",
+        },
+        "1": {
+          title: "Tell us more about you",
+        },
+        "2": {
+          title: "Add favorites songs",
+        },
+      },
+    },
   },
   screen: {
     SignInScreen: {

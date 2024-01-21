@@ -27,6 +27,19 @@ const fr: LanguageTranslationType = {
     UserProfileForm: {
       errorMessage: "Le champ est requis.",
     },
+    RegisterStepper: {
+      step: {
+        "0": {
+          title: "Télécharge ta photo de profil",
+        },
+        "1": {
+          title: "Dis-nous en plus sur toi",
+        },
+        "2": {
+          title: "Ajoute tes chansons favorites",
+        },
+      },
+    },
   },
   screen: {
     SignInScreen: {

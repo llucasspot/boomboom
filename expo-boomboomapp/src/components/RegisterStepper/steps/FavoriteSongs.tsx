@@ -1,8 +1,12 @@
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Modal, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { ProfileApiServiceI } from "../../../api/ProfileApiService/ProfileApiServiceI";
-import { Track } from "../../../api/SpotifyApiService/SpotifyApiServiceI";
+import {
+  SpotifyApiServiceI,
+  Track,
+} from "../../../api/SpotifyApiService/SpotifyApiServiceI";
 import useEStyles from "../../../hooks/useEStyles";
 import {
   RegisterStackParamsList,
@@ -18,9 +22,6 @@ import { SongCard } from "../../SongCard";
 import { SongPicker } from "../../SongPicker";
 import { StepProps } from "../RegisterStepper";
 
-// TODO use styles
-const CONTENT_PADDING = 20;
-
 export default function FavoriteSongs({
   setStepperLayoutCallback,
   setDisableSubmit,
@@ -32,7 +33,20 @@ export default function FavoriteSongs({
   const profileApiService = getGlobalInstance<ProfileApiServiceI>(
     ServiceInterface.ProfileApiServiceI,
   );
+  const spotifyApiService = getGlobalInstance<SpotifyApiServiceI>(
+    ServiceInterface.SpotifyApiServiceI,
+  );
   const [mySongs, setMySongs] = useState<Track[]>([]);
+  const { data: top5Tracks } = useQuery({
+    queryKey: [spotifyApiService.fetchTop5Tracks.name],
+    queryFn: () => spotifyApiService.fetchTop5Tracks(),
+  });
+
+  useEffect(() => {
+    if (top5Tracks) {
+      setMySongs(top5Tracks);
+    }
+  }, [top5Tracks]);
 
   const [pickSongModalVisible, setPickSongModalVisible] = useState(false);
 
@@ -83,7 +97,7 @@ export default function FavoriteSongs({
   }, []);
 
   useEffect(() => {
-    if (mySongs.length === 4) {
+    if (mySongs.length === 5) {
       setDisableSubmit(false);
     }
   }, [mySongs]);
@@ -105,8 +119,6 @@ export default function FavoriteSongs({
       <View
         style={{
           flex: 1,
-          paddingHorizontal: CONTENT_PADDING,
-          paddingVertical: 15,
         }}
       >
         <TouchableOpacity
@@ -122,7 +134,7 @@ export default function FavoriteSongs({
               ? "Add a new song..."
               : "Remove a song before adding a new one"}
           </Text>
-          <BaseButton color="$primaryColor" icon="arrow-left" />
+          <BaseButton color="$primaryColor" icon="magnify" />
         </TouchableOpacity>
 
         <ScrollView style={{ marginTop: 15 }}>
@@ -134,7 +146,7 @@ export default function FavoriteSongs({
                 icon={() => (
                   <BaseButton
                     color="$primaryColor"
-                    icon="arrow-left"
+                    icon="check"
                     onPress={() => removeSong(song.name)}
                   />
                 )}
