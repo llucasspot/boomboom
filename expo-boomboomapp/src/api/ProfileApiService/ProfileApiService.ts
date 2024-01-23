@@ -26,7 +26,7 @@ export class ProfileApiService
     @inject(ServiceInterface.ErrorService)
     protected errorService: ErrorService,
   ) {
-    super("profile", storageService, configurationService, errorService);
+    super("auth/profile", storageService, configurationService, errorService);
   }
 
   async createProfile(createProfileBody: CreateProfileBody) {

@@ -28,7 +28,7 @@ export class SpotifyApiService
   }
 
   async fetchTop5Tracks() {
-    const res = await this.apiRequester.get<Track[]>("/tracks");
+    const res = await this.apiRequester.get<Track[]>("/top-five-tracks");
     return res.data;
   }
 

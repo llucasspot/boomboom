@@ -18,13 +18,11 @@ export class MatchApiService extends ApiService implements MatchApiServiceI {
     @inject(ServiceInterface.ErrorService)
     protected errorService: ErrorService,
   ) {
-    super("matches", storageService, configurationService, errorService);
+    super("users", storageService, configurationService, errorService);
   }
 
   async getProfiles(): Promise<StackProfileI[]> {
     const res = await this.apiRequester.get<StackProfileI[]>("/");
-    console.log(res.data[0].user);
-    console.log(res.data[0].songs);
     return res.data;
   }
 }

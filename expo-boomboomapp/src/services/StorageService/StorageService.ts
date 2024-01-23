@@ -1,17 +1,43 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { singleton } from "tsyringe";
+import { inject, singleton } from "tsyringe";
 
 import LocalStorageItem from "./LocalStorageItem";
+import ServiceInterface from "../../tsyringe/ServiceInterface";
 import { Token } from "../../utils/sessionUtils";
+import ConfigurationService from "../ConfigurationService/ConfigurationService";
+import { GenericService } from "../GenericService";
 import { SupportedLanguages } from "../LanguageService/LanguageServiceI";
 
 @singleton()
-export default class StorageService {
+export default class StorageService extends GenericService {
+  constructor(
+    @inject(ServiceInterface.ConfigurationService)
+    private configurationService: ConfigurationService,
+  ) {
+    super();
+    if (this.configurationService.isAppInDebugMode()) {
+      this.getAuthenticateToken()
+        .then((token) => {
+          this.logger.debug("authToken : ", token);
+        })
+        .catch(this.logger.error);
+    }
+  }
+
+  private async logAuthToken(_token: string) {
+    if (!this.configurationService.isAppInDebugMode()) {
+      return;
+    }
+    const token = _token ?? (await this.getAuthenticateToken());
+    this.logger.debug("authToken : ", token);
+  }
+
   getAuthenticateToken(): Promise<Token | null> {
     return AsyncStorage.getItem(LocalStorageItem.BEARER_TOKEN);
   }
 
-  setAuthenticateToken(token: Token): Promise<void> {
+  async setAuthenticateToken(token: Token): Promise<void> {
+    await this.logAuthToken(token);
     return AsyncStorage.setItem(LocalStorageItem.BEARER_TOKEN, token);
   }
 

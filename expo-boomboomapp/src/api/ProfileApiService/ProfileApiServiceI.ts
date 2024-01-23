@@ -26,6 +26,7 @@ export type CreateProfileBody = {
   dateOfBirth: string;
   description: string;
   preferedGenderId: Gender;
+  genderId: Gender;
   trackIds: string[];
   name: string;
 };
