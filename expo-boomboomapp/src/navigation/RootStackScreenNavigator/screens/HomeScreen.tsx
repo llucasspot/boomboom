@@ -41,7 +41,7 @@ export function HomeScreen({}: HomeScreenProps): JSX.Element {
     matchApiService
       .getProfiles()
       .then((stackProfiles) => {
-        setStackProfiles(stackProfiles);
+        setStackProfiles(stackProfiles.data);
       })
       .catch((err) => {
         // TODO handle error better
@@ -103,8 +103,8 @@ export function HomeScreen({}: HomeScreenProps): JSX.Element {
         .then((newStackProfiles) => {
           setStackProfiles((stackProfiles) => [
             ...stackProfiles,
-            newStackProfiles[
-              Math.floor(Math.random() * newStackProfiles.length)
+            newStackProfiles.data[
+              Math.floor(Math.random() * newStackProfiles.data.length)
             ],
           ]);
         })

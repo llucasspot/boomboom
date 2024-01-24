@@ -1,16 +1,15 @@
 import { singleton } from "tsyringe";
 import { v4 as uuidv4 } from "uuid";
 
-import { MatchApiServiceI } from "./MatchApiServiceI";
+import { GetProfilesResponse, MatchApiServiceI } from "./MatchApiServiceI";
 import { user_helena, user_isabella, user_jessica } from "../../mocks/mokes";
-import { StackProfileI } from "../ProfileApiService/ProfileApiServiceI";
 
 @singleton()
 export class MatchApiMockService implements MatchApiServiceI {
-  async getProfiles(): Promise<StackProfileI[]> {
+  async getProfiles(): Promise<GetProfilesResponse> {
     const stackProfiles = [user_isabella, user_helena, user_jessica];
-    return Promise.resolve(
-      stackProfiles.map(({ user, songs }) => {
+    return Promise.resolve({
+      data: stackProfiles.map(({ user, songs }) => {
         return {
           user: {
             ...user,
@@ -19,6 +18,6 @@ export class MatchApiMockService implements MatchApiServiceI {
           songs,
         };
       }),
-    );
+    });
   }
 }
