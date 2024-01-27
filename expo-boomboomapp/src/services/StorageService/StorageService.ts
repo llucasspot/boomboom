@@ -1,9 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Token } from "@utils/sessionUtils";
 import { inject, singleton } from "tsyringe";
 
 import LocalStorageItem from "./LocalStorageItem";
 import ServiceInterface from "../../tsyringe/ServiceInterface";
-import { Token } from "../../utils/sessionUtils";
 import ConfigurationService from "../ConfigurationService/ConfigurationService";
 import { GenericService } from "../GenericService";
 import { SupportedLanguages } from "../LanguageService/LanguageServiceI";

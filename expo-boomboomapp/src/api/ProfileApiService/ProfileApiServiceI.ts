@@ -1,5 +1,4 @@
 import { Gender } from "../../services/UserService/userServiceI";
-import { Track } from "../SpotifyApiService/SpotifyApiServiceI";
 
 export abstract class ProfileI {
   abstract user_id: string;
@@ -12,15 +11,6 @@ export abstract class ProfileI {
   abstract name: string;
   abstract trackIds: string[];
 }
-
-export type StackProfileI = {
-  user: {
-    id: string;
-    name: string;
-    image: any;
-  };
-  songs: Track[];
-};
 
 export type CreateProfileBody = {
   dateOfBirth: string;

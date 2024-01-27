@@ -1,17 +1,21 @@
-export type Track = {
-  popularity?: number;
-  name: string; // song name
-  trackId: string;
-  album?: string; // album name
-  image?: string; // song image
-  artistName?: string;
-  uri: string;
-};
+import {
+  ApiSpotifyTrackByNameGet200Response,
+  SpotifyApi,
+  SpotifyApiInterface,
+} from "@swagger/api";
+import { AxiosResponse } from "axios";
 
-export type FetchTracksNyNameResponse = { data: Track[] };
-
-export abstract class SpotifyApiServiceI {
-  abstract fetchTop5Tracks(): Promise<Track[]>;
-
-  abstract fetchTracksNyName(name?: string): Promise<FetchTracksNyNameResponse>;
+export abstract class SpotifyApiServiceI
+  extends SpotifyApi
+  implements SpotifyApiInterface
+{
+  async fetchTracksNyName(
+    name?: string,
+  ): Promise<AxiosResponse<ApiSpotifyTrackByNameGet200Response>> {
+    return this.apiSpotifyTrackByNameGet({
+      params: {
+        name,
+      },
+    });
+  }
 }

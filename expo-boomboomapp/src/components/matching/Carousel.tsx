@@ -1,3 +1,5 @@
+import { buildImageSource } from "@utils/images.utils";
+import { buildKey } from "@utils/keys.utils";
 import {
   Animated,
   Image,
@@ -58,15 +60,17 @@ export function Carousel({
     >
       <View style={{ width: overlap - contentPadding }} />
 
-      {items.map((item) => (
-        <Item
-          isActive={idxItemActive === item.idx}
-          key={item.idx}
-          itemWidth={itemWidth}
-          contentWidth={contentWidth}
-          item={item}
-        />
-      ))}
+      {items.map((item, index) => {
+        return (
+          <Item
+            isActive={idxItemActive === index}
+            key={buildKey(item.id)}
+            itemWidth={itemWidth}
+            contentWidth={contentWidth}
+            item={item}
+          />
+        );
+      })}
       <View style={{ width: overlap - contentPadding }} />
     </Animated.ScrollView>
   );
@@ -85,7 +89,7 @@ function Item({ itemWidth, contentWidth, item }: ItemProps) {
   return (
     <Animated.View style={{ width: itemWidth, alignItems: "center" }}>
       <Image
-        source={item.image as ImageSourcePropType}
+        source={buildImageSource(item.spotifyImage)}
         style={{
           width: contentWidth,
           height: contentWidth,

@@ -15,29 +15,33 @@ export function getGlobalInjector(): Injector | undefined {
   return globalInjector;
 }
 
-export function getGlobalInstance<T>(
-  service: ServiceInterface | constructor<T>,
-): T {
+function checkGlobalInjector() {
   if (!globalInjector) {
     throw new Error(
       "Global injector is not defined, " +
         'you must call "configureGlobalInjector" before trying to use "getInstance"',
     );
   }
-  return globalInjector.resolve<T>(service);
+}
+
+export function getGlobalInstance<T>(
+  service: ServiceInterface | constructor<T>,
+): T {
+  checkGlobalInjector();
+  return globalInjector!.resolve<T>(service);
 }
 
 export function injectSingleton<T>(
   token: string,
   provider: constructor<T>,
 ): void {
-  if (!globalInjector) {
-    throw new Error(
-      "Global injector is not defined, " +
-        'you must call "configureGlobalInjector" before trying to use "getInstance"',
-    );
-  }
-  globalInjector.register<T>(token, provider, {
+  checkGlobalInjector();
+  globalInjector!.register<T>(token, provider, {
     lifecycle: Lifecycle.Singleton,
   });
+}
+
+export function injectValue<T>(token: string, provider: T): void {
+  checkGlobalInjector();
+  globalInjector!.register<T>(token, { useValue: provider });
 }

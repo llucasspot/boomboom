@@ -1,12 +1,10 @@
+import { SerializedTrack, SpotifyApiInterface } from "@swagger/api";
 import { useQuery } from "@tanstack/react-query";
+import { buildKey } from "@utils/keys.utils";
 import { useEffect, useState } from "react";
 import { Modal, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { ProfileApiServiceI } from "../../../api/ProfileApiService/ProfileApiServiceI";
-import {
-  SpotifyApiServiceI,
-  Track,
-} from "../../../api/SpotifyApiService/SpotifyApiServiceI";
 import useEStyles from "../../../hooks/useEStyles";
 import {
   RegisterStackParamsList,
@@ -33,18 +31,18 @@ export default function FavoriteSongs({
   const profileApiService = getGlobalInstance<ProfileApiServiceI>(
     ServiceInterface.ProfileApiServiceI,
   );
-  const spotifyApiService = getGlobalInstance<SpotifyApiServiceI>(
-    ServiceInterface.SpotifyApiServiceI,
+  const spotifyApi = getGlobalInstance<SpotifyApiInterface>(
+    ServiceInterface.SpotifyApiInterface,
   );
-  const [mySongs, setMySongs] = useState<Track[]>([]);
+  const [mySongs, setMySongs] = useState<SerializedTrack[]>([]);
   const { data: top5Tracks } = useQuery({
-    queryKey: [spotifyApiService.fetchTop5Tracks.name],
-    queryFn: () => spotifyApiService.fetchTop5Tracks(),
+    queryKey: [spotifyApi.apiSpotifyTopFiveTracksGet.name],
+    queryFn: () => spotifyApi.apiSpotifyTopFiveTracksGet(),
   });
 
   useEffect(() => {
     if (top5Tracks) {
-      setMySongs(top5Tracks);
+      setMySongs(top5Tracks.data);
     }
   }, [top5Tracks]);
 
@@ -144,7 +142,7 @@ export default function FavoriteSongs({
             {mySongs.map((song) => (
               <SongCard
                 song={song}
-                key={song.trackId}
+                key={buildKey(song.trackId)}
                 icon={() => (
                   <BaseButton
                     color="$primaryColor"

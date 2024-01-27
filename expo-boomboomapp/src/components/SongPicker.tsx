@@ -1,3 +1,6 @@
+import song from "@assets/PickSong/song.png";
+import { SerializedTrack, SpotifyApiInterface } from "@swagger/api";
+import { buildKey } from "@utils/keys.utils";
 import { debounce } from "lodash";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
@@ -12,22 +15,17 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { BaseButton } from "./Buttons/BaseButton";
-import { IconName } from "./Icons/IconName";
 import { SongCard } from "./SongCard";
-import {
-  SpotifyApiServiceI,
-  Track,
-} from "../api/SpotifyApiService/SpotifyApiServiceI";
-import song from "../assets/PickSong/song.png";
 import useEStyles from "../hooks/useEStyles";
 import LanguageService from "../services/LanguageService/LanguageService";
 import { useCoreStyles } from "../services/StyleService/styles";
 import ServiceInterface from "../tsyringe/ServiceInterface";
 import { getGlobalInstance } from "../tsyringe/diUtils";
+import { SpotifyApiServiceI } from "../api/SpotifyApiService/SpotifyApiServiceI";
 
 export type SongPickerProps = {
-  mySongs: Track[];
-  setMySongs: Dispatch<SetStateAction<Track[]>>;
+  mySongs: SerializedTrack[];
+  setMySongs: Dispatch<SetStateAction<SerializedTrack[]>>;
   onBack: () => void;
   debounceTime?: number;
 };
@@ -40,8 +38,8 @@ export function SongPicker({
   setMySongs,
   debounceTime = DEFAULT_DEBOUNCE_TIME,
 }: SongPickerProps) {
-  const spotifyApiService = getGlobalInstance<SpotifyApiServiceI>(
-    ServiceInterface.SpotifyApiServiceI,
+  const spotifyApi = getGlobalInstance<SpotifyApiServiceI>(
+    ServiceInterface.SpotifyApiInterface,
   );
   const languageService = getGlobalInstance<LanguageService>(
     ServiceInterface.LanguageServiceI,
@@ -51,10 +49,10 @@ export function SongPicker({
     if (!searchString) {
       return;
     }
-    spotifyApiService
+    spotifyApi
       .fetchTracksNyName(searchString)
       .then((tracks): void => {
-        setFetchedSongs(tracks.data);
+        setFetchedSongs(tracks.data.data);
       })
       .catch((error) => {
         // TODO handle error better
@@ -68,13 +66,13 @@ export function SongPicker({
 
   const debouncedSearch = debounce(onSearch, debounceTime);
 
-  const [fetchedSongs, setFetchedSongs] = useState<Track[]>([]);
+  const [fetchedSongs, setFetchedSongs] = useState<SerializedTrack[]>([]);
 
   function cancel() {
     onBack();
   }
 
-  function pick(song: Track) {
+  function pick(song: SerializedTrack) {
     setMySongs((old) => [...old, song]);
     onBack();
   }
@@ -151,10 +149,10 @@ export function SongPicker({
                   (song) =>
                     !mySongs.find((mySong) => mySong.name === song.name),
                 )
-                .map((song, index) => (
+                .map((song) => (
                   <SongCard
                     song={song}
-                    key={song.trackId}
+                    key={buildKey(song.trackId)}
                     icon={() => (
                       <BaseButton icon="plus" onPress={() => pick(song)} />
                     )}

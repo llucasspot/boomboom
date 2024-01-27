@@ -1,3 +1,6 @@
+import btnEdit from "@assets/Registration/btn_edit.png";
+import iconUser from "@assets/Registration/icon_user.png";
+import { buildImageSource } from "@utils/images.utils";
 import * as ImagePicker from "expo-image-picker";
 import { useEffect } from "react";
 import {
@@ -8,8 +11,6 @@ import {
   View,
 } from "react-native";
 
-import btnEdit from "../../../assets/Registration/btn_edit.png";
-import iconUser from "../../../assets/Registration/icon_user.png";
 import useEStyles from "../../../hooks/useEStyles";
 import { RegisterStackParamsList } from "../../../navigation/RegisterStackScreenNavigator/RegisterStack";
 import UserService from "../../../services/UserService/UserService";
@@ -110,7 +111,7 @@ export default function UploadAvatar({
         <View style={styles.imageContainer}>
           {avatar ? (
             <Image
-              source={{ uri: avatar }}
+              source={buildImageSource(avatar)}
               style={styles.image as ImageStyle}
             />
           ) : (

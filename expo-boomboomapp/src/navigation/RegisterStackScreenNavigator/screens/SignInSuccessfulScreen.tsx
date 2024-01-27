@@ -1,10 +1,10 @@
+import successLogo from "@assets/LoggedSuccess/check.png";
+import logoWithTextLogoHorizontally from "@assets/logos/logo-with-text-logo-horizontally.png";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useEffect, useRef } from "react";
 import { Animated, ImageStyle, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import successLogo from "../../../assets/LoggedSuccess/check.png";
-import logoWithTextLogoHorizontally from "../../../assets/logos/logo-with-text-logo-horizontally.png";
 import { LueurButton } from "../../../components/Buttons/LueurButton";
 import useEStyles from "../../../hooks/useEStyles";
 import LanguageService from "../../../services/LanguageService/LanguageService";

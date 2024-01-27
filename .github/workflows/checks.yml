@@ -28,6 +28,11 @@ jobs:
           cd expo-boomboomapp
           npm run format-check
 
+      - name: Build Swagger Beans
+        run : |
+          cd expo-boomboomapp
+          npm run swagger:generate
+
       - name: Check Ts
         run: |
           cd expo-boomboomapp

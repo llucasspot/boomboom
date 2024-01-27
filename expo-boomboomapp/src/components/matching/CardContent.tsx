@@ -1,3 +1,4 @@
+import { ProfileToShow } from "@swagger/api";
 import { useEffect, useState } from "react";
 import { LayoutChangeEvent, View } from "react-native";
 
@@ -5,10 +6,9 @@ import { CardHeader } from "./CardHeader";
 import { Carousel } from "./Carousel";
 import { CarouselSteps } from "./CarouselSteps";
 import { Item } from "./beans/Item";
-import { Profile } from "./beans/Profile";
 
 type CardContentProps = {
-  profile: Profile;
+  profile: ProfileToShow;
   setCurrentIdBackground: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
@@ -25,9 +25,7 @@ export function CardContent({
 
   useEffect(() => {
     setCurrentIdBackground(
-      profile.songs[idxItemActive]
-        ? profile.songs[idxItemActive].trackId
-        : null,
+      profile.songs[idxItemActive] ? profile.songs[idxItemActive].id : null,
     );
   }, [idxItemActive]);
 
@@ -59,14 +57,11 @@ export function CardContent({
   );
 }
 
-function buildItems({ user, songs }: Profile): Item[] {
+function buildItems({ user, songs }: ProfileToShow): Item[] {
   let items = [
     ...songs.map((song) => ({ ...song, type: "SONG" })),
     { type: "USER", ...user },
   ];
-
-  // Add indexes
-  items = items.map((item, index) => ({ ...item, idx: index }));
 
   return items as Item[];
 }

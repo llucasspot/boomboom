@@ -1,3 +1,4 @@
+import { SerializedTrack } from "@swagger/api";
 import { ReactNode } from "react";
 import {
   Image,
@@ -7,13 +8,12 @@ import {
   View,
 } from "react-native";
 
-import { Track } from "../api/SpotifyApiService/SpotifyApiServiceI";
 import useEStyles from "../hooks/useEStyles";
 import { useCoreStyles } from "../services/StyleService/styles";
 
 type SongCardProps = {
   icon: () => ReactNode;
-  song: Track;
+  song: SerializedTrack;
 };
 
 export function SongCard({ song, icon }: SongCardProps) {

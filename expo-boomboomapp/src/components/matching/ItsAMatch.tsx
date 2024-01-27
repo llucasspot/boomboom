@@ -1,3 +1,4 @@
+import { buildImageSource } from "@utils/images.utils";
 import React, { useEffect, useRef } from "react";
 import {
   Animated,
@@ -22,7 +23,7 @@ import { getGlobalInstance } from "../../tsyringe/diUtils";
 
 export type ItsAMatchProps = {
   onClose: () => void;
-  matchedUser: { image: ImageSourcePropType };
+  matchedUser: { image?: string | undefined };
 };
 
 const CONTENT_PADDING = 20;
@@ -178,7 +179,7 @@ export function ItsAMatch({ onClose, matchedUser }: ItsAMatchProps) {
                 }}
               />
               <Animated.Image
-                source={photoMatched}
+                source={buildImageSource(photoMatched)}
                 style={{
                   ...(styles.image_profile as ImageStyle),
                   left: 85,

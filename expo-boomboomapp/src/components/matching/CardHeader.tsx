@@ -1,11 +1,12 @@
+import { ProfileToShowUser } from "@swagger/api";
+import { buildImageSource } from "@utils/images.utils";
 import { useEffect, useRef } from "react";
 import { Animated, Image, Text, View } from "react-native";
 
-import { Profile } from "./beans/Profile";
 import { useCoreStyles } from "../../services/StyleService/styles";
 
 export type CardHeaderProps = {
-  user: Profile["user"];
+  user: ProfileToShowUser;
   sayOnlyHello: boolean;
 };
 
@@ -48,7 +49,7 @@ export function CardHeader({ user, sayOnlyHello }: CardHeaderProps) {
             style={{ height: 40, width: 40, borderRadius: 10, marginBottom: 5 }}
           >
             <Image
-              source={user.image}
+              source={buildImageSource(user.image)}
               style={{ width: "100%", height: "100%", borderRadius: 1000 }}
             />
           </View>

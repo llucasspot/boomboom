@@ -1,3 +1,4 @@
+import { buildKey } from "@utils/keys.utils";
 import { useEffect, useRef } from "react";
 import { Animated, View } from "react-native";
 
@@ -13,8 +14,11 @@ type CarouselStepsProps = {
 export function CarouselSteps({ items, idxItemActive }: CarouselStepsProps) {
   return (
     <View style={{ gap: 3, flexDirection: "row" }}>
-      {items.map((item) => (
-        <ProgressionItem key={item.idx} isActive={item.idx === idxItemActive} />
+      {items.map((item, index) => (
+        <ProgressionItem
+          key={buildKey(item.id)}
+          isActive={index === idxItemActive}
+        />
       ))}
     </View>
   );

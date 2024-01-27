@@ -1,9 +1,9 @@
+import boomboomLogo from "@assets/logo.png";
+import boomboomLogoText from "@assets/logo_text.svg";
 import React from "react";
 import { Image, ImageStyle, View } from "react-native";
 import { SvgXml } from "react-native-svg";
 
-import boomboomLogo from "../assets/logo.png";
-import boomboomLogoText from "../assets/logo_text.svg";
 import useEStyles from "../hooks/useEStyles";
 
 export const LogoVertical = (): JSX.Element => {

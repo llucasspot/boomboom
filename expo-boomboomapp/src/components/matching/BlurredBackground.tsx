@@ -1,4 +1,7 @@
 import { useFocusEffect } from "@react-navigation/native";
+import { Track } from "@swagger/api";
+import { buildImageSource } from "@utils/images.utils";
+import { buildKey } from "@utils/keys.utils";
 import { BlurView } from "expo-blur";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -10,17 +13,16 @@ import {
 } from "react-native";
 
 import { BlurredAura } from "./BlurredAura";
-import { Track } from "../../api/SpotifyApiService/SpotifyApiServiceI";
 
 // TODO add style pattern to page
 
 type BlurredBackgroundProps = {
   stackProfiles: { songs: Track[] }[];
-  currentIdBackground: Track["trackId"] | null;
+  currentIdBackground: Track["id"] | null;
   setCurrentIdBackground: (value: string | null) => void;
 };
 
-type ImageType = { id: Track["trackId"]; image: Track["image"] };
+type ImageType = { id: Track["id"]; image: Track["spotifyImage"] };
 
 // TODO add styles pattern and I18n
 
@@ -34,7 +36,7 @@ export function BlurredBackground({
   // When stackProfiles change, set currentIdBackground to the first song of the current profile
   useEffect(() => {
     if (stackProfiles.length > 0 && stackProfiles[0].songs.length > 0) {
-      setCurrentIdBackground(stackProfiles[0].songs[0].name);
+      setCurrentIdBackground(stackProfiles[0].songs[0].id);
     } else {
       setCurrentIdBackground(null);
     }
@@ -47,8 +49,8 @@ export function BlurredBackground({
         (acc: ImageType[], profile) => [
           ...acc,
           ...profile.songs.map((song) => ({
-            id: song.trackId,
-            image: song.image,
+            id: song.id,
+            image: song.spotifyImage,
           })),
         ],
         [],
@@ -95,11 +97,11 @@ export function BlurredBackground({
           opacity: 0.75,
         }}
       >
-        {backgroundImages.map((image, idx) => (
+        {backgroundImages.map((image) => (
           <Item
             isActive={image.id === currentIdBackground}
-            key={image.id}
-            image={image.image as ImageSourcePropType}
+            key={buildKey(image.id)}
+            image={buildImageSource(image.image)}
           />
         ))}
       </View>
@@ -144,7 +146,7 @@ function Item({ image, isActive }: ItemProps) {
         }}
       >
         <Image
-          source={image as ImageSourcePropType}
+          source={image}
           style={{
             objectFit: "cover",
             width: "100%",

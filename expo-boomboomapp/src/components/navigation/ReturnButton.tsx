@@ -1,3 +1,4 @@
+import { getEStyleSheetValue } from "@utils/styleUtils";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
 
@@ -5,7 +6,6 @@ import useEStyles from "../../hooks/useEStyles";
 import LanguageService from "../../services/LanguageService/LanguageService";
 import ServiceInterface from "../../tsyringe/ServiceInterface";
 import { getGlobalInstance } from "../../tsyringe/diUtils";
-import { getEStyleSheetValue } from "../../utils/styleUtils";
 import BaseIcon from "../Icons/BaseIcon";
 import { IconName } from "../Icons/IconName";
 

@@ -1,17 +1,17 @@
 export type Item =
   | {
-      idx: number;
+      id: string;
       type: "SONG";
       popularity?: string | undefined;
-      name: string;
+      name?: string;
       trackId: string;
       album?: string | undefined;
-      image?: string | undefined;
+      spotifyImage?: string;
       artistName: string;
     }
   | {
-      idx: number;
-      name: string;
-      image: any;
+      id: string;
+      name?: string;
+      spotifyImage?: string;
       type: "USER";
     };

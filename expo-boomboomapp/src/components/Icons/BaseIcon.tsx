@@ -1,3 +1,4 @@
+import { styleSheetCompose } from "@utils/styleUtils";
 import React, { useCallback, useMemo } from "react";
 import {
   ColorValue,
@@ -14,7 +15,6 @@ import { IconName } from "./IconName";
 import { IconTheme } from "./IconTheme";
 import iconConfig, { IconConfig } from "./icon.config";
 import useEStyle from "../../hooks/useEStyle";
-import { styleSheetCompose } from "../../utils/styleUtils";
 
 export type Icon = ({ ...props }: Omit<BaseIconProps, "name">) => JSX.Element;
 

@@ -1,14 +1,14 @@
+import { ProfileToShow } from "@swagger/api";
 import React, { useEffect, useRef } from "react";
 import { Animated } from "react-native";
 
 import { CardContent } from "./CardContent";
 import { Observer } from "./hooks/useObserver";
-import { StackProfileI } from "../../api/ProfileApiService/ProfileApiServiceI";
 import { useCoreStyles } from "../../services/StyleService/styles";
 
 type CardProps = {
   index: number;
-  profile: StackProfileI;
+  profile: ProfileToShow;
   onNext: Observer;
   setCurrentIdBackground: React.Dispatch<React.SetStateAction<string | null>>;
 };

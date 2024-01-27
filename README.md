@@ -30,6 +30,7 @@ Branchement au backend :
 
 ```
 ├── ...
+├── swagger             : folder contenant les types du backend auto genérés depuis le swagger
 └── src
     ├── api/
     ├── assets/
@@ -56,9 +57,18 @@ Pour travailler en local sans serveur avec des données mockées, passer la vari
 L'application utilise expo, vous n'avez donc pas besoin d'installer un environnement android ou ios.
 suffit d'installer l'application [Expo GO](https://expo.dev/client) sur votre téléphone.
 
-Lancer l'application en mode développement :
+Installation des dépendances :
 ```
 npm install
+```
+
+Générer les beans du backend :
+```
+npm run swagger:generate
+```
+
+Lancer l'application en mode développement:
+```
 npm run start
 ```
 

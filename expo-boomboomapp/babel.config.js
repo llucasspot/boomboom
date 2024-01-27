@@ -13,6 +13,16 @@ module.exports = function (api) {
           extensions: [".svg"],
         },
       ],
+      [
+        "module-resolver",
+        {
+          alias: {
+            "@swagger": "./swagger",
+            "@assets": "./src/assets",
+            "@utils": "./src/utils",
+          },
+        },
+      ],
     ],
   };
 };

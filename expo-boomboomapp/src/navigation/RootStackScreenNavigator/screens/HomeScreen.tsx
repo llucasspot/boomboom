@@ -1,8 +1,9 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { ProfileToShow, Track, UserApiInterface } from "@swagger/api";
+import { buildKey } from "@utils/keys.utils";
 import React, { useEffect, useState } from "react";
 import {
   Image,
-  ImageSourcePropType,
   ImageStyle,
   Modal,
   Platform,
@@ -13,9 +14,6 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { IMAGES } from "../../../../assets/assets";
-import { MatchApiServiceI } from "../../../api/MatchApiService/MatchApiServiceI";
-import { StackProfileI } from "../../../api/ProfileApiService/ProfileApiServiceI";
-import { Track } from "../../../api/SpotifyApiService/SpotifyApiServiceI";
 import { BlurredBackground } from "../../../components/matching/BlurredBackground";
 import { Card } from "../../../components/matching/Card";
 import { ItsAMatch } from "../../../components/matching/ItsAMatch";
@@ -31,17 +29,17 @@ type HomeScreenProps = NativeStackScreenProps<
 >;
 
 export function HomeScreen({}: HomeScreenProps): JSX.Element {
-  const matchApiService = getGlobalInstance<MatchApiServiceI>(
-    ServiceInterface.MatchApiServiceI,
+  const userApi = getGlobalInstance<UserApiInterface>(
+    ServiceInterface.UserApiInterface,
   );
 
-  const [stackProfiles, setStackProfiles] = useState<StackProfileI[]>([]);
+  const [stackProfiles, setStackProfiles] = useState<ProfileToShow[]>([]);
 
   useEffect(() => {
-    matchApiService
-      .getProfiles()
+    userApi
+      .apiUsersGet()
       .then((stackProfiles) => {
-        setStackProfiles(stackProfiles.data);
+        setStackProfiles(stackProfiles.data.data);
       })
       .catch((err) => {
         // TODO handle error better
@@ -50,7 +48,7 @@ export function HomeScreen({}: HomeScreenProps): JSX.Element {
   }, []);
 
   const [currentIdBackground, setCurrentIdBackground] = useState<
-    Track["trackId"] | null
+    Track["id"] | null
   >(null);
 
   const onNextSubscriber = useObserver();
@@ -60,7 +58,7 @@ export function HomeScreen({}: HomeScreenProps): JSX.Element {
 
   // Its a match
   const [matchedUser, setMatchedUser] = useState<{
-    image: ImageSourcePropType;
+    image?: string;
   } | null>(null);
 
   // On next(yes), call the api to like the profile and open ITsAMath modal if its a match
@@ -98,13 +96,13 @@ export function HomeScreen({}: HomeScreenProps): JSX.Element {
   // On next, push a new profile in the stack
   useEffect(() => {
     const cb = onNextSubscriber.current.subscribe(() => {
-      matchApiService
-        .getProfiles()
+      userApi
+        .apiUsersGet()
         .then((newStackProfiles) => {
           setStackProfiles((stackProfiles) => [
             ...stackProfiles,
-            newStackProfiles.data[
-              Math.floor(Math.random() * newStackProfiles.data.length)
+            newStackProfiles.data.data[
+              Math.floor(Math.random() * newStackProfiles.data.data.length)
             ],
           ]);
         })
@@ -179,7 +177,7 @@ export function HomeScreen({}: HomeScreenProps): JSX.Element {
               <Card
                 setCurrentIdBackground={setCurrentIdBackground}
                 index={index}
-                key={profile.user.id}
+                key={buildKey(profile.user.id)}
                 profile={profile}
                 onNext={onNextSubscriber}
               />

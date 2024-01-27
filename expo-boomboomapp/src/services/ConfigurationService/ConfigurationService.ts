@@ -17,7 +17,17 @@ export default class ConfigurationService extends GenericService {
     const apiUrl = process.env.EXPO_PUBLIC_API_URL;
     if (!apiUrl) {
       throw new Error(
-        "add API_URL in .env file. example: API_URL=http://192.168.1.186:4000/api",
+        "add API_URL in .env file. example: EXPO_PUBLIC_API_URL=http://192.168.1.186:4000/api",
+      );
+    }
+    return apiUrl;
+  }
+
+  getWiremockApiUrl(): string {
+    const apiUrl = process.env.EXPO_PUBLIC_MOCK_API_URL;
+    if (!apiUrl) {
+      throw new Error(
+        "add API_URL in .env file. example: EXPO_PUBLIC_MOCK_API_URL=https://xxx.wiremockapi.cloud",
       );
     }
     return apiUrl;
