@@ -78,13 +78,14 @@ export default function FavoriteSongs({
       await profileApiService.createProfile({
         dateOfBirth: user.dateOfBirth,
         description: user.description,
-        preferedGenderId: user.gender,
-        // TODO add genderId in form
-        genderId: user.gender,
+        preferedGenderId: user.preferedGenderId,
+        genderId: user.genderId,
         trackIds: mySongs.map((song) => song.trackId),
         name: user.fullName,
       });
-      await profileApiService.uploadAvatar(user.profilePicture.uri as string);
+      await profileApiService.uploadAvatarByUri(
+        user.profilePicture.uri as string,
+      );
       navigation.navigate(RegisterStackScreen.WELCOME_SCREEN);
     } catch (err) {
       // TODO handle error better

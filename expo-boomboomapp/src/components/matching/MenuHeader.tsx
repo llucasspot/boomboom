@@ -1,3 +1,4 @@
+import { buildImageSource } from "@utils/images.utils";
 import React, { useState } from "react";
 import {
   Image,
@@ -78,7 +79,7 @@ export function MenuHeader() {
       >
         <TouchableOpacity onPress={btnProfile} style={menuButton}>
           <Image
-            source={user.profilePicture.uri}
+            source={buildImageSource(user.profilePicture.uri)}
             style={{ width: 48 / 2, height: 48 / 2, borderRadius: 10 }}
           />
           <Text style={coreStyle.F13}>Profile</Text>

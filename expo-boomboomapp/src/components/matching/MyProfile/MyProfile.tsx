@@ -1,16 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigation } from "@react-navigation/core";
 import { NavigationProp } from "@react-navigation/core/src/types";
+import { buildImageSource } from "@utils/images.utils";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import {
-  Button,
-  Image,
-  ImageSourcePropType,
-  Platform,
-  Text,
-  View,
-} from "react-native";
+import { Button, Image, Platform, Text, View } from "react-native";
 import * as yup from "yup";
 
 import { ProfileApiService } from "../../../api/ProfileApiService/ProfileApiService";
@@ -94,7 +88,7 @@ export function MyProfile({ onBack }: MyProfileProps) {
         const userInfo = await authService.getUserInfo();
         if (!userInfo.isConnected) {
           reset({
-            gender: Gender.NO_SPECIFIC,
+            genderId: Gender.NO_SPECIFIC,
           });
           return;
         }
@@ -117,7 +111,7 @@ export function MyProfile({ onBack }: MyProfileProps) {
     <Screen title={I18n.t("screen.MyProfile.title")} onGoBack={onBack}>
       <View style={{ alignItems: "center", gap: 10 }}>
         <Image
-          source={user.profilePicture.uri as ImageSourcePropType}
+          source={buildImageSource(user.profilePicture.uri)}
           style={{
             width: 80,
             height: 80,

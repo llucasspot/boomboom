@@ -1,16 +1,15 @@
 import { Control, Controller, FieldErrors } from "react-hook-form";
 import { Text, TextInput, View } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
+import useEStyles from "../../../hooks/useEStyles";
+import LanguageService from "../../../services/LanguageService/LanguageService";
 import { useCoreStyles } from "../../../services/StyleService/styles";
 import { UserI } from "../../../services/UserService/userServiceI";
-
-import LanguageService from "../../../services/LanguageService/LanguageService";
 import ServiceInterface from "../../../tsyringe/ServiceInterface";
 import { getGlobalInstance } from "../../../tsyringe/diUtils";
 import GenderSelector from "../../GenderSelector";
 import { DatePicker } from "../../pickers/DatePicker";
-import useEStyles from "../../../hooks/useEStyles";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export type UserFormData = Omit<UserI, "profilePicture" | "trackIds">;
 
@@ -67,7 +66,7 @@ export function UserProfileForm({ control, errors }: UserProfileFormProps) {
 
       <Controller
         control={control}
-        name="gender"
+        name="genderId"
         render={({ field: { onChange, value } }) => (
           <View>
             <Text style={{ ...coreStyles.P }}>{I18n.t("common.gender")}</Text>
@@ -75,7 +74,19 @@ export function UserProfileForm({ control, errors }: UserProfileFormProps) {
           </View>
         )}
       />
-      {errors.gender && <FormErrorMessage />}
+      {errors.genderId && <FormErrorMessage />}
+
+      <Controller
+        control={control}
+        name="preferedGenderId"
+        render={({ field: { onChange, value } }) => (
+          <View>
+            <Text style={{ ...coreStyles.P }}>{I18n.t("common.gender")}</Text>
+            <GenderSelector onChange={onChange} value={value} />
+          </View>
+        )}
+      />
+      {errors.preferedGenderId && <FormErrorMessage />}
 
       <Controller
         control={control}

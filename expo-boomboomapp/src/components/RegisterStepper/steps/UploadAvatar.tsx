@@ -3,13 +3,7 @@ import iconUser from "@assets/Registration/icon_user.png";
 import { buildImageSource } from "@utils/images.utils";
 import * as ImagePicker from "expo-image-picker";
 import { useEffect } from "react";
-import {
-  Image,
-  ImageSourcePropType,
-  ImageStyle,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, ImageStyle, TouchableOpacity, View } from "react-native";
 
 import useEStyles from "../../../hooks/useEStyles";
 import { RegisterStackParamsList } from "../../../navigation/RegisterStackScreenNavigator/RegisterStack";
@@ -54,7 +48,7 @@ export default function UploadAvatar({
       // TODO to see if we keep type & name in state
       userService.updateUserState({
         profilePicture: {
-          uri: image.uri as ImageSourcePropType,
+          uri: image.uri,
           type: image.type ?? "image",
           name: image.fileName ?? "",
         },

@@ -1,5 +1,4 @@
 import { AxiosError } from "axios";
-import { ImageSourcePropType } from "react-native";
 import { inject, singleton } from "tsyringe";
 
 import { ProfileApiServiceI } from "../../api/ProfileApiService/ProfileApiServiceI";
@@ -34,18 +33,21 @@ export default class AuthService extends GenericService {
   }
 
   async getUserInfo(): Promise<UserStateConnected> {
+    const avatarUri = await this.profileApiService.getBlobedAvatar();
     const profile = await this.profileApiService.getProfile();
     this.userService.updateUserState({
       profilePicture: {
-        uri: profile.avatar as ImageSourcePropType,
+        uri: avatarUri,
         type: "image",
         name: "",
       },
-      fullName: profile.name,
-      dateOfBirth: profile.date_of_birth,
-      gender: profile.prefered_gender_id,
-      description: profile.description,
-      trackIds: profile.trackIds,
+      fullName: profile.data.name,
+      dateOfBirth: profile.data.dateOfBirth,
+      genderId: profile.data.genderId,
+      preferedGenderId: profile.data.preferedGenderId,
+      description: profile.data.description,
+      // TODO getUserInfo : trackIds
+      trackIds: [],
     });
     this.appService.completeProfile();
     return this.userService.getUserState() as UserStateConnected;

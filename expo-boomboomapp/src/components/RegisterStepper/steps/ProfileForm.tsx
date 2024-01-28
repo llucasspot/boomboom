@@ -40,15 +40,20 @@ export function ProfileForm({
           // .date()
           .string()
           .required("Date of birth is required"),
-        gender: yup
+        genderId: yup
           .mixed<Gender>()
           .oneOf(Object.values(Gender) as Gender[], "Invalid gender")
           .required("Gender is required"),
+        preferedGenderId: yup
+          .mixed<Gender>()
+          .oneOf(Object.values(Gender) as Gender[], "Invalid gender")
+          .required("Prefered gender is required"),
         description: yup.string(),
       }),
     ),
     defaultValues: {
-      gender: Gender.NO_SPECIFIC,
+      genderId: Gender.NO_SPECIFIC,
+      preferedGenderId: Gender.NO_SPECIFIC,
     },
   });
 

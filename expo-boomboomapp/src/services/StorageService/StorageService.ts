@@ -15,16 +15,12 @@ export default class StorageService extends GenericService {
     private configurationService: ConfigurationService,
   ) {
     super();
-    if (this.configurationService.isAppInDebugMode()) {
-      this.getAuthenticateToken()
-        .then((token) => {
-          this.logger.debug("authToken : ", token);
-        })
-        .catch(this.logger.error);
-    }
+    this.logAuthToken()
+      .then(() => {})
+      .catch(this.logger.error);
   }
 
-  private async logAuthToken(_token: string) {
+  private async logAuthToken(_token?: string) {
     if (!this.configurationService.isAppInDebugMode()) {
       return;
     }

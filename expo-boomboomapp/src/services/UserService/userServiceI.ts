@@ -1,14 +1,15 @@
-import { ImageSourcePropType } from "react-native";
+import { ImageURISource } from "react-native/Libraries/Image/ImageSource";
 
 export type UserI = {
   profilePicture: {
-    uri: ImageSourcePropType;
+    uri: ImageURISource["uri"];
     type: "video" | "image";
     name: string;
   };
   fullName: string;
   dateOfBirth: string;
-  gender: Gender;
+  genderId: Gender;
+  preferedGenderId: Gender;
   description: string;
   trackIds: string[];
 };

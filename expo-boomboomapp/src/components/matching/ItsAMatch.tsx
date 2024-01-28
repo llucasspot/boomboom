@@ -4,7 +4,6 @@ import {
   Animated,
   Easing,
   Image,
-  ImageSourcePropType,
   ImageStyle,
   Text,
   TouchableOpacity,
@@ -99,8 +98,6 @@ export function ItsAMatch({ onClose, matchedUser }: ItsAMatchProps) {
 
   function btnContact() {}
 
-  const photoMe = user.profilePicture.uri;
-
   return (
     <View style={{ flex: 1 }}>
       <BlurredAura color="red" position="bottom-right" />
@@ -146,7 +143,7 @@ export function ItsAMatch({ onClose, matchedUser }: ItsAMatchProps) {
                 }}
               />
               <Animated.Image
-                source={photoMe}
+                source={buildImageSource(user.profilePicture.uri)}
                 style={{
                   ...(styles.image_profile as ImageStyle),
                   right: 85,

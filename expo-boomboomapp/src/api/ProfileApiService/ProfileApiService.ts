@@ -1,80 +1,31 @@
-import * as FileSystem from "expo-file-system";
+import { AuthApiInterface } from "@swagger/api";
+import { Configuration } from "@swagger/configuration";
+import { buildApiRequester } from "@utils/api.utils";
 import { inject, singleton } from "tsyringe";
 
-import {
-  CreateProfileBody,
-  EditProfileBody,
-  ProfileApiServiceI,
-  ProfileI,
-} from "./ProfileApiServiceI";
+import { EditProfileBody, ProfileApiServiceI } from "./ProfileApiServiceI";
 import ConfigurationService from "../../services/ConfigurationService/ConfigurationService";
-import ErrorService from "../../services/ErrorService/ErrorService";
 import StorageService from "../../services/StorageService/StorageService";
 import ServiceInterface from "../../tsyringe/ServiceInterface";
-import { ApiService } from "../ApiService";
 
 @singleton()
 export class ProfileApiService
-  extends ApiService
-  implements ProfileApiServiceI
+  extends ProfileApiServiceI
+  implements AuthApiInterface
 {
   constructor(
-    @inject(ServiceInterface.StorageServiceI)
-    protected storageService: StorageService,
     @inject(ServiceInterface.ConfigurationService)
     protected configurationService: ConfigurationService,
-    @inject(ServiceInterface.ErrorService)
-    protected errorService: ErrorService,
+    @inject(ServiceInterface.StorageServiceI)
+    protected storageService: StorageService,
   ) {
-    super("auth/profile", storageService, configurationService, errorService);
-  }
-
-  async createProfile(createProfileBody: CreateProfileBody) {
-    const res = await this.apiRequester.post<ProfileI>("/", createProfileBody);
-    return res.data;
-  }
-
-  async getProfile() {
-    const res = await this.apiRequester.get<ProfileI>("/");
-    return res.data;
+    const baseUrl = configurationService.getApiUrl().replace("/api", "");
+    super(new Configuration(), baseUrl, buildApiRequester(baseUrl), () =>
+      this.storageService.getAuthenticateToken(),
+    );
   }
 
   async editProfile(editedProfileBody: EditProfileBody) {
     // TODO url
-    const res = await this.apiRequester.put<ProfileI>(
-      "/TODO",
-      editedProfileBody,
-    );
-    return res.data;
-  }
-
-  async uploadAvatar(uri: string): Promise<void> {
-    try {
-      const response = await FileSystem.uploadAsync(
-        `${this.apiRequester.getUri()}/avatar`,
-        uri,
-        {
-          httpMethod: "POST",
-          fieldName: "avatar",
-          uploadType: FileSystem.FileSystemUploadType.MULTIPART,
-          headers: {
-            Authorization: `Bearer ${await this.storageService.getAuthenticateToken()}`,
-          },
-        },
-      );
-      this.handleFileSystemUploadAsyncResponse(response);
-    } catch (error) {
-      // TODO handle error
-      console.error("Error uploading image:", error);
-    }
-  }
-
-  private handleFileSystemUploadAsyncResponse(
-    response: FileSystem.FileSystemUploadResult,
-  ) {
-    if (response.status >= 200 && response.status < 300) {
-      return response;
-    }
-    throw response.body;
   }
 }

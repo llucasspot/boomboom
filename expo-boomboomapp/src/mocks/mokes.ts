@@ -1,7 +1,6 @@
-import { ProfileToShow, SerializedTrack } from "@swagger/api";
+import { ProfileToShow, SerializedTrack, SerializedUser } from "@swagger/api";
 import { v4 as uuidv4 } from "uuid";
 
-import { ProfileI } from "../api/ProfileApiService/ProfileApiServiceI";
 import { Gender } from "../services/UserService/userServiceI";
 
 export const songs: SerializedTrack[] = [
@@ -115,16 +114,15 @@ export const user_jessica: ProfileToShow = {
   ],
 };
 
-export const user_yohan: ProfileI = {
-  user_id: uuidv4(),
-  date_of_birth: "01/01/1980",
+export const user_yohan: SerializedUser = {
+  id: uuidv4(),
+  dateOfBirth: "01/01/1980",
   description: "Yohan description",
-  avatar: require("@assets/mokes/yohan.png"),
-  prefered_gender_id: Gender.MALE,
-  userId: uuidv4(),
+  preferedGenderId: Gender.MALE,
+  genderId: Gender.MALE,
   // TODO name & trackIds is not send my backend in getProfile endpoint
   name: "Yohan",
-  trackIds: songs.splice(0, 5).map((track) => track.trackId),
+  // trackIds: songs.splice(0, 5).map((track) => track.trackId),
 };
 
 export const user_helena: ProfileToShow = {

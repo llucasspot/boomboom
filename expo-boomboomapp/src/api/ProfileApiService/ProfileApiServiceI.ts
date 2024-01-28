@@ -1,36 +1,59 @@
-import { Gender } from "../../services/UserService/userServiceI";
+import { AuthApi, AuthApiInterface, CreateProfileRequest } from "@swagger/api";
+import { Configuration } from "@swagger/configuration";
+import { AxiosInstance } from "axios/index";
+import * as FileSystem from "expo-file-system";
 
-export abstract class ProfileI {
-  abstract user_id: string;
-  abstract date_of_birth: string;
-  abstract description: string;
-  abstract avatar: string;
-  abstract prefered_gender_id: Gender;
-  abstract userId: string;
-  // TODO name & trackIds is not send my backend in getProfile endpoint
-  abstract name: string;
-  abstract trackIds: string[];
-}
+export type EditProfileBody = Partial<CreateProfileRequest>;
 
-export type CreateProfileBody = {
-  dateOfBirth: string;
-  description: string;
-  preferedGenderId: Gender;
-  genderId: Gender;
-  trackIds: string[];
-  name: string;
-};
+export abstract class ProfileApiServiceI
+  extends AuthApi
+  implements AuthApiInterface
+{
+  constructor(
+    configuration: Configuration,
+    basePath: string,
+    axios: AxiosInstance,
+    private authTokenGetter: () => Promise<string | null>,
+  ) {
+    super(configuration, basePath, axios);
+  }
 
-export type EditProfileBody = Partial<CreateProfileBody>;
+  async uploadAvatarByUri(uri: string): Promise<void> {
+    try {
+      const response = await FileSystem.uploadAsync(
+        `${this.basePath}/api/auth/profile/avatar`,
+        uri,
+        {
+          httpMethod: "POST",
+          fieldName: "avatar",
+          uploadType: FileSystem.FileSystemUploadType.MULTIPART,
+          headers: {
+            Authorization: `Bearer ${await this.authTokenGetter()}`,
+          },
+        },
+      );
+      this.handleFileSystemUploadAsyncResponse(response);
+    } catch (error) {
+      // TODO handle error
+      console.error("Error uploading image:", error);
+    }
+  }
 
-export abstract class ProfileApiServiceI {
-  abstract createProfile(
-    createProfileBody: CreateProfileBody,
-  ): Promise<ProfileI>;
+  private handleFileSystemUploadAsyncResponse(
+    response: FileSystem.FileSystemUploadResult,
+  ) {
+    if (response.status >= 200 && response.status < 300) {
+      return response;
+    }
+    throw response.body;
+  }
 
-  abstract getProfile(): Promise<ProfileI>;
-
-  abstract editProfile(editedProfileBody: EditProfileBody): Promise<ProfileI>;
-
-  abstract uploadAvatar(uri: string): Promise<void>;
+  async getBlobedAvatar() {
+    const response = await this.getAvatar({ responseType: "blob" });
+    const blob = new Blob([response.data]);
+    // localUrl is redundant,
+    // but funny thing, if we use a direct return the image will not load on the component
+    const localUrl = URL.createObjectURL(blob);
+    return localUrl;
+  }
 }
