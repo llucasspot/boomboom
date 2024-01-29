@@ -1,6 +1,4 @@
 import { AuthApiInterface } from "@swagger/api";
-import { Configuration } from "@swagger/configuration";
-import { buildApiRequester } from "@utils/api.utils";
 import { inject, singleton } from "tsyringe";
 
 import { EditProfileBody, ProfileApiServiceI } from "./ProfileApiServiceI";
@@ -22,9 +20,8 @@ export class ProfileApiMockService
     protected storageService: StorageService,
   ) {
     const baseUrl = configurationService.getWiremockApiUrl();
-    super(new Configuration(), baseUrl, buildApiRequester(baseUrl), () =>
-      this.storageService.getAuthenticateToken(),
-    );
+    const tokenGetter = () => this.storageService.getAuthenticateToken();
+    super(baseUrl, tokenGetter);
   }
 
   override createProfile() {

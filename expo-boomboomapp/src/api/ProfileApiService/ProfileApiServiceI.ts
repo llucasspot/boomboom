@@ -1,6 +1,6 @@
 import { AuthApi, AuthApiInterface, CreateProfileRequest } from "@swagger/api";
 import { Configuration } from "@swagger/configuration";
-import { AxiosInstance } from "axios/index";
+import { buildApiRequester } from "@utils/api.utils";
 import * as FileSystem from "expo-file-system";
 
 export type EditProfileBody = Partial<CreateProfileRequest>;
@@ -10,12 +10,14 @@ export abstract class ProfileApiServiceI
   implements AuthApiInterface
 {
   constructor(
-    configuration: Configuration,
     basePath: string,
-    axios: AxiosInstance,
     private authTokenGetter: () => Promise<string | null>,
   ) {
-    super(configuration, basePath, axios);
+    super(
+      new Configuration(),
+      basePath,
+      buildApiRequester(basePath, authTokenGetter),
+    );
   }
 
   async uploadAvatarByUri(uri: string): Promise<void> {

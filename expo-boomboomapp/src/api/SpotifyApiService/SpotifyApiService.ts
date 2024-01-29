@@ -5,6 +5,7 @@ import { inject, singleton } from "tsyringe";
 
 import { SpotifyApiServiceI } from "./SpotifyApiServiceI";
 import ConfigurationService from "../../services/ConfigurationService/ConfigurationService";
+import StorageService from "../../services/StorageService/StorageService";
 import ServiceInterface from "../../tsyringe/ServiceInterface";
 
 @singleton()
@@ -15,8 +16,15 @@ export class SpotifyApiService
   constructor(
     @inject(ServiceInterface.ConfigurationService)
     protected configurationService: ConfigurationService,
+    @inject(ServiceInterface.StorageServiceI)
+    protected storageService: StorageService,
   ) {
     const baseUrl = configurationService.getApiUrl().replace("/api", "");
-    super(new Configuration(), baseUrl, buildApiRequester(baseUrl));
+    const tokenGetter = () => this.storageService.getAuthenticateToken();
+    super(
+      new Configuration(),
+      baseUrl,
+      buildApiRequester(baseUrl, tokenGetter),
+    );
   }
 }

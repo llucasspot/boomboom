@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { user_helena, user_isabella, user_jessica } from "../../mocks/mokes";
 import ConfigurationService from "../../services/ConfigurationService/ConfigurationService";
+import StorageService from "../../services/StorageService/StorageService";
 import ServiceInterface from "../../tsyringe/ServiceInterface";
 import { buildAxiosMockResponse } from "../utils";
 
@@ -19,9 +20,16 @@ export class UserApiMockService extends UserApi implements UserApiInterface {
   constructor(
     @inject(ServiceInterface.ConfigurationService)
     protected configurationService: ConfigurationService,
+    @inject(ServiceInterface.StorageServiceI)
+    protected storageService: StorageService,
   ) {
     const baseUrl = configurationService.getWiremockApiUrl();
-    super(new Configuration(), baseUrl, buildApiRequester(baseUrl));
+    const tokenGetter = () => this.storageService.getAuthenticateToken();
+    super(
+      new Configuration(),
+      baseUrl,
+      buildApiRequester(baseUrl, tokenGetter),
+    );
   }
 
   override async apiUsersGet(
