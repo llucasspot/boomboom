@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import Animated, { useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
 
-import { DELAY_FIRST_ANIMATION, DURATION_FIRST_ANIMATION } from './../constants/constants';
+import { DELAY_ROTATION_VINYL, DURATION_ROTATION_VINYL } from './../constants/constants';
 
 
 
@@ -11,7 +11,7 @@ export default function AnimatedVinyl({children, reversed}) {
     const vinylRotationZ = useSharedValue(!reversed ? "90deg" : "-90deg")
 
     useEffect(() => {
-        vinylRotationZ.value = withDelay(DELAY_FIRST_ANIMATION, withTiming("0deg", {duration: DURATION_FIRST_ANIMATION}))
+        vinylRotationZ.value = withDelay(DELAY_ROTATION_VINYL, withTiming("0deg", {duration: DURATION_ROTATION_VINYL}))
     }, [])
 
     return (

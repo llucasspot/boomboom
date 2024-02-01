@@ -9,7 +9,6 @@ import { DELAY_ROTATION_AVATAR, DURATION_FULL_ROTATION_AVATAR } from '../constan
 
 export default function AnimatedAvatar({avatar, reversed}) {
     const avatarRotationZ = useSharedValue("0deg")
-    console.log(DELAY_ROTATION_AVATAR);
 
     useEffect(() => {
         avatarRotationZ.value = withDelay(DELAY_ROTATION_AVATAR, 

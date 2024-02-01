@@ -5,8 +5,9 @@ import { StyleSheet, View } from 'react-native'
 
 import ServiceInterface from './../../../tsyringe/ServiceInterface';
 import { getGlobalInstance } from './../../../tsyringe/diUtils';
-import Vinyl from './Vinyl';
+import AnimatedHeader from './Animated/AnimatedHeader';
 import FloatingIcons from './FloatingIcons';
+import Vinyl from './Vinyl';
 
 export default function MainAnimationsMatchScreen({matchedUser}) {
     const userService = getGlobalInstance(ServiceInterface.UserService)
@@ -15,6 +16,10 @@ export default function MainAnimationsMatchScreen({matchedUser}) {
 
     return (
         <View style={styles.container}>
+
+            <View style={styles.header}>
+                <AnimatedHeader />
+            </View>
 
             <View style={styles.iconsAnimatedSection}>
                 <FloatingIcons />
@@ -41,6 +46,11 @@ export default function MainAnimationsMatchScreen({matchedUser}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    header: {
+        position: 'absolute',
+        alignSelf: 'center',
+        top: 100
     },
     iconsAnimatedSection: {
         flex: 1,

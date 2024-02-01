@@ -4,7 +4,7 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import Animated, { useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
 
 import { IMAGES } from './../../../../../assets/assets';
-import { DELAY_FIRST_ANIMATION, DURATION_FIRST_ANIMATION } from './../constants/constants';
+import { DELAY_ROTATION_TONEARM, DURATION_ROTATION_TONEARM } from './../constants/constants';
 
 
 
@@ -12,7 +12,7 @@ export default function AnimatedTonearm({reversed}) {
     const tonearmRotationZ = useSharedValue("-45deg")
 
     useEffect(() => {
-        tonearmRotationZ.value = withDelay(DELAY_FIRST_ANIMATION, withTiming("0deg", {duration: DURATION_FIRST_ANIMATION}))
+        tonearmRotationZ.value = withDelay(DELAY_ROTATION_TONEARM, withTiming("0deg", {duration: DURATION_ROTATION_TONEARM}))
     }, [])
 
     
