@@ -22,6 +22,7 @@ import { useObserver } from "../../../components/matching/hooks/useObserver";
 import ServiceInterface from "../../../tsyringe/ServiceInterface";
 import { getGlobalInstance } from "../../../tsyringe/diUtils";
 import { RootStackParamsList, RootStackScreen } from "../RootStack";
+import MatchScreen from './../../../components/matching/MatchScreen/MatchScreen';
 
 type HomeScreenProps = NativeStackScreenProps<
   RootStackParamsList,
@@ -138,10 +139,16 @@ export function HomeScreen({}: HomeScreenProps): JSX.Element {
         }}
       >
         {matchedUser !== null && (
-          <ItsAMatch
-            matchedUser={matchedUser}
-            onClose={() => setMatchedUser(null)}
-          />
+          <>
+            {/* <ItsAMatch
+              matchedUser={matchedUser}
+              onClose={() => setMatchedUser(null)}
+            /> */}
+            <MatchScreen
+              matchedUser={matchedUser}
+              onClose={() => setMatchedUser(null)}
+            />
+          </>
         )}
       </Modal>
 
