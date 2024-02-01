@@ -21,6 +21,8 @@ export const IMAGES = {
   matching: {
     ellipse: require("@assets/pages/Matching/ellipse.png"),
     floating_hearts: require("@assets/pages/Matching/floating_hearts.png"),
+    floating_heart: require("@assets/pages/Matching/floating_heart.png"),
+    floating_note: require("@assets/pages/Matching/floating_note.png"),
     nope: require("@assets/pages/Matching/Nope.png"),
     tonearm: require("@assets/pages/Matching/tonearm.png"),
     vinyl: require("@assets/pages/Matching/Vynil.png"),

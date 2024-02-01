@@ -13,10 +13,10 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import MatchScreen from "../../../components/matching/MatchScreen/MatchScreen";
 import { IMAGES } from "../../../../assets/assets";
 import { BlurredBackground } from "../../../components/matching/BlurredBackground";
 import { Card } from "../../../components/matching/Card";
-import { ItsAMatch } from "../../../components/matching/ItsAMatch";
 import { MenuHeader } from "../../../components/matching/MenuHeader";
 import { useObserver } from "../../../components/matching/hooks/useObserver";
 import ServiceInterface from "../../../tsyringe/ServiceInterface";
@@ -138,10 +138,12 @@ export function HomeScreen({}: HomeScreenProps): JSX.Element {
         }}
       >
         {matchedUser !== null && (
-          <ItsAMatch
-            matchedUser={matchedUser}
-            onClose={() => setMatchedUser(null)}
-          />
+          <>
+            <MatchScreen
+              matchedUser={matchedUser}
+              onClose={() => setMatchedUser(null)}
+            />
+          </>
         )}
       </Modal>
 
