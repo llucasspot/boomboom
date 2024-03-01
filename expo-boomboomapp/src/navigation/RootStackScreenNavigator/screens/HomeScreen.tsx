@@ -13,10 +13,10 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import MatchScreen from "../../../components/matching/MatchScreen/MatchScreen";
 import { IMAGES } from "../../../../assets/assets";
 import { BlurredBackground } from "../../../components/matching/BlurredBackground";
 import { Card } from "../../../components/matching/Card";
+import MatchScreen from "../../../components/matching/MatchScreen/MatchScreen";
 import { MenuHeader } from "../../../components/matching/MenuHeader";
 import { useObserver } from "../../../components/matching/hooks/useObserver";
 import ServiceInterface from "../../../tsyringe/ServiceInterface";
@@ -58,7 +58,7 @@ export function HomeScreen({}: HomeScreenProps): JSX.Element {
 
   // Its a match
   const [matchedUser, setMatchedUser] = useState<{
-    image?: string;
+    image: string;
   } | null>(null);
 
   // On next(yes), call the api to like the profile and open ITsAMath modal if its a match

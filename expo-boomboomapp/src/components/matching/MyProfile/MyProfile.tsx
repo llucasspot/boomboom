@@ -26,6 +26,7 @@ import { getGlobalInstance } from "../../../tsyringe/diUtils";
 import { BaseButton } from "../../Buttons/BaseButton";
 import { Screen } from "../../navigation/Screen";
 import { UserFormData, UserProfileForm } from "../common/UserProfileForm";
+import { AuthImage } from "../../Images/AuthImage";
 
 const CONTENT_PADDING = 30;
 
@@ -110,12 +111,12 @@ export function MyProfile({ onBack }: MyProfileProps) {
   return (
     <Screen title={I18n.t("screen.MyProfile.title")} onGoBack={onBack}>
       <View style={{ alignItems: "center", gap: 10 }}>
-        <Image
-          source={buildImageSource(user.profilePicture.uri)}
+        <AuthImage
+          uri={user.profilePicture.uri}
           style={{
             width: 80,
             height: 80,
-            objectFit: "cover",
+            // objectFit: "cover",
             borderRadius: 16,
           }}
         />

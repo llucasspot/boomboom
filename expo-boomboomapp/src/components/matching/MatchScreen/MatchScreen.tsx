@@ -7,7 +7,7 @@ import { BlurredAura } from "../BlurredAura";
 
 export type MatchScreenProps = {
   onClose: () => void;
-  matchedUser: { image?: string | undefined };
+  matchedUser: { image: string };
 };
 
 export default function MatchScreen({

@@ -19,7 +19,7 @@ export class SpotifyApiService
     @inject(ServiceInterface.StorageServiceI)
     protected storageService: StorageService,
   ) {
-    const baseUrl = configurationService.getApiUrl().replace("/api", "");
+    const baseUrl = configurationService.getApiUrl();
     const tokenGetter = () => this.storageService.getAuthenticateToken();
     super(
       new Configuration(),

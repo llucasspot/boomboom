@@ -1,0 +1,37 @@
+{
+  "cli": {
+    "version": ">= 7.1.2"
+  },
+  "build": {
+    "development": {
+      "extends": "production",
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_API_URL": "http://172.20.10.2:3333",
+        "EXPO_PUBLIC_BY_PASS_SIGN_IN_SCREEN": "false",
+        "EXPO_PUBLIC_MOCK_MODE": "false",
+        "EXPO_PUBLIC_MOCK_API_URL": "https://boomboomapp2.wiremockapi.cloud"
+      }
+    },
+    "preview": {
+      "extends": "production",
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_API_URL": "http://172.20.10.2:3333",
+        "EXPO_PUBLIC_BY_PASS_SIGN_IN_SCREEN": "false",
+        "EXPO_PUBLIC_MOCK_MODE": "false",
+        "EXPO_PUBLIC_MOCK_API_URL": "https://boomboomapp2.wiremockapi.cloud"
+      },
+      "ios": {
+        "simulator": true
+      }
+    },
+    "production": {
+      "node": "21.1.0"
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

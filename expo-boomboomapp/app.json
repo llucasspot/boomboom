@@ -16,13 +16,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.llucasspot.boomboom"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.llucasspot.boomboom"
     },
     "web": {
       "bundler": "metro",
@@ -32,6 +34,11 @@
     "plugins": [],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6432d733-3ae2-4f8d-ad2d-6464b5663c90"
+      }
     }
   }
 }

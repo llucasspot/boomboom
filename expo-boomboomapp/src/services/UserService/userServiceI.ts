@@ -1,8 +1,6 @@
-import { ImageURISource } from "react-native/Libraries/Image/ImageSource";
-
 export type UserI = {
   profilePicture: {
-    uri: ImageURISource["uri"];
+    uri: string;
     type: "video" | "image";
     name: string;
   };

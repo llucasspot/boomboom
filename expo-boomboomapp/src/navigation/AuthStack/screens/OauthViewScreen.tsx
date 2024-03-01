@@ -41,7 +41,7 @@ export function OauthViewScreen({ navigation }: OauthViewScreenProps) {
 
   return (
     <WebView
-      source={{ uri: `${configurationService.getApiUrl()}/auth/spotify` }}
+      source={{ uri: `${configurationService.getApiUrl()}/api/auth/spotify` }}
       onNavigationStateChange={onNavigationStateChange}
       style={{ flex: 1 }}
     />

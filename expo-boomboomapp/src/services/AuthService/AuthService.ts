@@ -33,11 +33,10 @@ export default class AuthService extends GenericService {
   }
 
   async getUserInfo(): Promise<UserStateConnected> {
-    const avatarUri = await this.profileApiService.getBlobedAvatar();
     const profile = await this.profileApiService.getProfile();
     this.userService.updateUserState({
       profilePicture: {
-        uri: avatarUri,
+        uri: `${this.configurationService.getApiUrl()}/api/auth/profile/avatar`,
         type: "image",
         name: "",
       },

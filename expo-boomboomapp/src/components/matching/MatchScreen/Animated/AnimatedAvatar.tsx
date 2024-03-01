@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Image, ImageSourcePropType, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import Animated, {
   Easing,
   useSharedValue,
@@ -8,13 +8,14 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
+import { AuthImage } from "../../../Images/AuthImage";
 import {
   DELAY_ROTATION_AVATAR,
   DURATION_FULL_ROTATION_AVATAR,
 } from "../constants/constants";
 
 type AnimatedAvatarProps = {
-  avatar: ImageSourcePropType;
+  avatar: string;
   reversed?: boolean;
 };
 
@@ -49,8 +50,8 @@ export default function AnimatedAvatar({
         },
       ]}
     >
-      <Image
-        source={avatar}
+      <AuthImage
+        uri={avatar}
         style={{ width: "100%", height: "100%", borderRadius: 100 }}
       />
     </Animated.View>

@@ -1,4 +1,3 @@
-import { buildImageSource } from "@utils/images.utils";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 
@@ -11,7 +10,7 @@ import { UserStateConnected } from "../../../services/UserService/userServiceI";
 import { getGlobalInstance } from "../../../tsyringe/diUtils";
 
 export type MainAnimationsMatchScreenProps = {
-  matchedUser: { image?: string | undefined };
+  matchedUser: { image: string };
 };
 
 export default function MainAnimationsMatchScreen({
@@ -22,7 +21,6 @@ export default function MainAnimationsMatchScreen({
   );
   // @ts-ignore TODO useUser
   const user: UserStateConnected = userService.useUser();
-  const photoMatched = matchedUser.image;
 
   return (
     <View style={styles.container}>
@@ -35,8 +33,8 @@ export default function MainAnimationsMatchScreen({
       </View>
 
       <View style={styles.vinylsSection}>
-        <Vinyl avatar={buildImageSource(user.profilePicture.uri)} />
-        <Vinyl reversed avatar={buildImageSource(photoMatched)} />
+        <Vinyl avatar={user.profilePicture.uri} />
+        <Vinyl reversed avatar={matchedUser.image} />
       </View>
     </View>
   );

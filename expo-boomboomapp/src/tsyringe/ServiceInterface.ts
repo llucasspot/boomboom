@@ -12,6 +12,7 @@ enum ServiceInterface {
   ErrorService = "ErrorService",
   ConfigurationService = "ConfigurationService",
   AppService = "AppService",
+  ImageService = "ImageService",
 }
 
 export default ServiceInterface;

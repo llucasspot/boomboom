@@ -1,4 +1,3 @@
-import { buildImageSource } from "@utils/images.utils";
 import React, { useState } from "react";
 import {
   Image,
@@ -17,6 +16,7 @@ import UserService from "../../services/UserService/UserService";
 import { UserStateConnected } from "../../services/UserService/userServiceI";
 import ServiceInterface from "../../tsyringe/ServiceInterface";
 import { getGlobalInstance } from "../../tsyringe/diUtils";
+import { AuthImage } from "../Images/AuthImage";
 
 const CONTENT_PADDING = 20;
 
@@ -78,8 +78,8 @@ export function MenuHeader() {
         }}
       >
         <TouchableOpacity onPress={btnProfile} style={menuButton}>
-          <Image
-            source={buildImageSource(user.profilePicture.uri)}
+          <AuthImage
+            uri={user.profilePicture.uri}
             style={{ width: 48 / 2, height: 48 / 2, borderRadius: 10 }}
           />
           <Text style={coreStyle.F13}>Profile</Text>
