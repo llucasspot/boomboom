@@ -1,4 +1,3 @@
-import { SerializedTrack } from "@swagger/api";
 import { ReactNode } from "react";
 import {
   Image,
@@ -7,9 +6,10 @@ import {
   Text,
   View,
 } from "react-native";
+import { SerializedTrack } from "swagger-boomboom-backend";
 
-import useEStyles from "../hooks/useEStyles";
-import { useCoreStyles } from "../services/StyleService/styles";
+import useEStyles from "#hooks/useEStyles";
+import { useCoreStyles } from "#services/StyleService/styles";
 
 type SongCardProps = {
   icon: () => ReactNode;

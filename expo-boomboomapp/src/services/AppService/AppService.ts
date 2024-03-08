@@ -1,10 +1,11 @@
 import { observable, useObservable } from "micro-observables";
 import { inject, singleton } from "tsyringe";
 
-import ServiceInterface from "../../tsyringe/ServiceInterface";
 import { GenericService } from "../GenericService";
 import LanguageService from "../LanguageService/LanguageService";
 import StyleService from "../StyleService/StyleService";
+
+import ServiceInterface from "#tsyringe/ServiceInterface";
 
 type AppState = {
   isAuthenticated: boolean;

@@ -6,11 +6,12 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import { IMAGES } from "../../../../../assets/assets";
 import {
   DELAY_ROTATION_TONEARM,
   DURATION_ROTATION_TONEARM,
 } from "../constants/constants";
+
+import { IMAGES } from "#assets/assets";
 
 type AnimatedTonearmProps = {
   reversed?: boolean;

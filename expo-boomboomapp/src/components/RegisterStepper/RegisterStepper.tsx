@@ -9,13 +9,14 @@ import React, { ReactNode, useRef, useState } from "react";
 import { Text, View, ViewStyle } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import useEStyles from "../../hooks/useEStyles";
-import LanguageService from "../../services/LanguageService/LanguageService";
-import { useCoreStyles } from "../../services/StyleService/styles";
-import ServiceInterface from "../../tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../../tsyringe/diUtils";
 import { LueurButton } from "../Buttons/LueurButton";
 import { Progressheader } from "../Progressheader";
+
+import useEStyles from "#hooks/useEStyles";
+import LanguageService from "#services/LanguageService/LanguageService";
+import { useCoreStyles } from "#services/StyleService/styles";
+import ServiceInterface from "#tsyringe/ServiceInterface";
+import { getGlobalInstance } from "#tsyringe/diUtils";
 
 export type StepProps<T extends object> = {
   setStepperLayoutCallback: (

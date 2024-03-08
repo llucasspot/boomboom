@@ -28,7 +28,7 @@ export default function WrappedApp() {
 
 function App() {
   const [loaded, error] = useFonts({
-    SpaceMono: require("./assets/fonts/SpaceMono-Regular.ttf"),
+    SpaceMono: require("#assets/assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
   const { isAppInitialized } = useInitializedApp();

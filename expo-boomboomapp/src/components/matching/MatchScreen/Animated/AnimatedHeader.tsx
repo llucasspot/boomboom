@@ -9,13 +9,14 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import { IMAGES } from "../../../../../assets/assets";
-import { useCoreStyles } from "../../../../services/StyleService/styles";
 import {
   DELAY_APPARITION_TEXT_HEADER,
   DELAY_START_HEADER,
   DURATION_APPARITION_HEADER,
 } from "../constants/constants";
+
+import { IMAGES } from "#assets/assets";
+import { useCoreStyles } from "#services/StyleService/styles";
 
 export default function AnimatedHeader() {
   const coreStyles = useCoreStyles();

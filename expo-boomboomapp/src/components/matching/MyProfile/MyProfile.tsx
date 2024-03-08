@@ -1,31 +1,29 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigation } from "@react-navigation/core";
 import { NavigationProp } from "@react-navigation/core/src/types";
-import { buildImageSource } from "@utils/images.utils";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Image, Platform, Text, View } from "react-native";
 import * as yup from "yup";
 
-import { ProfileApiService } from "../../../api/ProfileApiService/ProfileApiService";
-import useEStyles from "../../../hooks/useEStyles";
+import { BaseButton } from "../../Buttons/BaseButton";
+import { UserFormData, UserProfileForm } from "../common/UserProfileForm";
+
+import { ProfileApiService } from "#api/ProfileApiService/ProfileApiService";
+import { Screen } from "#components/navigation/Screen";
+import useEStyles from "#hooks/useEStyles";
 import {
   RootStackParamsList,
   RootStackScreen,
-} from "../../../navigation/RootStackScreenNavigator/RootStack";
-import AuthService from "../../../services/AuthService/AuthService";
-import LanguageService from "../../../services/LanguageService/LanguageService";
-import { useCoreStyles } from "../../../services/StyleService/styles";
-import UserService from "../../../services/UserService/UserService";
-import {
-  Gender,
-  UserStateConnected,
-} from "../../../services/UserService/userServiceI";
-import ServiceInterface from "../../../tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../../../tsyringe/diUtils";
-import { BaseButton } from "../../Buttons/BaseButton";
-import { Screen } from "../../navigation/Screen";
-import { UserFormData, UserProfileForm } from "../common/UserProfileForm";
+} from "#navigation/RootStackScreenNavigator/RootStack";
+import AuthService from "#services/AuthService/AuthService";
+import LanguageService from "#services/LanguageService/LanguageService";
+import { useCoreStyles } from "#services/StyleService/styles";
+import UserService from "#services/UserService/UserService";
+import { Gender, UserStateConnected } from "#services/UserService/userServiceI";
+import ServiceInterface from "#tsyringe/ServiceInterface";
+import { getGlobalInstance } from "#tsyringe/diUtils";
+import { buildImageSource } from "#utils/images.utils";
 
 const CONTENT_PADDING = 30;
 
@@ -135,6 +133,7 @@ export function MyProfile({ onBack }: MyProfileProps) {
           color="$secondaryColor"
           style={styles.button}
           onPress={handleSubmit(async (data) => {
+            // @ts-ignore TODO
             await profileApiService.editProfile(data);
             userService.updateUserState(data);
           })}

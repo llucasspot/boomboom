@@ -1,14 +1,15 @@
 import { AxiosError } from "axios";
 import { inject, singleton } from "tsyringe";
 
-import { ProfileApiServiceI } from "../../api/ProfileApiService/ProfileApiServiceI";
-import ServiceInterface from "../../tsyringe/ServiceInterface";
 import AppService from "../AppService/AppService";
 import ConfigurationService from "../ConfigurationService/ConfigurationService";
 import { GenericService } from "../GenericService";
 import StorageService from "../StorageService/StorageService";
 import UserService from "../UserService/UserService";
 import { UserStateConnected } from "../UserService/userServiceI";
+
+import { ProfileApiServiceI } from "#api/ProfileApiService/ProfileApiServiceI";
+import ServiceInterface from "#tsyringe/ServiceInterface";
 
 @singleton()
 export default class AuthService extends GenericService {

@@ -2,14 +2,15 @@ import { Control, Controller, FieldErrors } from "react-hook-form";
 import { Text, TextInput, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import useEStyles from "../../../hooks/useEStyles";
-import LanguageService from "../../../services/LanguageService/LanguageService";
-import { useCoreStyles } from "../../../services/StyleService/styles";
-import { UserI } from "../../../services/UserService/userServiceI";
-import ServiceInterface from "../../../tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../../../tsyringe/diUtils";
 import GenderSelector from "../../GenderSelector";
 import { DatePicker } from "../../pickers/DatePicker";
+
+import useEStyles from "#hooks/useEStyles";
+import LanguageService from "#services/LanguageService/LanguageService";
+import { useCoreStyles } from "#services/StyleService/styles";
+import { UserI } from "#services/UserService/userServiceI";
+import ServiceInterface from "#tsyringe/ServiceInterface";
+import { getGlobalInstance } from "#tsyringe/diUtils";
 
 export type UserFormData = Omit<UserI, "profilePicture" | "trackIds">;
 

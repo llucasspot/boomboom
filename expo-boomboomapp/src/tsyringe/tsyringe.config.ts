@@ -2,26 +2,30 @@
 // but react native don't have this api
 // we need to import it
 import "react-native-url-polyfill/auto";
-import { SpotifyApiInterface, UserApiInterface } from "@swagger/api";
+import {
+  SpotifyApiInterface,
+  UserApiInterface,
+} from "swagger-boomboom-backend";
 import { container } from "tsyringe";
 
 import ServiceInterface from "./ServiceInterface";
 import { configureGlobalInjector, injectSingleton } from "./diUtils";
-import { ProfileApiMockService } from "../api/ProfileApiService/ProfileApiMockService";
-import { ProfileApiService } from "../api/ProfileApiService/ProfileApiService";
-import { ProfileApiServiceI } from "../api/ProfileApiService/ProfileApiServiceI";
-import { SpotifyApiMockService } from "../api/SpotifyApiService/SpotifyApiMockService";
-import { SpotifyApiService } from "../api/SpotifyApiService/SpotifyApiService";
-import { UserApiMockService } from "../api/UserApiService/UserApiMockService";
-import { UserApiService } from "../api/UserApiService/UserApiService";
-import AppService from "../services/AppService/AppService";
-import AuthService from "../services/AuthService/AuthService";
-import ConfigurationService from "../services/ConfigurationService/ConfigurationService";
-import ErrorService from "../services/ErrorService/ErrorService";
-import LanguageService from "../services/LanguageService/LanguageService";
-import StorageService from "../services/StorageService/StorageService";
-import StyleService from "../services/StyleService/StyleService";
-import UserService from "../services/UserService/UserService";
+
+import { ProfileApiMockService } from "#api/ProfileApiService/ProfileApiMockService";
+import { ProfileApiService } from "#api/ProfileApiService/ProfileApiService";
+import { ProfileApiServiceI } from "#api/ProfileApiService/ProfileApiServiceI";
+import { SpotifyApiMockService } from "#api/SpotifyApiService/SpotifyApiMockService";
+import { SpotifyApiService } from "#api/SpotifyApiService/SpotifyApiService";
+import { UserApiMockService } from "#api/UserApiService/UserApiMockService";
+import { UserApiService } from "#api/UserApiService/UserApiService";
+import AppService from "#services/AppService/AppService";
+import AuthService from "#services/AuthService/AuthService";
+import ConfigurationService from "#services/ConfigurationService/ConfigurationService";
+import ErrorService from "#services/ErrorService/ErrorService";
+import LanguageService from "#services/LanguageService/LanguageService";
+import StorageService from "#services/StorageService/StorageService";
+import StyleService from "#services/StyleService/StyleService";
+import UserService from "#services/UserService/UserService";
 
 const IS_APP_IN_MOCK_MODE = ConfigurationService.isAppInMockMode();
 

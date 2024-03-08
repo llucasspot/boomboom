@@ -1,6 +1,6 @@
 import { Image, View } from "react-native";
 
-import { IMAGES } from "../../../assets/assets";
+import { IMAGES } from "#assets/assets";
 
 type BlurredAuraProps = {
   color: "red" | "blue";

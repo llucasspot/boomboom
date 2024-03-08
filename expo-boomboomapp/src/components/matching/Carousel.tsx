@@ -1,9 +1,6 @@
-import { buildImageSource } from "@utils/images.utils";
-import { buildKey } from "@utils/keys.utils";
 import {
   Animated,
   Image,
-  ImageSourcePropType,
   NativeScrollEvent,
   NativeSyntheticEvent,
   Platform,
@@ -12,7 +9,10 @@ import {
 } from "react-native";
 
 import { Item as ItemType } from "./beans/Item";
-import { useCoreStyles } from "../../services/StyleService/styles";
+
+import { useCoreStyles } from "#services/StyleService/styles";
+import { buildImageSource } from "#utils/images.utils";
+import { buildKey } from "#utils/keys.utils";
 
 type CarouselProps = {
   carouselWidth: number;

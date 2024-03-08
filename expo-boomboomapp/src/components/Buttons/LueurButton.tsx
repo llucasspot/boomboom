@@ -1,8 +1,9 @@
-import lueurs from "@assets/lueurs.svg";
 import React from "react";
 import { SvgXml } from "react-native-svg";
 
 import { BaseButton, BaseButtonProps, BaseButtonTheme } from "./BaseButton";
+
+import lueurs from "#assets/lueurs.svg";
 
 export type LueurButtonProps = Omit<
   BaseButtonProps,

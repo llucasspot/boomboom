@@ -31,9 +31,9 @@ jobs:
       - name: Build Swagger Beans
         run : |
           cd expo-boomboomapp
-          npm run swagger:generate
+          npm run swagger:backend:update
 
       - name: Check Ts
         run: |
           cd expo-boomboomapp
-          npm run ts-check
+          npm run typecheck

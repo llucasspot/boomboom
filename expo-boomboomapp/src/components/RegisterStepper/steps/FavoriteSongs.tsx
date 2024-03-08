@@ -1,24 +1,25 @@
-import { SerializedTrack, SpotifyApiInterface } from "@swagger/api";
 import { useQuery } from "@tanstack/react-query";
-import { buildKey } from "@utils/keys.utils";
 import { useEffect, useState } from "react";
 import { Modal, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { SerializedTrack, SpotifyApiInterface } from "swagger-boomboom-backend";
 
-import { ProfileApiServiceI } from "../../../api/ProfileApiService/ProfileApiServiceI";
-import useEStyles from "../../../hooks/useEStyles";
-import {
-  RegisterStackParamsList,
-  RegisterStackScreen,
-} from "../../../navigation/RegisterStackScreenNavigator/RegisterStack";
-import { useCoreStyles } from "../../../services/StyleService/styles";
-import UserService from "../../../services/UserService/UserService";
-import { UserStateConnected } from "../../../services/UserService/userServiceI";
-import ServiceInterface from "../../../tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../../../tsyringe/diUtils";
 import { BaseButton } from "../../Buttons/BaseButton";
 import { SongCard } from "../../SongCard";
 import { SongPicker } from "../../SongPicker";
 import { StepProps } from "../RegisterStepper";
+
+import { ProfileApiServiceI } from "#api/ProfileApiService/ProfileApiServiceI";
+import useEStyles from "#hooks/useEStyles";
+import {
+  RegisterStackParamsList,
+  RegisterStackScreen,
+} from "#navigation/RegisterStackScreenNavigator/RegisterStack";
+import { useCoreStyles } from "#services/StyleService/styles";
+import UserService from "#services/UserService/UserService";
+import { UserStateConnected } from "#services/UserService/userServiceI";
+import ServiceInterface from "#tsyringe/ServiceInterface";
+import { getGlobalInstance } from "#tsyringe/diUtils";
+import { buildKey } from "#utils/keys.utils";
 
 export default function FavoriteSongs({
   setStepperLayoutCallback,
@@ -73,10 +74,19 @@ export default function FavoriteSongs({
     setMySongs(mySongs.filter((song) => song.name !== title));
   }
 
+  function formatDate(date: Date): string {
+    // Padding function to ensure day and month are always two digits
+    const pad = (num: number) => (num < 10 ? `0${num}` : num);
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1);
+    const day = pad(date.getDate());
+    return `${year}-${month}-${day}`;
+  }
+
   setStepperLayoutCallback(async () => {
     try {
       await profileApiService.createProfile({
-        dateOfBirth: user.dateOfBirth,
+        dateOfBirth: formatDate(user.dateOfBirth),
         description: user.description,
         preferedGenderId: user.preferedGenderId,
         genderId: user.genderId,

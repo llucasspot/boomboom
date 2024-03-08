@@ -1,6 +1,3 @@
-import song from "@assets/PickSong/song.png";
-import { SerializedTrack, SpotifyApiInterface } from "@swagger/api";
-import { buildKey } from "@utils/keys.utils";
 import { debounce } from "lodash";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
@@ -13,15 +10,19 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { SerializedTrack } from "swagger-boomboom-backend";
 
 import { BaseButton } from "./Buttons/BaseButton";
 import { SongCard } from "./SongCard";
-import useEStyles from "../hooks/useEStyles";
-import LanguageService from "../services/LanguageService/LanguageService";
-import { useCoreStyles } from "../services/StyleService/styles";
-import ServiceInterface from "../tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../tsyringe/diUtils";
-import { SpotifyApiServiceI } from "../api/SpotifyApiService/SpotifyApiServiceI";
+
+import { SpotifyApiServiceI } from "#api/SpotifyApiService/SpotifyApiServiceI";
+import song from "#assets/PickSong/song.png";
+import useEStyles from "#hooks/useEStyles";
+import LanguageService from "#services/LanguageService/LanguageService";
+import { useCoreStyles } from "#services/StyleService/styles";
+import ServiceInterface from "#tsyringe/ServiceInterface";
+import { getGlobalInstance } from "#tsyringe/diUtils";
+import { buildKey } from "#utils/keys.utils";
 
 export type SongPickerProps = {
   mySongs: SerializedTrack[];

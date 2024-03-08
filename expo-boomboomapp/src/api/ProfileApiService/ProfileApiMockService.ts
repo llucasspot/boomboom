@@ -1,12 +1,13 @@
-import { AuthApiInterface } from "@swagger/api";
+import { AuthApiInterface } from "swagger-boomboom-backend";
 import { inject, singleton } from "tsyringe";
 
 import { EditProfileBody, ProfileApiServiceI } from "./ProfileApiServiceI";
-import { user_yohan } from "../../mocks/mokes";
-import ConfigurationService from "../../services/ConfigurationService/ConfigurationService";
-import StorageService from "../../services/StorageService/StorageService";
-import ServiceInterface from "../../tsyringe/ServiceInterface";
-import { buildAxiosMockResponse } from "../utils";
+
+import { buildAxiosMockResponse } from "#api/utils";
+import { user_yohan } from "#mocks/mokes";
+import ConfigurationService from "#services/ConfigurationService/ConfigurationService";
+import StorageService from "#services/StorageService/StorageService";
+import ServiceInterface from "#tsyringe/ServiceInterface";
 
 @singleton()
 export class ProfileApiMockService
@@ -39,6 +40,6 @@ export class ProfileApiMockService
   async uploadAvatarByUri(uri: string): Promise<void> {}
 
   async getBlobedAvatar() {
-    return Promise.resolve(require("@assets/mokes/yohan.png"));
+    return Promise.resolve(require("#assets/mokes/yohan.png"));
   }
 }

@@ -1,17 +1,18 @@
-import btnEdit from "@assets/Registration/btn_edit.png";
-import iconUser from "@assets/Registration/icon_user.png";
-import { buildImageSource } from "@utils/images.utils";
 import * as ImagePicker from "expo-image-picker";
 import { useEffect } from "react";
 import { Image, ImageStyle, TouchableOpacity, View } from "react-native";
 
-import useEStyles from "../../../hooks/useEStyles";
-import { RegisterStackParamsList } from "../../../navigation/RegisterStackScreenNavigator/RegisterStack";
-import UserService from "../../../services/UserService/UserService";
-import { UserStateConnected } from "../../../services/UserService/userServiceI";
-import ServiceInterface from "../../../tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../../../tsyringe/diUtils";
 import { StepProps } from "../RegisterStepper";
+
+import btnEdit from "#assets/Registration/btn_edit.png";
+import iconUser from "#assets/Registration/icon_user.png";
+import useEStyles from "#hooks/useEStyles";
+import { RegisterStackParamsList } from "#navigation/RegisterStackScreenNavigator/RegisterStack";
+import UserService from "#services/UserService/UserService";
+import { UserStateConnected } from "#services/UserService/userServiceI";
+import ServiceInterface from "#tsyringe/ServiceInterface";
+import { getGlobalInstance } from "#tsyringe/diUtils";
+import { buildImageSource } from "#utils/images.utils";
 
 const CIRCLE_SIZE = 200;
 

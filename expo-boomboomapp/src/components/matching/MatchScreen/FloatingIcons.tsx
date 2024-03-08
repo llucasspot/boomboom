@@ -8,7 +8,8 @@ import {
   DELAY_START_SECOND_HEART,
   DELAY_START_SECOND_NOTE,
 } from "./constants/constants";
-import { IMAGES } from "../../../../assets/assets";
+
+import { IMAGES } from "#assets/assets";
 
 export default function FloatingIcons() {
   const [height, setHeight] = useState(0);

@@ -1,4 +1,4 @@
-import useEStyles from "../../hooks/useEStyles";
+import useEStyles from "#hooks/useEStyles";
 
 const STYLES = {
   H1: {

@@ -4,7 +4,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 import { Header } from "./Header";
 import { SafeView } from "./SafeView";
-import useEStyles from "../../hooks/useEStyles";
+
+import useEStyles from "#hooks/useEStyles";
 
 type ScreenProps = {
   title?: string | null;

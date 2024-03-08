@@ -1,10 +1,11 @@
-import { ProfileToShow } from "@swagger/api";
 import React, { useEffect, useRef } from "react";
 import { Animated } from "react-native";
+import { ProfileToShow } from "swagger-boomboom-backend";
 
 import { CardContent } from "./CardContent";
 import { Observer } from "./hooks/useObserver";
-import { useCoreStyles } from "../../services/StyleService/styles";
+
+import { useCoreStyles } from "#services/StyleService/styles";
 
 type CardProps = {
   index: number;

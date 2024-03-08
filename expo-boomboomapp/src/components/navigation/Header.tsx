@@ -4,9 +4,10 @@ import React from "react";
 import { Text, View } from "react-native";
 
 import { ReturnButton } from "./ReturnButton";
-import useEStyles from "../../hooks/useEStyles";
-import { RootStackParamsList } from "../../navigation/RootStackScreenNavigator/RootStack";
-import { useCoreStyles } from "../../services/StyleService/styles";
+
+import useEStyles from "#hooks/useEStyles";
+import { RootStackParamsList } from "#navigation/RootStackScreenNavigator/RootStack";
+import { useCoreStyles } from "#services/StyleService/styles";
 
 type HeaderProps = {
   title?: string | null;

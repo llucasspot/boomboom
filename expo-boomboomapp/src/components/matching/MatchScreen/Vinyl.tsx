@@ -1,11 +1,12 @@
 import React from "react";
-import { Image, ImageSourcePropType, StyleSheet } from "react-native";
+import { Image, ImageSourcePropType } from "react-native";
 
 import AnimatedAvatar from "./Animated/AnimatedAvatar";
 import AnimatedContainer from "./Animated/AnimatedContainer";
 import AnimatedTonearm from "./Animated/AnimatedTonearm";
 import AnimatedVinyl from "./Animated/AnimatedVinyl";
-import { IMAGES } from "../../../../assets/assets";
+
+import { IMAGES } from "#assets/assets";
 
 type VinylProps = {
   avatar: ImageSourcePropType;

@@ -5,9 +5,10 @@ import { inject, singleton } from "tsyringe";
 import { SupportedLanguages } from "./LanguageServiceI";
 import en from "./Languages/en";
 import fr from "./Languages/fr";
-import ServiceInterface from "../../tsyringe/ServiceInterface";
 import { GenericService } from "../GenericService";
 import StorageService from "../StorageService/StorageService";
+
+import ServiceInterface from "#tsyringe/ServiceInterface";
 
 @singleton()
 export default class LanguageService extends GenericService {

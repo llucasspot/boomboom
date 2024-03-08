@@ -1,9 +1,9 @@
-import { ProfileToShowUser } from "@swagger/api";
-import { buildImageSource } from "@utils/images.utils";
 import { useEffect, useRef } from "react";
 import { Animated, Image, Text, View } from "react-native";
+import { ProfileToShowUser } from "swagger-boomboom-backend";
 
-import { useCoreStyles } from "../../services/StyleService/styles";
+import { useCoreStyles } from "#services/StyleService/styles";
+import { buildImageSource } from "#utils/images.utils";
 
 export type CardHeaderProps = {
   user: ProfileToShowUser;

@@ -2,7 +2,8 @@ import { useEffect, useRef } from "react";
 import { Animated, View } from "react-native";
 
 import { BaseButton, BaseButtonTheme } from "./Buttons/BaseButton";
-import useEStyles from "../hooks/useEStyles";
+
+import useEStyles from "#hooks/useEStyles";
 
 type RegistrationNavigationProps = {
   onPressBack: () => void;

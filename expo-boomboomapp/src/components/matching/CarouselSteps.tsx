@@ -1,8 +1,9 @@
-import { buildKey } from "@utils/keys.utils";
 import { useEffect, useRef } from "react";
 import { Animated, View } from "react-native";
 
 import { Item } from "./beans/Item";
+
+import { buildKey } from "#utils/keys.utils";
 
 type CarouselStepsProps = {
   items: Item[];

@@ -13,13 +13,20 @@ module.exports = function (api) {
           extensions: [".svg"],
         },
       ],
+      // Required path
       [
         "module-resolver",
         {
           alias: {
-            "@swagger": "./swagger",
-            "@assets": "./src/assets",
-            "@utils": "./src/utils",
+            "#api": "./src/api",
+            "#assets": "./src/assets",
+            "#components": "./src/components",
+            "#hooks": "./src/hooks",
+            "#mocks": "./src/mocks",
+            "#navigation": "./src/navigation",
+            "#services": "./src/services",
+            "#tsyringe": "./src/tsyringe",
+            "#utils": "./src/utils",
           },
         },
       ],

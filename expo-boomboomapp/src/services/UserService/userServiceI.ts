@@ -7,7 +7,7 @@ export type UserI = {
     name: string;
   };
   fullName: string;
-  dateOfBirth: string;
+  dateOfBirth: Date;
   genderId: Gender;
   preferedGenderId: Gender;
   description: string;

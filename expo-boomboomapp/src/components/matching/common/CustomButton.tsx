@@ -6,8 +6,8 @@ import {
   ViewStyle,
 } from "react-native";
 
-import { IMAGES } from "../../../../assets/assets";
-import { COLORS } from "../../../services/StyleService/StyleStateServiceI";
+import { IMAGES } from "#assets/assets";
+import { COLORS } from "#services/StyleService/StyleStateServiceI";
 
 type CustomButtonProps = {
   disabled?: boolean;

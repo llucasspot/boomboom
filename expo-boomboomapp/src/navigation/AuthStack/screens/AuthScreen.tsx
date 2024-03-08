@@ -1,20 +1,21 @@
-import girlBackground from "@assets/girl.png";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useEffect, useRef } from "react";
 import { Animated, ImageStyle, View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { BaseButtonIconPosition } from "../../../components/Buttons/BaseButton";
-import { LueurButton } from "../../../components/Buttons/LueurButton";
-import { Logo } from "../../../components/Logo";
-import { LueurBackground } from "../../../components/LueurBackground";
-import useEStyles from "../../../hooks/useEStyles";
-import AuthService from "../../../services/AuthService/AuthService";
-import ConfigurationService from "../../../services/ConfigurationService/ConfigurationService";
-import LanguageService from "../../../services/LanguageService/LanguageService";
-import ServiceInterface from "../../../tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../../../tsyringe/diUtils";
 import { AuthStackParamsList, AuthStackScreenName } from "../AuthStack";
+
+import girlBackground from "#assets/girl.png";
+import { BaseButtonIconPosition } from "#components/Buttons/BaseButton";
+import { LueurButton } from "#components/Buttons/LueurButton";
+import { Logo } from "#components/Logo";
+import { LueurBackground } from "#components/LueurBackground";
+import useEStyles from "#hooks/useEStyles";
+import AuthService from "#services/AuthService/AuthService";
+import ConfigurationService from "#services/ConfigurationService/ConfigurationService";
+import LanguageService from "#services/LanguageService/LanguageService";
+import ServiceInterface from "#tsyringe/ServiceInterface";
+import { getGlobalInstance } from "#tsyringe/diUtils";
 
 type AuthScreenProps = NativeStackScreenProps<
   AuthStackParamsList,

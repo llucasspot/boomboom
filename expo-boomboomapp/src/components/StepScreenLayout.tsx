@@ -4,10 +4,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { LueurButton } from "./Buttons/LueurButton";
 import { Logo } from "./Logo";
-import useEStyles from "../hooks/useEStyles";
-import LanguageService from "../services/LanguageService/LanguageService";
-import ServiceInterface from "../tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../tsyringe/diUtils";
+
+import useEStyles from "#hooks/useEStyles";
+import LanguageService from "#services/LanguageService/LanguageService";
+import ServiceInterface from "#tsyringe/ServiceInterface";
+import { getGlobalInstance } from "#tsyringe/diUtils";
 
 type StepScreenProps = PropsWithChildren<{
   contentStyle?: ViewStyle;

@@ -1,8 +1,8 @@
 import axios, { AxiosInstance } from "axios";
 
-import ConfigurationService from "../services/ConfigurationService/ConfigurationService";
-import ErrorService from "../services/ErrorService/ErrorService";
-import StorageService from "../services/StorageService/StorageService";
+import ConfigurationService from "#services/ConfigurationService/ConfigurationService";
+import ErrorService from "#services/ErrorService/ErrorService";
+import StorageService from "#services/StorageService/StorageService";
 
 export class ApiService {
   protected apiRequester: AxiosInstance;

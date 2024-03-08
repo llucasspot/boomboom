@@ -6,9 +6,10 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import { useCoreStyles } from "../../../../services/StyleService/styles";
 import { CustomButton } from "../../common/CustomButton";
 import { DELAY_APPARITION_BUTTONS } from "../constants/constants";
+
+import { useCoreStyles } from "#services/StyleService/styles";
 
 const CONTENT_PADDING = 20;
 

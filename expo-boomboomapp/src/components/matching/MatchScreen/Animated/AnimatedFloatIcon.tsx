@@ -17,7 +17,7 @@ import {
   START_POSITION_Y_FLOAT_ICON,
 } from "../constants/constants";
 
-type AnimatedFloatIcon = {
+type AnimatedFloatIconProps = {
   height: number;
   image: ImageSourcePropType;
   delayStart: number;
@@ -37,7 +37,7 @@ export default function AnimatedFloatIcon({
   yStart,
   rotateStart,
   rotateEnd,
-}: AnimatedFloatIcon) {
+}: AnimatedFloatIconProps) {
   const yStartPosition = yStart + START_POSITION_Y_FLOAT_ICON;
   const yEndPosition = -(height + 75);
 

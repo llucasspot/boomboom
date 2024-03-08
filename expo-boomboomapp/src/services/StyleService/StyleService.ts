@@ -19,8 +19,9 @@ import {
   fontWeights,
   spacers,
 } from "./styleVariable";
-import ServiceInterface from "../../tsyringe/ServiceInterface";
 import StorageService from "../StorageService/StorageService";
+
+import ServiceInterface from "#tsyringe/ServiceInterface";
 
 @singleton()
 export default class StyleService {

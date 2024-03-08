@@ -64,7 +64,7 @@ npm install
 
 Générer les beans du backend :
 ```
-npm run swagger:generate
+npm run swagger:backend:update
 ```
 
 Lancer l'application en mode développement:

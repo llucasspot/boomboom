@@ -5,12 +5,13 @@ import {
   BaseButtonIconPosition,
   BaseButtonTheme,
 } from "./BaseButton";
-import useEStyles from "../../hooks/useEStyles";
-import LanguageService from "../../services/LanguageService/LanguageService";
-import { Gender } from "../../services/UserService/userServiceI";
-import ServiceInterface from "../../tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../../tsyringe/diUtils";
 import { IconName } from "../Icons/IconName";
+
+import useEStyles from "#hooks/useEStyles";
+import LanguageService from "#services/LanguageService/LanguageService";
+import { Gender } from "#services/UserService/userServiceI";
+import ServiceInterface from "#tsyringe/ServiceInterface";
+import { getGlobalInstance } from "#tsyringe/diUtils";
 
 type GenderButtonProps = {
   gender: Gender;

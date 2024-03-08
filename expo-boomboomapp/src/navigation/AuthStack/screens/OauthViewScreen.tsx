@@ -2,11 +2,12 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React from "react";
 import { WebView } from "react-native-webview";
 
-import AuthService from "../../../services/AuthService/AuthService";
-import ConfigurationService from "../../../services/ConfigurationService/ConfigurationService";
-import ServiceInterface from "../../../tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../../../tsyringe/diUtils";
 import { AuthStackParamsList, AuthStackScreenName } from "../AuthStack";
+
+import AuthService from "#services/AuthService/AuthService";
+import ConfigurationService from "#services/ConfigurationService/ConfigurationService";
+import ServiceInterface from "#tsyringe/ServiceInterface";
+import { getGlobalInstance } from "#tsyringe/diUtils";
 
 type OauthViewScreenProps = NativeStackScreenProps<
   AuthStackParamsList,

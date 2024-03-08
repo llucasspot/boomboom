@@ -1,6 +1,4 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { ProfileToShow, Track, UserApiInterface } from "@swagger/api";
-import { buildKey } from "@utils/keys.utils";
 import React, { useEffect, useState } from "react";
 import {
   Image,
@@ -12,23 +10,30 @@ import {
   ViewStyle,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  ProfileToShow,
+  Track,
+  UserApiInterface,
+} from "swagger-boomboom-backend";
 
-import MatchScreen from "../../../components/matching/MatchScreen/MatchScreen";
-import { IMAGES } from "../../../../assets/assets";
-import { BlurredBackground } from "../../../components/matching/BlurredBackground";
-import { Card } from "../../../components/matching/Card";
-import { MenuHeader } from "../../../components/matching/MenuHeader";
-import { useObserver } from "../../../components/matching/hooks/useObserver";
-import ServiceInterface from "../../../tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../../../tsyringe/diUtils";
 import { RootStackParamsList, RootStackScreen } from "../RootStack";
+
+import { IMAGES } from "#assets/assets";
+import { BlurredBackground } from "#components/matching/BlurredBackground";
+import { Card } from "#components/matching/Card";
+import MatchScreen from "#components/matching/MatchScreen/MatchScreen";
+import { MenuHeader } from "#components/matching/MenuHeader";
+import { useObserver } from "#components/matching/hooks/useObserver";
+import ServiceInterface from "#tsyringe/ServiceInterface";
+import { getGlobalInstance } from "#tsyringe/diUtils";
+import { buildKey } from "#utils/keys.utils";
 
 type HomeScreenProps = NativeStackScreenProps<
   RootStackParamsList,
   RootStackScreen.HOME
 >;
 
-export function HomeScreen({}: HomeScreenProps): JSX.Element {
+export function HomeScreen(props: HomeScreenProps): JSX.Element {
   const userApi = getGlobalInstance<UserApiInterface>(
     ServiceInterface.UserApiInterface,
   );

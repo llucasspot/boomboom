@@ -3,15 +3,16 @@ import React from "react";
 import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { LueurButton } from "../../../components/Buttons/LueurButton";
-import { LogoVertical } from "../../../components/LogoVertical";
-import { LueurBackground } from "../../../components/LueurBackground";
-import useEStyles from "../../../hooks/useEStyles";
-import AuthService from "../../../services/AuthService/AuthService";
-import LanguageService from "../../../services/LanguageService/LanguageService";
-import ServiceInterface from "../../../tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../../../tsyringe/diUtils";
 import { RegisterStackParamsList, RegisterStackScreen } from "../RegisterStack";
+
+import { LueurButton } from "#components/Buttons/LueurButton";
+import { LogoVertical } from "#components/LogoVertical";
+import { LueurBackground } from "#components/LueurBackground";
+import useEStyles from "#hooks/useEStyles";
+import AuthService from "#services/AuthService/AuthService";
+import LanguageService from "#services/LanguageService/LanguageService";
+import ServiceInterface from "#tsyringe/ServiceInterface";
+import { getGlobalInstance } from "#tsyringe/diUtils";
 
 type WelcomeScreenProps = NativeStackScreenProps<
   RegisterStackParamsList,

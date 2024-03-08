@@ -1,4 +1,4 @@
-import { Screen } from "../../navigation/Screen";
+import { Screen } from "#components/navigation/Screen";
 
 type MyMatchesProps = {
   onBack: () => void;

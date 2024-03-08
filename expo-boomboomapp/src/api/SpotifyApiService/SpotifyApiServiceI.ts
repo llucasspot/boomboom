@@ -1,9 +1,9 @@
+import { AxiosResponse } from "axios";
 import {
   ApiSpotifyTrackByNameGet200Response,
   SpotifyApi,
   SpotifyApiInterface,
-} from "@swagger/api";
-import { AxiosResponse } from "axios";
+} from "swagger-boomboom-backend";
 
 export abstract class SpotifyApiServiceI
   extends SpotifyApi

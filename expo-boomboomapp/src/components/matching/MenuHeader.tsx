@@ -1,4 +1,3 @@
-import { buildImageSource } from "@utils/images.utils";
 import React, { useState } from "react";
 import {
   Image,
@@ -11,12 +10,14 @@ import {
 
 import { MyMatches } from "./MyMatches/MyMatches";
 import { MyProfile } from "./MyProfile/MyProfile";
-import { IMAGES } from "../../../assets/assets";
-import { useCoreStyles } from "../../services/StyleService/styles";
-import UserService from "../../services/UserService/UserService";
-import { UserStateConnected } from "../../services/UserService/userServiceI";
-import ServiceInterface from "../../tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../../tsyringe/diUtils";
+
+import { IMAGES } from "#assets/assets";
+import { useCoreStyles } from "#services/StyleService/styles";
+import UserService from "#services/UserService/UserService";
+import { UserStateConnected } from "#services/UserService/userServiceI";
+import ServiceInterface from "#tsyringe/ServiceInterface";
+import { getGlobalInstance } from "#tsyringe/diUtils";
+import { buildImageSource } from "#utils/images.utils";
 
 const CONTENT_PADDING = 20;
 

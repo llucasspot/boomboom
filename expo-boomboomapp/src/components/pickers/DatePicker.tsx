@@ -4,8 +4,9 @@ import { Platform, Text, View } from "react-native";
 
 import { AndroidDatePicker } from "./AndroidDatePicker";
 import { IosDatePicker } from "./IosDatePicker";
-import { useCoreStyles } from "../../services/StyleService/styles";
 import { type UserFormData } from "../matching/common/UserProfileForm";
+
+import { useCoreStyles } from "#services/StyleService/styles";
 
 type DatePickerProps = {
   title: string;
@@ -50,7 +51,7 @@ export function DatePicker({ title, control }: Readonly<DatePickerProps>) {
     <Controller
       control={control}
       name="dateOfBirth"
-      defaultValue={formatDate(new Date())}
+      defaultValue={new Date()}
       render={({ field: { onChange: controllerOnChange, onBlur, value } }) => (
         <View>
           <Text style={{ ...coreStyles.P }}>{title}</Text>

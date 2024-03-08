@@ -1,6 +1,6 @@
-import { ProfileToShow } from "@swagger/api";
 import { useEffect, useState } from "react";
 import { LayoutChangeEvent, View } from "react-native";
+import { ProfileToShow } from "swagger-boomboom-backend";
 
 import { CardHeader } from "./CardHeader";
 import { Carousel } from "./Carousel";
@@ -58,7 +58,7 @@ export function CardContent({
 }
 
 function buildItems({ user, songs }: ProfileToShow): Item[] {
-  let items = [
+  const items = [
     ...songs.map((song) => ({ ...song, type: "SONG" })),
     { type: "USER", ...user },
   ];

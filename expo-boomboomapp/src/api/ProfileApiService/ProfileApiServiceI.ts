@@ -1,7 +1,12 @@
-import { AuthApi, AuthApiInterface, CreateProfileRequest } from "@swagger/api";
-import { Configuration } from "@swagger/configuration";
-import { buildApiRequester } from "@utils/api.utils";
 import * as FileSystem from "expo-file-system";
+import {
+  AuthApi,
+  AuthApiInterface,
+  CreateProfileRequest,
+  Configuration,
+} from "swagger-boomboom-backend";
+
+import { buildApiRequester } from "#utils/api.utils";
 
 export type EditProfileBody = Partial<CreateProfileRequest>;
 

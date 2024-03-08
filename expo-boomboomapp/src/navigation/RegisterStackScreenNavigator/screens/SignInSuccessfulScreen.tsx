@@ -1,17 +1,18 @@
-import successLogo from "@assets/LoggedSuccess/check.png";
-import logoWithTextLogoHorizontally from "@assets/logos/logo-with-text-logo-horizontally.png";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useEffect, useRef } from "react";
 import { Animated, ImageStyle, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { LueurButton } from "../../../components/Buttons/LueurButton";
-import useEStyles from "../../../hooks/useEStyles";
-import LanguageService from "../../../services/LanguageService/LanguageService";
-import { useCoreStyles } from "../../../services/StyleService/styles";
-import ServiceInterface from "../../../tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../../../tsyringe/diUtils";
 import { RegisterStackParamsList, RegisterStackScreen } from "../RegisterStack";
+
+import successLogo from "#assets/LoggedSuccess/check.png";
+import logoWithTextLogoHorizontally from "#assets/logos/logo-with-text-logo-horizontally.png";
+import { LueurButton } from "#components/Buttons/LueurButton";
+import useEStyles from "#hooks/useEStyles";
+import LanguageService from "#services/LanguageService/LanguageService";
+import { useCoreStyles } from "#services/StyleService/styles";
+import ServiceInterface from "#tsyringe/ServiceInterface";
+import { getGlobalInstance } from "#tsyringe/diUtils";
 
 type SignInSuccessfulScreenProps = NativeStackScreenProps<
   RegisterStackParamsList,

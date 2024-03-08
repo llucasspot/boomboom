@@ -1,5 +1,6 @@
-import lueur from "@assets/commons/blur_1024_red.png";
 import { Image, View } from "react-native";
+
+import lueur from "#assets/commons/blur_1024_red.png";
 
 export function LueurBackground() {
   return (

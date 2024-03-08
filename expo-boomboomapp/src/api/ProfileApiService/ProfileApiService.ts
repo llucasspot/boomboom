@@ -1,10 +1,11 @@
-import { AuthApiInterface } from "@swagger/api";
+import { AuthApiInterface } from "swagger-boomboom-backend";
 import { inject, singleton } from "tsyringe";
 
 import { EditProfileBody, ProfileApiServiceI } from "./ProfileApiServiceI";
-import ConfigurationService from "../../services/ConfigurationService/ConfigurationService";
-import StorageService from "../../services/StorageService/StorageService";
-import ServiceInterface from "../../tsyringe/ServiceInterface";
+
+import ConfigurationService from "#services/ConfigurationService/ConfigurationService";
+import StorageService from "#services/StorageService/StorageService";
+import ServiceInterface from "#tsyringe/ServiceInterface";
 
 @singleton()
 export class ProfileApiService

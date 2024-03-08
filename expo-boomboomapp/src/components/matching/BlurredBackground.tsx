@@ -1,7 +1,4 @@
 import { useFocusEffect } from "@react-navigation/native";
-import { Track } from "@swagger/api";
-import { buildImageSource } from "@utils/images.utils";
-import { buildKey } from "@utils/keys.utils";
 import { BlurView } from "expo-blur";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -11,8 +8,12 @@ import {
   Platform,
   View,
 } from "react-native";
+import { Track } from "swagger-boomboom-backend";
 
 import { BlurredAura } from "./BlurredAura";
+
+import { buildImageSource } from "#utils/images.utils";
+import { buildKey } from "#utils/keys.utils";
 
 // TODO add style pattern to page
 

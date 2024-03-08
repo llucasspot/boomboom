@@ -1,14 +1,15 @@
-import { buildImageSource } from "@utils/images.utils";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 
-import ServiceInterface from "./../../../tsyringe/ServiceInterface";
 import AnimatedHeader from "./Animated/AnimatedHeader";
 import FloatingIcons from "./FloatingIcons";
 import Vinyl from "./Vinyl";
-import UserService from "../../../services/UserService/UserService";
-import { UserStateConnected } from "../../../services/UserService/userServiceI";
-import { getGlobalInstance } from "../../../tsyringe/diUtils";
+
+import UserService from "#services/UserService/UserService";
+import { UserStateConnected } from "#services/UserService/userServiceI";
+import ServiceInterface from "#tsyringe/ServiceInterface";
+import { getGlobalInstance } from "#tsyringe/diUtils";
+import { buildImageSource } from "#utils/images.utils";
 
 export type MainAnimationsMatchScreenProps = {
   matchedUser: { image?: string | undefined };

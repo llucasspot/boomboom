@@ -1,10 +1,11 @@
 import React from "react";
+import { View } from "react-native";
 
 import { GenderButton } from "./Buttons/GenderButton";
 import { IconName } from "./Icons/IconName";
-import useEStyles from "../hooks/useEStyles";
-import { Gender } from "../services/UserService/userServiceI";
-import { View } from "react-native";
+
+import useEStyles from "#hooks/useEStyles";
+import { Gender } from "#services/UserService/userServiceI";
 
 type GenderSelectorProps = {
   onChange: (selectedGender: Gender) => void;

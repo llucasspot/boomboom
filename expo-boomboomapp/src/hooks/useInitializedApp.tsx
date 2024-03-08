@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useColorScheme } from "react-native";
 
-import AppService from "../services/AppService/AppService";
-import AuthService from "../services/AuthService/AuthService";
-import StorageService from "../services/StorageService/StorageService";
-import ServiceInterface from "../tsyringe/ServiceInterface";
-import { getGlobalInstance } from "../tsyringe/diUtils";
+import AppService from "#services/AppService/AppService";
+import AuthService from "#services/AuthService/AuthService";
+import StorageService from "#services/StorageService/StorageService";
+import ServiceInterface from "#tsyringe/ServiceInterface";
+import { getGlobalInstance } from "#tsyringe/diUtils";
 
 export const useInitializedApp = () => {
   const isDarkMode = useColorScheme() === "dark";
