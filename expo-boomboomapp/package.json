@@ -15,7 +15,8 @@
     "typecheck": "tsc --noEmit",
     "swagger:backend:generate": "openapi-generator-cli generate -i https://raw.githubusercontent.com/llucasspot/boomboom-back/main/docs/swagger.json -g typescript-axios -o ./swagger/backend --type-mappings=DateTime=Date --additional-properties=npmName=swagger-boomboom-backend,supportsES6=true,withInterfaces=true",
     "swagger:backend:link": "cd ./swagger/backend && yarn build && yarn link && cd ../../ && yarn link swagger-boomboom-backend",
-    "swagger:backend:update": "yarn swagger:backend:generate && yarn swagger:backend:link"
+    "swagger:backend:update": "yarn swagger:backend:generate && yarn swagger:backend:link",
+    "prepare": "husky"
   },
   "jest": {
     "preset": "jest-expo"
@@ -75,8 +76,10 @@
     "dotenv-cli": "^7.3.0",
     "eslint": "^8.56.0",
     "eslint-config-universe": "^12.0.0",
+    "husky": "^9.0.11",
     "jest": "^29.2.1",
     "jest-expo": "~49.0.0",
+    "pinst": "^3.0.0",
     "prettier": "^3.1.1",
     "react-test-renderer": "18.2.0",
     "ts-node": "^10.9.2",
