@@ -10,14 +10,11 @@ import {
   ViewStyle,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  ProfileToShow,
-  Track,
-  UserApiInterface,
-} from "swagger-boomboom-backend";
+import { ProfileToShow, Track } from "swagger-boomboom-backend";
 
 import { RootStackParamsList, RootStackScreen } from "../RootStack";
 
+import { UserApiServiceI } from "#api/UserApiService/UserApiServiceI";
 import { IMAGES } from "#assets/assets";
 import { BlurredBackground } from "#components/matching/BlurredBackground";
 import { Card } from "#components/matching/Card";
@@ -34,22 +31,17 @@ type HomeScreenProps = NativeStackScreenProps<
 >;
 
 export function HomeScreen(props: HomeScreenProps): JSX.Element {
-  const userApi = getGlobalInstance<UserApiInterface>(
+  const userApi = getGlobalInstance<UserApiServiceI>(
     ServiceInterface.UserApiInterface,
   );
+  const { data: users } = userApi.useUsers();
 
   const [stackProfiles, setStackProfiles] = useState<ProfileToShow[]>([]);
 
   useEffect(() => {
-    userApi
-      .apiUsersGet()
-      .then((stackProfiles) => {
-        setStackProfiles(stackProfiles.data.data);
-      })
-      .catch((err) => {
-        // TODO handle error better
-        console.log("HomeScreen : ", err);
-      });
+    if (users) {
+      setStackProfiles(users.data);
+    }
   }, []);
 
   const [currentIdBackground, setCurrentIdBackground] = useState<
@@ -101,6 +93,7 @@ export function HomeScreen(props: HomeScreenProps): JSX.Element {
   // On next, push a new profile in the stack
   useEffect(() => {
     const cb = onNextSubscriber.current.subscribe(() => {
+      // TODO see to retrigger with react query
       userApi
         .apiUsersGet()
         .then((newStackProfiles) => {

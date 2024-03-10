@@ -2,10 +2,6 @@
 // but react native don't have this api
 // we need to import it
 import "react-native-url-polyfill/auto";
-import {
-  SpotifyApiInterface,
-  UserApiInterface,
-} from "swagger-boomboom-backend";
 import { container } from "tsyringe";
 
 import ServiceInterface from "./ServiceInterface";
@@ -16,16 +12,18 @@ import { ProfileApiService } from "#api/ProfileApiService/ProfileApiService";
 import { ProfileApiServiceI } from "#api/ProfileApiService/ProfileApiServiceI";
 import { SpotifyApiMockService } from "#api/SpotifyApiService/SpotifyApiMockService";
 import { SpotifyApiService } from "#api/SpotifyApiService/SpotifyApiService";
+import { SpotifyApiServiceI } from "#api/SpotifyApiService/SpotifyApiServiceI";
 import { UserApiMockService } from "#api/UserApiService/UserApiMockService";
 import { UserApiService } from "#api/UserApiService/UserApiService";
+import { UserApiServiceI } from "#api/UserApiService/UserApiServiceI";
 import AppService from "#services/AppService/AppService";
 import AuthService from "#services/AuthService/AuthService";
 import ConfigurationService from "#services/ConfigurationService/ConfigurationService";
 import ErrorService from "#services/ErrorService/ErrorService";
 import LanguageService from "#services/LanguageService/LanguageService";
+import RegistrationStateService from "#services/RegistrationStateService/RegistrationState.service";
 import StorageService from "#services/StorageService/StorageService";
 import StyleService from "#services/StyleService/StyleService";
-import UserService from "#services/UserService/UserService";
 
 const IS_APP_IN_MOCK_MODE = ConfigurationService.isAppInMockMode();
 
@@ -52,17 +50,20 @@ injectSingleton<ProfileApiServiceI>(
   IS_APP_IN_MOCK_MODE ? ProfileApiMockService : ProfileApiService,
 );
 
-injectSingleton<UserApiInterface>(
+injectSingleton<UserApiServiceI>(
   ServiceInterface.UserApiInterface,
   IS_APP_IN_MOCK_MODE ? UserApiMockService : UserApiService,
 );
-injectSingleton<SpotifyApiInterface>(
+injectSingleton<SpotifyApiServiceI>(
   ServiceInterface.SpotifyApiInterface,
   IS_APP_IN_MOCK_MODE ? SpotifyApiMockService : SpotifyApiService,
 );
 
 // others
 injectSingleton<AuthService>(ServiceInterface.AuthService, AuthService);
-injectSingleton<UserService>(ServiceInterface.UserService, UserService);
+injectSingleton<RegistrationStateService>(
+  ServiceInterface.RegistrationStateService,
+  RegistrationStateService,
+);
 injectSingleton<ErrorService>(ServiceInterface.ErrorService, ErrorService);
 injectSingleton<AppService>(ServiceInterface.AppService, AppService);

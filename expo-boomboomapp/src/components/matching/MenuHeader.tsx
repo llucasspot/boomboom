@@ -12,9 +12,8 @@ import { MyMatches } from "./MyMatches/MyMatches";
 import { MyProfile } from "./MyProfile/MyProfile";
 
 import { IMAGES } from "#assets/assets";
+import RegistrationStateService from "#services/RegistrationStateService/RegistrationState.service";
 import { useCoreStyles } from "#services/StyleService/styles";
-import UserService from "#services/UserService/UserService";
-import { UserStateConnected } from "#services/UserService/userServiceI";
 import ServiceInterface from "#tsyringe/ServiceInterface";
 import { getGlobalInstance } from "#tsyringe/diUtils";
 import { buildImageSource } from "#utils/images.utils";
@@ -24,11 +23,10 @@ const CONTENT_PADDING = 20;
 // TODO add styles pattern and I18n
 
 export function MenuHeader() {
-  const userService = getGlobalInstance<UserService>(
-    ServiceInterface.UserService,
+  const registrationStateService = getGlobalInstance<RegistrationStateService>(
+    ServiceInterface.RegistrationStateService,
   );
-  // @ts-ignore TODO useUser
-  const user: UserStateConnected = userService.useUser();
+  const registrationState = registrationStateService.useRegistrationState();
 
   const coreStyle = useCoreStyles();
 
@@ -80,7 +78,7 @@ export function MenuHeader() {
       >
         <TouchableOpacity onPress={btnProfile} style={menuButton}>
           <Image
-            source={buildImageSource(user.profilePicture.uri)}
+            source={buildImageSource(registrationState?.profilePicture.uri)}
             style={{ width: 48 / 2, height: 48 / 2, borderRadius: 10 }}
           />
           <Text style={coreStyle.F13}>Profile</Text>

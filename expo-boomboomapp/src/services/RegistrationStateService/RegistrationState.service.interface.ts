@@ -1,6 +1,8 @@
 import { ImageURISource } from "react-native/Libraries/Image/ImageSource";
 
-export type UserI = {
+import { Gender } from "#services/UserService/userServiceI";
+
+export type RegistrationState = {
   profilePicture: {
     uri: ImageURISource["uri"];
     type: "video" | "image";
@@ -12,10 +14,4 @@ export type UserI = {
   preferedGenderId: Gender;
   description: string;
   trackIds: string[];
-};
-
-export enum Gender {
-  MALE = 1,
-  FEMALE = 2,
-  NO_SPECIFIC = 3,
-}
+} | null;

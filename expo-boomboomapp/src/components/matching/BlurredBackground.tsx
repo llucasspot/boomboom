@@ -115,7 +115,7 @@ export function BlurredBackground({
             position: "absolute",
           }}
           // TODO to see
-          // @ts-ignore
+          // @ts-ignore BlurView overlayColor
           overlayColor="transparent"
         />
       )}

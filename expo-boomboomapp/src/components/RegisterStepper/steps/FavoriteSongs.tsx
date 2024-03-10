@@ -1,7 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Modal, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { SerializedTrack, SpotifyApiInterface } from "swagger-boomboom-backend";
+import { SerializedTrack } from "swagger-boomboom-backend";
 
 import { BaseButton } from "../../Buttons/BaseButton";
 import { SongCard } from "../../SongCard";
@@ -9,14 +8,14 @@ import { SongPicker } from "../../SongPicker";
 import { StepProps } from "../RegisterStepper";
 
 import { ProfileApiServiceI } from "#api/ProfileApiService/ProfileApiServiceI";
+import { SpotifyApiServiceI } from "#api/SpotifyApiService/SpotifyApiServiceI";
 import useEStyles from "#hooks/useEStyles";
 import {
   RegisterStackParamsList,
   RegisterStackScreen,
 } from "#navigation/RegisterStackScreenNavigator/RegisterStack";
+import RegistrationStateService from "#services/RegistrationStateService/RegistrationState.service";
 import { useCoreStyles } from "#services/StyleService/styles";
-import UserService from "#services/UserService/UserService";
-import { UserStateConnected } from "#services/UserService/userServiceI";
 import ServiceInterface from "#tsyringe/ServiceInterface";
 import { getGlobalInstance } from "#tsyringe/diUtils";
 import { buildKey } from "#utils/keys.utils";
@@ -26,20 +25,18 @@ export default function FavoriteSongs({
   setDisableSubmit,
   navigation,
 }: StepProps<RegisterStackParamsList>) {
-  const userService = getGlobalInstance<UserService>(
-    ServiceInterface.UserService,
+  const registrationStateService = getGlobalInstance<RegistrationStateService>(
+    ServiceInterface.RegistrationStateService,
   );
   const profileApiService = getGlobalInstance<ProfileApiServiceI>(
     ServiceInterface.ProfileApiServiceI,
   );
-  const spotifyApi = getGlobalInstance<SpotifyApiInterface>(
+  const { mutate: createProfile } = profileApiService.useCreateProfile();
+  const spotifyApi = getGlobalInstance<SpotifyApiServiceI>(
     ServiceInterface.SpotifyApiInterface,
   );
   const [mySongs, setMySongs] = useState<SerializedTrack[]>([]);
-  const { data: top5Tracks } = useQuery({
-    queryKey: [spotifyApi.apiSpotifyTopFiveTracksGet.name],
-    queryFn: () => spotifyApi.apiSpotifyTopFiveTracksGet(),
-  });
+  const { data: top5Tracks } = spotifyApi.useSpotifyTopFiveTracks();
 
   useEffect(() => {
     if (top5Tracks) {
@@ -63,8 +60,7 @@ export default function FavoriteSongs({
     },
   });
 
-  // @ts-ignore TODO useUser
-  const user: UserStateConnected = userService.useUser();
+  const registrationState = registrationStateService.useRegistrationState();
 
   function searchSong() {
     setPickSongModalVisible(true);
@@ -85,16 +81,19 @@ export default function FavoriteSongs({
 
   setStepperLayoutCallback(async () => {
     try {
-      await profileApiService.createProfile({
-        dateOfBirth: formatDate(user.dateOfBirth),
-        description: user.description,
-        preferedGenderId: user.preferedGenderId,
-        genderId: user.genderId,
+      if (!registrationState) {
+        return;
+      }
+      createProfile({
+        dateOfBirth: formatDate(new Date(registrationState.dateOfBirth)),
+        description: registrationState.description,
+        preferedGenderId: registrationState.preferedGenderId,
+        genderId: registrationState.genderId,
         trackIds: mySongs.map((song) => song.trackId),
-        name: user.fullName,
+        name: registrationState.fullName,
       });
       await profileApiService.uploadAvatarByUri(
-        user.profilePicture.uri as string,
+        registrationState.profilePicture.uri as string,
       );
       navigation.navigate(RegisterStackScreen.WELCOME_SCREEN);
     } catch (err) {

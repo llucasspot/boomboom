@@ -11,7 +11,7 @@ import {
 import { StepProps } from "../RegisterStepper";
 
 import { RegisterStackParamsList } from "#navigation/RegisterStackScreenNavigator/RegisterStack";
-import UserService from "#services/UserService/UserService";
+import RegistrationStateService from "#services/RegistrationStateService/RegistrationState.service";
 import { Gender } from "#services/UserService/userServiceI";
 import ServiceInterface from "#tsyringe/ServiceInterface";
 import { getGlobalInstance } from "#tsyringe/diUtils";
@@ -19,8 +19,8 @@ import { getGlobalInstance } from "#tsyringe/diUtils";
 export function ProfileForm({
   setStepperLayoutCallback,
 }: StepProps<RegisterStackParamsList>) {
-  const userService = getGlobalInstance<UserService>(
-    ServiceInterface.UserService,
+  const registrationStateService = getGlobalInstance<RegistrationStateService>(
+    ServiceInterface.RegistrationStateService,
   );
 
   const {
@@ -29,7 +29,7 @@ export function ProfileForm({
     formState: { errors },
   } = useForm<UserFormData>({
     // TODO I18n
-    // @ts-ignore TODO
+    // @ts-ignore TODO yupResolver
     resolver: yupResolver(
       yup.object().shape({
         fullName: yup
@@ -59,8 +59,8 @@ export function ProfileForm({
   });
 
   setStepperLayoutCallback(({ navigateOnNextStep }) => {
-    handleSubmit((data) => {
-      userService.updateUserState(data);
+    handleSubmit((data: UserFormData) => {
+      registrationStateService.updateRegistrationState(data);
       navigateOnNextStep();
     })();
   });

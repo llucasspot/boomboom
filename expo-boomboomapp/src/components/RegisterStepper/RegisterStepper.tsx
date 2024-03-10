@@ -147,7 +147,7 @@ export function RegisterStepper<T extends object>({
         independent
         theme={{
           // TODO to see
-          // @ts-ignore
+          // @ts-ignore NavigationContainer theme
           colors: {
             background: styles.navigationContainer.backgroundColor as string,
           },

@@ -17,6 +17,7 @@ export default class LanguageService extends GenericService {
     private storageService: StorageService,
   ) {
     super();
+    storageService.removeAuthenticateToken();
     this.initialise();
   }
 

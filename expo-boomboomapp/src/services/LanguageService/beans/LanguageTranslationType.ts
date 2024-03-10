@@ -1,4 +1,4 @@
-import { Gender } from "../../UserService/userServiceI";
+import { Gender } from "#services/UserService/userServiceI";
 
 type RegisterStepperStep = {
   title: string;

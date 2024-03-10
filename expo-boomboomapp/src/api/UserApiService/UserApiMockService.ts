@@ -1,13 +1,12 @@
 import { AxiosResponse, RawAxiosRequestConfig } from "axios";
 import {
-  Configuration,
   ApiUsersGet200Response,
-  UserApi,
-  UserApiInterface,
+  Configuration,
 } from "swagger-boomboom-backend";
 import { inject, singleton } from "tsyringe";
 import { v4 as uuidv4 } from "uuid";
 
+import { UserApiServiceI } from "#api/UserApiService/UserApiServiceI";
 import { buildAxiosMockResponse } from "#api/utils";
 import { user_helena, user_isabella, user_jessica } from "#mocks/mokes";
 import ConfigurationService from "#services/ConfigurationService/ConfigurationService";
@@ -16,7 +15,7 @@ import ServiceInterface from "#tsyringe/ServiceInterface";
 import { buildApiRequester } from "#utils/api.utils";
 
 @singleton()
-export class UserApiMockService extends UserApi implements UserApiInterface {
+export class UserApiMockService extends UserApiServiceI {
   constructor(
     @inject(ServiceInterface.ConfigurationService)
     protected configurationService: ConfigurationService,

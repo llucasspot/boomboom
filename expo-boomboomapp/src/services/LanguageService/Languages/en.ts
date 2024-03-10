@@ -1,5 +1,6 @@
-import { Gender } from "../../UserService/userServiceI";
 import LanguageTranslationType from "../beans/LanguageTranslationType";
+
+import { Gender } from "#services/UserService/userServiceI";
 
 const en: LanguageTranslationType = {
   common: {

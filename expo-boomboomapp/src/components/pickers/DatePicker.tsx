@@ -51,7 +51,7 @@ export function DatePicker({ title, control }: Readonly<DatePickerProps>) {
     <Controller
       control={control}
       name="dateOfBirth"
-      defaultValue={new Date()}
+      defaultValue={formatDate(new Date())}
       render={({ field: { onChange: controllerOnChange, onBlur, value } }) => (
         <View>
           <Text style={{ ...coreStyles.P }}>{title}</Text>

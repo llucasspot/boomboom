@@ -5,8 +5,7 @@ import AnimatedHeader from "./Animated/AnimatedHeader";
 import FloatingIcons from "./FloatingIcons";
 import Vinyl from "./Vinyl";
 
-import UserService from "#services/UserService/UserService";
-import { UserStateConnected } from "#services/UserService/userServiceI";
+import RegistrationStateService from "#services/RegistrationStateService/RegistrationState.service";
 import ServiceInterface from "#tsyringe/ServiceInterface";
 import { getGlobalInstance } from "#tsyringe/diUtils";
 import { buildImageSource } from "#utils/images.utils";
@@ -18,11 +17,10 @@ export type MainAnimationsMatchScreenProps = {
 export default function MainAnimationsMatchScreen({
   matchedUser,
 }: MainAnimationsMatchScreenProps) {
-  const userService = getGlobalInstance<UserService>(
-    ServiceInterface.UserService,
+  const registrationStateService = getGlobalInstance<RegistrationStateService>(
+    ServiceInterface.RegistrationStateService,
   );
-  // @ts-ignore TODO useUser
-  const user: UserStateConnected = userService.useUser();
+  const registrationState = registrationStateService.useRegistrationState();
   const photoMatched = matchedUser.image;
 
   return (
@@ -36,7 +34,9 @@ export default function MainAnimationsMatchScreen({
       </View>
 
       <View style={styles.vinylsSection}>
-        <Vinyl avatar={buildImageSource(user.profilePicture.uri)} />
+        <Vinyl
+          avatar={buildImageSource(registrationState?.profilePicture.uri)}
+        />
         <Vinyl reversed avatar={buildImageSource(photoMatched)} />
       </View>
     </View>

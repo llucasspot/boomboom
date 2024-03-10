@@ -1,7 +1,7 @@
 import { AuthApiInterface } from "swagger-boomboom-backend";
 import { inject, singleton } from "tsyringe";
 
-import { EditProfileBody, ProfileApiServiceI } from "./ProfileApiServiceI";
+import { ProfileApiServiceI } from "./ProfileApiServiceI";
 
 import ConfigurationService from "#services/ConfigurationService/ConfigurationService";
 import StorageService from "#services/StorageService/StorageService";
@@ -21,9 +21,5 @@ export class ProfileApiService
     const baseUrl = configurationService.getApiUrl().replace("/api", "");
     const tokenGetter = () => this.storageService.getAuthenticateToken();
     super(baseUrl, tokenGetter);
-  }
-
-  async editProfile(editedProfileBody: EditProfileBody) {
-    // TODO url
   }
 }

@@ -8,8 +8,7 @@ import btnEdit from "#assets/Registration/btn_edit.png";
 import iconUser from "#assets/Registration/icon_user.png";
 import useEStyles from "#hooks/useEStyles";
 import { RegisterStackParamsList } from "#navigation/RegisterStackScreenNavigator/RegisterStack";
-import UserService from "#services/UserService/UserService";
-import { UserStateConnected } from "#services/UserService/userServiceI";
+import RegistrationStateService from "#services/RegistrationStateService/RegistrationState.service";
 import ServiceInterface from "#tsyringe/ServiceInterface";
 import { getGlobalInstance } from "#tsyringe/diUtils";
 import { buildImageSource } from "#utils/images.utils";
@@ -20,21 +19,20 @@ export default function UploadAvatar({
   setStepperLayoutCallback,
   setDisableSubmit,
 }: StepProps<RegisterStackParamsList>) {
-  const userService = getGlobalInstance<UserService>(
-    ServiceInterface.UserService,
+  const registrationStateService = getGlobalInstance<RegistrationStateService>(
+    ServiceInterface.RegistrationStateService,
   );
 
   setStepperLayoutCallback(({ navigateOnNextStep }) => {
     navigateOnNextStep();
   });
 
-  // @ts-ignore TODO useUser
-  const user: Partial<UserStateConnected> = userService.useUser();
-  const avatar = user.profilePicture?.uri as string;
+  const registrationState = registrationStateService.useRegistrationState();
+  const avatar = registrationState?.profilePicture?.uri as string;
 
   useEffect(() => {
-    setDisableSubmit(!user.profilePicture?.uri);
-  }, [user]);
+    setDisableSubmit(!registrationState?.profilePicture?.uri);
+  }, [registrationState]);
 
   async function pick() {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -47,7 +45,7 @@ export default function UploadAvatar({
     if (!result.canceled) {
       const image = result.assets[0];
       // TODO to see if we keep type & name in state
-      userService.updateUserState({
+      registrationStateService.updateRegistrationState({
         profilePicture: {
           uri: image.uri,
           type: image.type ?? "image",

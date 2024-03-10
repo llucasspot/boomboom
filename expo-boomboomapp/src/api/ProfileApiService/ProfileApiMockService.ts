@@ -34,7 +34,9 @@ export class ProfileApiMockService
   }
 
   async editProfile(editedProfileBody: EditProfileBody) {
-    return Promise.resolve({ ...user_yohan, ...editedProfileBody });
+    return Promise.resolve(
+      buildAxiosMockResponse({ ...user_yohan, ...editedProfileBody }),
+    );
   }
 
   async uploadAvatarByUri(uri: string): Promise<void> {}

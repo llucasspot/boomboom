@@ -1,75 +1,62 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { observable, useObservable } from "micro-observables";
-import { useEffect } from "react";
-import { singleton } from "tsyringe";
+import { NavigationProp } from "@react-navigation/core/src/types";
+import { AxiosError } from "axios";
+import { inject, singleton } from "tsyringe";
 
 import { GenericService } from "../GenericService";
 
-type AxiosError = {
-  response?: {
-    status: number;
-    data: object;
-  };
-  request: any;
-  message: string;
-};
+import { AuthStackScreenName } from "#navigation/AuthStack/AuthStack";
+import AuthService from "#services/AuthService/AuthService";
+import { ApiErrorData } from "#services/ErrorService/ApiError";
+import { AppError, ErrorType } from "#services/ErrorService/AppError";
+import ServiceInterface from "#tsyringe/ServiceInterface";
+
+type NavigateFunction = NavigationProp<ReactNavigation.RootParamList>;
 
 @singleton()
 export default class ErrorService extends GenericService {
-  private _error = observable<AxiosError | null>(null);
-  private readonly error = this._error.readOnly();
-
-  useError(): AxiosError | null {
-    return ((): AxiosError | null => useObservable(this.error))();
+  constructor(
+    @inject(ServiceInterface.AuthService) private authService: AuthService,
+  ) {
+    super();
   }
 
-  private resetError(): void {
-    this._error.update(() => {
-      return null;
-    });
-  }
-
-  private getError(): AxiosError | null {
-    return this._error.get();
-  }
-
-  // TODO to implement
-  handleAxiosError(error: AxiosError) {
-    if (error.response) {
-      this.logger.error(
-        "Server responded with error:",
-        error.response.status,
-        error.response.data,
-      );
+  async handleError(error: any, navigate: NavigateFunction) {
+    if (this.isApiError(error)) {
+      await this.handleApiError(error, navigate);
+      return;
     }
-    this._error.update(() => {
-      return error;
-    });
-    throw error;
-  }
-
-  useListenError() {
-    const error = this.useError();
-    useEffect(() => {
-      if (!error) {
-        return;
-      }
-      this.handleHTTPStatusErrors(error?.response?.status);
-    }, [error]);
-  }
-
-  // TODO to implement
-  private handleHTTPStatusErrors(status?: number) {
-    switch (status) {
-      case 401:
-        break;
-      case 403:
-        break;
-      case 500:
-        break;
-      default:
-        break;
+    if (this.isAppError(error)) {
+      this.handleAppError();
+      return;
     }
-    this.resetError();
+    this.handleUnexpectedError(error);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private isApiError(error: any): error is AxiosError<ApiErrorData> {
+    return !!error.response?.data;
+  }
+
+  private isAppError(error: { type: string }): error is AppError {
+    return error.type === ErrorType.APP_ERROR;
+  }
+
+  private async handleApiError(
+    error: AxiosError<ApiErrorData>,
+    navigation: NavigateFunction,
+  ) {
+    if (error.response?.status === 401) {
+      await this.authService.signOutUser();
+      // @ts-ignore navigation
+      await navigation.navigate(AuthStackScreenName.AUTH_HOME);
+    }
+  }
+
+  private handleAppError() {}
+
+  private handleUnexpectedError(error: { message: string }) {
+    // TODO if dev mode
+    this.logger.error("error", error);
   }
 }
