@@ -1,5 +1,5 @@
 #npm test
 
-yarn lint
-yarn format
-yarn typecheck
+yarn apps:lint
+yarn apps:format
+yarn apps:typecheck

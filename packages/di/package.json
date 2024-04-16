@@ -1,0 +1,20 @@
+{
+  "name": "@boumboum/di",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "tsyringe": "^4.8.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}
