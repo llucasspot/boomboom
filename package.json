@@ -1,0 +1,35 @@
+{
+  "name": "boumboum",
+  "private": "true",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:llucasspot/boumboum.git",
+  "license": "MIT",
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*",
+      "swaggers/*"
+    ]
+  },
+  "scripts": {
+    "prepare": "husky",
+    "apps:lint": "for app in apps/*; do (cd $app && yarn run lint); done",
+    "apps:format": "for app in apps/*; do (cd $app && yarn run format); done",
+    "apps:typecheck": "for app in apps/*; do (cd $app && yarn run typecheck); done",
+    "packages:build": "for package in packages/*; do (cd $package && yarn run build); done",
+    "swaggers:build": "yarn swagger:backend:build && yarn swagger:spotify:build",
+    "swagger:backend:generate": "openapi-generator-cli generate -i  http://localhost:4000/api/docs-json -g typescript-axios -o ./swaggers/backend --type-mappings=DateTime=Date --additional-properties=npmName=@boumboum/swagger-backend,npmVersion=1.0.0,withInterfaces=true,supportsES6=true",
+    "swagger:backend:build": "yarn workspace @boumboum/swagger-backend run build",
+    "swagger:backend:update": "yarn swagger:backend:generate && yarn swagger:backend:build",
+    "swagger:spotify:generate": "openapi-generator-cli generate -i  swaggers/schemas/spotify-open-api-schema.yaml -g typescript-axios -o ./swaggers/spotify --type-mappings=DateTime=Date --additional-properties=npmName=@boumboum/swagger-spotify,npmVersion=1.0.0,withInterfaces=true,supportsES6=true",
+    "swagger:spotify:build": "yarn workspace @boumboum/swagger-spotify run build",
+    "swagger:spotify:update": "yarn swagger:spotify:generate && yarn swagger:spotify:build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@nestjs/cli": "^10.3.2",
+    "@openapitools/openapi-generator-cli": "^2.13.1",
+    "husky": "^9.0.11"
+  }
+}

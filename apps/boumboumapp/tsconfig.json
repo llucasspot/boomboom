@@ -1,0 +1,29 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+//    "noImplicitAny": true, // Disallows implicit any types
+    "strictNullChecks": true, // Enables strict null checks
+    "strictFunctionTypes": true, // Enables strict checking of function types
+    "strictPropertyInitialization": true, // Requires definite assignment of non-nullable class properties
+    "strictBindCallApply": true, // Enables strict checking of bind, call, and apply methods
+//    "noImplicitThis": true, // Disallows the use of this keywords with an implicit any type
+//    "alwaysStrict": true, // Parse in strict mode and emit "use strict" for each source file
+//    "noUnusedLocals": true, // Disallows unused local variables
+//    "noUnusedParameters": true, // Disallows unused parameters
+//    "noImplicitReturns": true, // Disallows non-void functions from not returning a value
+//    "noFallthroughCasesInSwitch": true, // Disallows fallthrough cases in switch statement
+//    "esModuleInterop": true, // Enables interoperability between CommonJS and ES Modules
+//    "forceConsistentCasingInFileNames": true, // Ensures consistent file naming conventions
+
+    /* di */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    /* paths */
+    "paths": {
+      "#components/*": ["./src/components/*"],
+      "#modules/*": ["./src/modules/*"]
+    }
+  }
+}

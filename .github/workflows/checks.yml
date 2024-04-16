@@ -17,10 +17,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Run Lint
-        run: yarn lint
+        run: yarn apps:lint
 
       - name: Check Formatting
-        run: yarn format
-
-      - name: Check Ts
-        run: yarn typecheck
+        run: yarn apps:format
