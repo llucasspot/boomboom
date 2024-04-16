@@ -14,16 +14,13 @@ jobs:
           node-version: '21'
 
       - name: Install Dependencies
-        run: npm install
+        run: yarn install --frozen-lockfile
 
       - name: Run Lint
-        run: npm run lint
+        run: yarn lint
 
       - name: Check Formatting
-        run: npm run format-check
-
-      - name: Build Swagger Beans
-        run : npm run swagger:backend:update
+        run: yarn format
 
       - name: Check Ts
-        run: npm run typecheck
+        run: yarn typecheck

@@ -1,5 +1,0 @@
-#npm test
-
-yarn lint
-yarn format
-yarn typecheck
